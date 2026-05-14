@@ -1,11 +1,44 @@
-import { NextResponse, type NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import createMiddleware from "next-intl/middleware";
 import { routing } from "./i18n/routing";
 
 const intl = createMiddleware(routing);
 
+function normalizeForwardedHeaders(req: NextRequest) {
+  const headers = new Headers(req.headers);
+  const forwardedHost = headers.get("x-forwarded-host");
+  const host = headers.get("host");
+  const publicHost = forwardedHost ?? host;
+
+  if (!publicHost) {
+    return req;
+  }
+
+  const cleanHost = publicHost.replace(/:3838$/, "");
+  const isPublicTspHost =
+    cleanHost === "truststandardprotocol.com" ||
+    cleanHost === "www.truststandardprotocol.com" ||
+    cleanHost === "truststandardprotocol.org" ||
+    cleanHost === "tsp.lexico.no";
+
+  if (!isPublicTspHost) {
+    return req;
+  }
+
+  headers.set("host", cleanHost);
+  headers.set("x-forwarded-host", cleanHost);
+  headers.set("x-forwarded-proto", "https");
+  headers.delete("x-forwarded-port");
+
+  return new NextRequest(req.url, {
+    headers,
+    method: req.method,
+  });
+}
+
 export default function middleware(req: NextRequest) {
-  const response = intl(req);
+  const normalizedReq = normalizeForwardedHeaders(req);
+  const response = intl(normalizedReq);
 
   // 307/308 redirect: ingen body å rendre, returner uendret.
   if (response.headers.get("location")) {
@@ -17,8 +50,8 @@ export default function middleware(req: NextRequest) {
   // Bruker NextResponse.rewrite/next med { request: { headers } } i stedet
   // for å mutere intl-responsens x-middleware-override-headers — sistnevnte
   // dropper rewrite-direktivet i Next 15.1.
-  const newHeaders = new Headers(req.headers);
-  newHeaders.set("x-pathname", req.nextUrl.pathname);
+  const newHeaders = new Headers(normalizedReq.headers);
+  newHeaders.set("x-pathname", normalizedReq.nextUrl.pathname);
 
   const rewriteTarget = response.headers.get("x-middleware-rewrite");
   const wrapped = rewriteTarget

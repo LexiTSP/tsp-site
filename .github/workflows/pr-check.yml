@@ -1,0 +1,68 @@
+name: PR Release Gate
+
+# Runs the same release gate on every PR to main, so the deploy workflow
+# (which auto-merges to production) never inherits a broken build.
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: pr-gate-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  check:
+    name: Release Gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Cache Bun store
+        uses: actions/cache@v4
+        with:
+          path: ~/.bun/install/cache
+          key: bun-${{ runner.os }}-${{ hashFiles('bun.lock') }}
+          restore-keys: |
+            bun-${{ runner.os }}-
+
+      - name: Install
+        run: bun install --frozen-lockfile
+
+      # Run claim-lint first — it's the cheapest charter check and the
+      # one most likely to surface a copy regression. Fast fail.
+      - name: Claim-lint (Charter §6)
+        run: bun run check:claims
+
+      # Interop verifier is the spec-implementability proof.
+      # If this fails, the spec or fixtures drifted from each other.
+      - name: Interop fixtures
+        run: bun run check:interop
+
+      # Full release gate: build, tests, manifest, package smoke,
+      # production-start smoke. The public split rewrites this to the
+      # public-only gate.
+      - name: Full release check
+        run: bun run check:release
+
+      - name: Build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: nextjs-build-pr-${{ github.event.pull_request.number || 'manual' }}
+          path: |
+            .next/
+            !.next/cache
+          retention-days: 3

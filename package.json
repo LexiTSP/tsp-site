@@ -1,0 +1,57 @@
+{
+  "name": "tsp-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "TSP — Trust Standard Protocol. Open standard for verifiable AI provenance. Site for truststandardprotocol.org.",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "next dev -p 3838",
+    "build": "next build",
+    "start": "next start -p 3838",
+    "lint": "next lint",
+    "test": "bun run test:all",
+    "check": "bun run build && bun run test:all && bun run typecheck:servers",
+    "test:all": "bun run test:sdk && bun run test:trustbadge && bun run test:risk && bun run test:evidence && bun run test:oversight && bun run test:control-plane",
+    "test:sdk": "bun run --cwd packages/lexitsp-sdk vitest run",
+    "test:trustbadge": "bun run --cwd packages/trustbadge-react vitest run",
+    "test:risk": "bun run --cwd packages/risk-server test",
+    "test:evidence": "bun run --cwd packages/evidence-server test",
+    "test:oversight": "bun run --cwd packages/oversight-server test",
+    "test:control-plane": "bun run --cwd packages/control-plane-server test",
+    "typecheck:servers": "bun run --cwd packages/risk-server typecheck && bun run --cwd packages/evidence-server typecheck && bun run --cwd packages/oversight-server typecheck && bun run --cwd packages/control-plane-server typecheck",
+    "check:claims": "bun run scripts/assert-charter-claims.mjs",
+    "check:manifest": "bun run scripts/assert-public-manifest.mjs",
+    "check:interop": "bun run scripts/check-interop-fixtures.mjs",
+    "fixtures:v3": "bun run scripts/generate-v3-test-vectors.mjs",
+    "smoke:packages": "bun run scripts/smoke-public-packages.mjs",
+    "smoke:production-start": "bun run scripts/smoke-production-start.mjs",
+    "check:release": "bun run check && bun run check:claims && bun run check:manifest && bun run check:interop && bun run smoke:packages && bun run smoke:production-start",
+    "pilot:golden": "bun run scripts/pilot-golden-path.mjs",
+    "pilot:hosted": "bun run scripts/hosted-pilot-golden-path.mjs",
+    "smoke:backup": "bun run scripts/smoke-sqlite-backup.mjs"
+  },
+  "dependencies": {
+    "@lexitsp/sdk": "workspace:*",
+    "cheerio": "^1.2.0",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.469.0",
+    "nanoid": "^5.0.9",
+    "next": "15.1.0",
+    "next-intl": "^4.11.0",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "tailwind-merge": "^2.6.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.5",
+    "@types/react": "^19.0.2",
+    "@types/react-dom": "^19.0.2",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.7.2"
+  }
+}

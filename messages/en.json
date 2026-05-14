@@ -722,12 +722,6 @@
       "specCellCrypto": "Crypto",
       "specCellCryptoValue": "Ed25519 · SHA-256 · DANE"
     },
-    "abstract": {
-      "eyebrow": "How it works",
-      "p1": "When an AI produces an answer today, that answer is a <em>claim</em>. There's no structured way to verify where the answer came from, which model generated it, what policy it was produced under, or whether it has been altered after the fact.",
-      "p2": "TSP turns the AI output into a <em>structured artifact</em>. Each answer is wrapped as a <code>TrustEnvelope</code> with three regulator-relevant fields — <strong>Source declaration</strong>, <strong>Process log</strong>, <strong>Alignment metadata</strong> — plus an Ed25519 signature, an RFC 3161 timestamp and a hash chain with UUIDv7 IDs. The structure is open, the cryptography is standard, and verification is independent of the vendor.",
-      "p3": "The standard is the protocol. The platform modules (Risk, Evidence, Oversight) are optional hosted backends mapped to EU AI Act and ISO/IEC 42001. You can implement the standard in any language, or use our reference packages."
-    },
     "manifest": {
       "eyebrow": "What you actually get",
       "h2": "An open standard. Not a platform you get locked into.",
@@ -818,6 +812,19 @@
       "contactAudience": "Talk to us",
       "contactTitle": "Request a pilot offer",
       "contactBody": "Concrete pricing within 24 hours. We'll say no if your use case doesn't fit — better than wasting budget on the wrong tool."
+    },
+    "modules": {
+      "eyebrow": "The modules",
+      "h2": "Two zones. One protocol underneath.",
+      "lead": "The standard zone is MIT-licensed and runs without us. The platform zone is optional commercial tooling for teams who want operations handled.",
+      "subLead": "Everything emits signed envelopes you can verify independently.",
+      "zoneStandardLabel": "Standard zone · MIT, forever",
+      "zonePlatformLabel": "Platform zone · optional, commercial",
+      "moduleSdkDesc": "TrustEnvelope construction, Ed25519, RFC 3161, manifest-PKI, DANE.",
+      "moduleBadgeDesc": "Visual receipt for end-users — one click reveals seven canonical fields.",
+      "moduleRiskDesc": "Drift detection over the envelope stream with Merkle-bound alerts.",
+      "moduleEvidenceDesc": "Signed Annex IV + ISO 42001 §9.1 reports against the ledger.",
+      "moduleOversightDesc": "Human-in-the-loop with signed ReviewEnvelopes. Reviewer keys stay client-side."
     },
     "cliff": {
       "eyebrow": "The cliff",

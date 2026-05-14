@@ -400,84 +400,72 @@ export default async function Home({
         </div>
       </section>
 
-      {/* §09 STANDARD */}
+      {/* §09 MODULES — standard zone (MIT) + platform zone (commercial) */}
       <section className="border-b border-border">
         <div className="tsp-container py-16 md:py-20">
-          <SectionEyebrow num="09" label={t("standard.eyebrow")} />
-          <div className="grid lg:grid-cols-[1fr_2fr] gap-10 lg:gap-16">
-            <div>
-              <h2 className="mb-3">{t("standard.h2")}</h2>
-              <p className="text-muted mb-2">{t("standard.lead")}</p>
-              <p className="text-muted text-sm">{t("standard.subLead")}</p>
-            </div>
-            <div className="grid sm:grid-cols-2 gap-px bg-border-strong border border-border-strong">
-              <ModuleCell
-                href="/core"
-                pkg="@lexitsp/sdk"
-                version="v3.0.0-alpha.6"
-                desc={t("standard.moduleSdkDesc")}
-                license="MIT"
-                covers="Art. 12, 13, 15"
-              />
-              <ModuleCell
-                href="/oversight"
-                pkg="@lexitsp/trustbadge-react"
-                version="v0.2.2"
-                desc={t("standard.moduleBadgeDesc")}
-                license="MIT"
-                covers="Art. 50"
-              />
-            </div>
+          <SectionEyebrow num="09" label={t("modules.eyebrow")} />
+          <div className="max-w-2xl mb-10">
+            <h2 className="mb-3">{t("modules.h2")}</h2>
+            <p className="text-muted mb-2 leading-relaxed">{t("modules.lead")}</p>
+            <p className="text-muted text-sm leading-relaxed">{t("modules.subLead")}</p>
           </div>
-        </div>
-      </section>
 
-      {/* §10 PLATFORM */}
-      <section className="border-b border-border bg-surface">
-        <div className="tsp-container py-16 md:py-20">
-          <SectionEyebrow num="10" label={t("platform.eyebrow")} tone="warn" />
-          <div className="grid lg:grid-cols-[1fr_2fr] gap-10 lg:gap-16">
-            <div>
-              <h2 className="mb-3">{t("platform.h2")}</h2>
-              <p className="text-muted mb-2">{t("platform.lead")}</p>
-              <p className="text-muted text-sm">{t("platform.subLead")}</p>
-            </div>
-            <div className="grid sm:grid-cols-3 gap-px bg-border-strong border border-border-strong">
-              <ModuleCell
-                href="/risk"
-                pkg="@lexitsp/risk-server"
-                version="v0.1.0-alpha.1"
-                desc={t("platform.moduleRiskDesc")}
-                license="Commercial"
-                covers="Art. 9"
-              />
-              <ModuleCell
-                href="/evidence"
-                pkg="@lexitsp/evidence-server"
-                version="v0.1.0-alpha.0"
-                desc={t("platform.moduleEvidenceDesc")}
-                license="Commercial"
-                covers="Art. 17"
-              />
-              <ModuleCell
-                href="/oversight"
-                pkg="@lexitsp/oversight-server"
-                version="v0.1.0-alpha.0"
-                desc={t("platform.moduleOversightDesc")}
-                license="Commercial"
-                covers="Art. 14"
-              />
-            </div>
+          <div className="mb-2 tsp-eyebrow">{t("modules.zoneStandardLabel")}</div>
+          <div className="grid sm:grid-cols-2 gap-px bg-border-strong border border-border-strong mb-10">
+            <ModuleCell
+              href="/core"
+              pkg="@lexitsp/sdk"
+              version="v3.0.0-alpha.6"
+              desc={t("modules.moduleSdkDesc")}
+              license="MIT"
+              covers="Art. 12, 13, 15"
+            />
+            <ModuleCell
+              href="/oversight"
+              pkg="@lexitsp/trustbadge-react"
+              version="v0.2.2"
+              desc={t("modules.moduleBadgeDesc")}
+              license="MIT"
+              covers="Art. 50"
+            />
+          </div>
+
+          <div className="mb-2 tsp-eyebrow">{t("modules.zonePlatformLabel")}</div>
+          <div className="grid sm:grid-cols-3 gap-px bg-border-strong border border-border-strong">
+            <ModuleCell
+              href="/risk"
+              pkg="@lexitsp/risk-server"
+              version="v0.1.0-alpha.1"
+              desc={t("modules.moduleRiskDesc")}
+              license="Commercial"
+              covers="Art. 9"
+            />
+            <ModuleCell
+              href="/evidence"
+              pkg="@lexitsp/evidence-server"
+              version="v0.1.0-alpha.0"
+              desc={t("modules.moduleEvidenceDesc")}
+              license="Commercial"
+              covers="Art. 17"
+            />
+            <ModuleCell
+              href="/oversight"
+              pkg="@lexitsp/oversight-server"
+              version="v0.1.0-alpha.0"
+              desc={t("modules.moduleOversightDesc")}
+              license="Commercial"
+              covers="Art. 14"
+            />
           </div>
         </div>
       </section>
 
       <FingerprintBand />
 
-      {/* §11 ENVELOPE */}
+      {/* §10 ENVELOPE */}
       <section className="border-b border-border">
         <div className="tsp-container py-16 md:py-20">
-          <SectionEyebrow num="11" label={t("envelope.eyebrow")} />
+          <SectionEyebrow num="10" label={t("envelope.eyebrow")} />
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 lg:items-start">
             <div className="lg:sticky lg:top-20 lg:self-start">
               <h2 className="mb-4">{t("envelope.h2")}</h2>
@@ -550,10 +538,10 @@ export default async function Home({
         </div>
       </section>
 
-      {/* §12 NO ARGUMENT — three rebuttals */}
+      {/* §11 NO ARGUMENT — three rebuttals */}
       <section className="border-b border-border bg-paper">
         <div className="tsp-container py-16 md:py-20">
-          <SectionEyebrow num="12" label={t("noArgument.eyebrow")} tone="warn" />
+          <SectionEyebrow num="11" label={t("noArgument.eyebrow")} tone="warn" />
           <div className="max-w-2xl mb-10">
             <h2 className="mb-4">{t("noArgument.h2")}</h2>
             <p className="text-muted leading-relaxed">{t("noArgument.lead")}</p>
@@ -578,10 +566,10 @@ export default async function Home({
         </div>
       </section>
 
-      {/* §13 NEXT */}
+      {/* §12 NEXT */}
       <section>
         <div className="tsp-container py-16 md:py-20">
-          <SectionEyebrow num="13" label={t("next.eyebrow")} tone="accent" />
+          <SectionEyebrow num="12" label={t("next.eyebrow")} tone="accent" />
           <h2 className="mb-10">{t("next.h2")}</h2>
           <div className="grid sm:grid-cols-3 gap-px bg-border-strong border border-border-strong">
             <AudienceCell

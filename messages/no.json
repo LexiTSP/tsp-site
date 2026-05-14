@@ -722,12 +722,6 @@
       "specCellCrypto": "Krypto",
       "specCellCryptoValue": "Ed25519 · SHA-256 · DANE"
     },
-    "abstract": {
-      "eyebrow": "Hvordan det fungerer",
-      "p1": "Når en AI gir et svar i dag, er svaret en <em>påstand</em>. Det er ingen strukturert måte å etterprøve hvor svaret kom fra, hvilken modell som genererte det, hva slags policy det ble produsert under, eller om det er endret i ettertid.",
-      "p2": "TSP gjør AI-utgangen til et <em>strukturert artefakt</em>. Hvert svar wrappes som en <code>TrustEnvelope</code> med tre regulator-relevante felter — <strong>Kilde-erklæring</strong>, <strong>Prosess-logg</strong>, <strong>Alignment-metadata</strong> — pluss en Ed25519-signatur, en RFC 3161-tidsstempel og en hash-kjede med UUIDv7-IDer. Strukturen er åpen, kryptografien er standard, og verifiseringen er uavhengig av leverandøren.",
-      "p3": "Standarden er protokollen. Plattform-modulene (Risk, Evidence, Oversight) er valgfrie hostede backends mot EU AI Act og ISO/IEC 42001. Du kan implementere standarden i hvilket som helst språk, eller bruke våre referanse-pakker."
-    },
     "manifest": {
       "eyebrow": "Hva du faktisk får",
       "h2": "En åpen standard. Ikke en plattform du blir låst inn i.",
@@ -818,6 +812,19 @@
       "contactAudience": "Snakk med oss",
       "contactTitle": "Be om pilot-tilbud",
       "contactBody": "Konkret pris på 24 timer. Vi sier nei hvis use-case ikke passer — bedre enn å kaste budsjett på feil verktøy."
+    },
+    "modules": {
+      "eyebrow": "Modulene",
+      "h2": "To soner. Én protokoll under.",
+      "lead": "Standard-sonen er MIT-lisensiert og fungerer uten oss. Plattform-sonen er valgfritt kommersielt verktøy for team som vil ha drift håndtert.",
+      "subLead": "Alt sender ut signerte envelopes du kan verifisere uavhengig.",
+      "zoneStandardLabel": "Standard-sonen · MIT, for alltid",
+      "zonePlatformLabel": "Plattform-sonen · valgfri, kommersiell",
+      "moduleSdkDesc": "TrustEnvelope-bygging, Ed25519, RFC 3161, manifest-PKI, DANE.",
+      "moduleBadgeDesc": "Visuell kvittering for sluttbruker — ett klikk åpner syv kanoniske felter.",
+      "moduleRiskDesc": "Drift-deteksjon over envelope-stream med Merkle-bundne alarmer.",
+      "moduleEvidenceDesc": "Signerte Annex IV + ISO 42001 §9.1-rapporter mot ledger.",
+      "moduleOversightDesc": "Human-in-the-loop med signerte ReviewEnvelopes. Reviewer-nøkler kun client-side."
     },
     "cliff": {
       "eyebrow": "Klippekanten",

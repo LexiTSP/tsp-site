@@ -75,8 +75,8 @@ jobs:
 
   # ────────────────────────────────────────────────────────────────────────
   # Deploy: SSH to the Hetzner server, pull, rebuild on the host.
-  # The host re-runs the release gate as a safety net before swapping
-  # the systemd unit's working copy.
+  # The CI release gate above is authoritative; the host build catches
+  # deployment-environment issues without re-running Vitest on the VPS.
   # ────────────────────────────────────────────────────────────────────────
   deploy:
     name: Deploy to Hetzner
@@ -115,10 +115,7 @@ jobs:
             echo "▸ Installing dependencies"
             ~/.bun/bin/bun install --frozen-lockfile
 
-            echo "▸ Running release gate on host"
-            ~/.bun/bin/bun run check:release
-
-            echo "▸ Building"
+            echo "▸ Building on host"
             ~/.bun/bin/bun run build
 
             echo "▸ Restarting tsp-site service"

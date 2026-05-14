@@ -16,7 +16,8 @@
   "sideEffects": ["**/*.css"],
   "files": ["dist", "src/styles.css", "README.md", "LICENSE", "CHANGELOG.md"],
   "scripts": {
-    "build": "tsup src/index.ts --format esm --dts --out-dir dist --clean --external react --external react-dom --external @lexitsp/sdk"
+    "build": "tsup src/index.ts --format esm --dts --out-dir dist --clean --external react --external react-dom --external @lexitsp/sdk",
+    "test": "vitest run"
   },
   "keywords": ["tsp", "trust-standard-protocol", "trustbadge", "react", "ai-governance"],
   "homepage": "https://truststandardprotocol.com",

@@ -19,7 +19,7 @@
   "homepage": "https://truststandardprotocol.org",
   "repository": {
     "type": "git",
-    "url": "https://github.com/lexitsp/trustbadge-react"
+    "url": "git+https://github.com/LexiTSP/trustbadge-react.git"
   },
   "author": "LexiCo AS <hello@lexico.no>",
   "peerDependencies": {

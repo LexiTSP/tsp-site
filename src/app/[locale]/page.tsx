@@ -1,9 +1,20 @@
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { ArrowRight, CheckCircle2, FileCheck2, ReceiptText, ShieldAlert, XCircle } from "lucide-react";
+import {
+  ArrowRight,
+  CheckCircle2,
+  FileCheck2,
+  ReceiptText,
+  ShieldAlert,
+  ShieldCheck,
+  ShieldOff,
+  XCircle,
+  AlertTriangle,
+} from "lucide-react";
 import { EnvelopeArtifact } from "@/components/EnvelopeArtifact";
 import { FingerprintBand } from "@/components/FingerprintBand";
 import { HeroSeal } from "@/components/HeroSeal";
+import { CliffCountdown } from "@/components/CliffCountdown";
 
 export default async function Home({
   params,
@@ -17,7 +28,7 @@ export default async function Home({
 
   return (
     <div>
-      {/* HERO */}
+      {/* §01 HERO */}
       <section className="border-b border-border tsp-hero-surface relative overflow-hidden">
         <HeroSeal
           className="hidden md:block absolute pointer-events-none select-none"
@@ -89,11 +100,62 @@ export default async function Home({
         </div>
       </section>
 
-      {/* CORE DEMO */}
-      <section className="border-b border-border bg-paper">
+      {/* §02 CLIFF — penalty + countdown + postponement */}
+      <section className="border-b border-border-strong bg-paper relative overflow-hidden">
+        <div className="tsp-container py-16 md:py-20 relative">
+          <SectionEyebrow num="02" label={t("cliff.eyebrow")} tone="warn" />
+          <div className="grid lg:grid-cols-[1.1fr_1fr] gap-10 lg:gap-16 items-start">
+            <div>
+              <h2 className="mb-5 max-w-xl">{t("cliff.h2")}</h2>
+              <p className="text-muted leading-relaxed mb-8 max-w-xl">
+                {t("cliff.lead")}
+              </p>
+
+              <div className="tsp-panel bg-surface mb-8">
+                <div className="tsp-eyebrow mb-4">{t("cliff.countdownLabel")}</div>
+                <CliffCountdown
+                  labelDays={t("cliff.labelDays")}
+                  labelHours={t("cliff.labelHours")}
+                  labelMinutes={t("cliff.labelMinutes")}
+                  labelSeconds={t("cliff.labelSeconds")}
+                />
+              </div>
+
+              <div className="grid sm:grid-cols-2 gap-px bg-border-strong border border-border-strong">
+                <PenaltyCell
+                  num={t("cliff.penaltyTopNum")}
+                  label={t("cliff.penaltyTopLabel")}
+                  tone="danger"
+                />
+                <PenaltyCell
+                  num={t("cliff.penaltyMainNum")}
+                  label={t("cliff.penaltyMainLabel")}
+                  tone="warn"
+                />
+              </div>
+            </div>
+
+            <div className="border-l-2 border-warn pl-6 lg:pl-8 lg:mt-12">
+              <div className="flex items-start gap-3 mb-4">
+                <AlertTriangle className="w-5 h-5 text-warn shrink-0 mt-1" />
+                <div className="font-semibold text-ink text-lg leading-snug">
+                  {t("cliff.calloutTitle")}
+                </div>
+              </div>
+              <p className="text-muted leading-relaxed mb-5">{t("cliff.calloutBody")}</p>
+              <p className="text-ink font-medium leading-relaxed text-lg">
+                {t("cliff.calloutEmphasis")}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* §03 CORE DEMO */}
+      <section className="border-b border-border">
         <div className="tsp-container py-14 md:py-18">
           <SectionEyebrow
-            num="02"
+            num="03"
             label={isEn ? "The product in one loop" : "Produktet i én loop"}
             tone="verify"
           />
@@ -134,61 +196,111 @@ export default async function Home({
         </div>
       </section>
 
-      {/* ABSTRACT */}
-      <section className="border-b border-border">
+      {/* §04 NOT — moved up: disarms early */}
+      <section className="border-b border-border bg-surface">
         <div className="tsp-container py-16 md:py-20">
-          <SectionEyebrow num="03" label={t("abstract.eyebrow")} />
-          <div className="tsp-prose">
-            <p className="text-lg leading-relaxed mb-5">
-              {t.rich("abstract.p1", { em: (c) => <em>{c}</em> })}
-            </p>
-            <p className="text-base leading-relaxed mb-5">
-              {t.rich("abstract.p2", {
-                em: (c) => <em>{c}</em>,
-                code: (c) => <code className="tsp-code">{c}</code>,
-                strong: (c) => <strong>{c}</strong>,
-              })}
-            </p>
-            <p className="text-base leading-relaxed">{t("abstract.p3")}</p>
+          <SectionEyebrow
+            num="04"
+            label={isEn ? "Negative-space positioning" : "Hva TSP ikke er"}
+            tone="warn"
+          />
+          <div className="grid lg:grid-cols-[1fr_1.5fr] gap-10 lg:gap-16">
+            <div>
+              <h2 className="mb-4">
+                {isEn ? "A narrow protocol beats a vague platform." : "En smal protokoll slår en vag plattform."}
+              </h2>
+              <p className="text-muted leading-relaxed">
+                {isEn
+                  ? "TSP should be easy to reject when it is the wrong tool. It does one thing: turns AI output from a claim into a verifiable artifact."
+                  : "TSP skal være lett å avvise når det er feil verktøy. Det gjør én ting: gjør AI-output fra en påstand til et verifiserbart artefakt."}
+              </p>
+            </div>
+            <div className="grid sm:grid-cols-2 gap-3">
+              <NotCard text={isEn ? "Not an AI model" : "Ikke en AI-modell"} />
+              <NotCard text={isEn ? "Not an eval suite" : "Ikke en eval-suite"} />
+              <NotCard text={isEn ? "Not a policy engine" : "Ikke en policy-motor"} />
+              <NotCard text={isEn ? "Not a dashboard pretending to be compliance" : "Ikke et dashboard som later som det er compliance"} />
+              <div className="sm:col-span-2 border border-verify/30 bg-verify/5 p-5">
+                <div className="flex items-start gap-3">
+                  <CheckCircle2 className="w-5 h-5 text-verify shrink-0 mt-0.5" />
+                  <div>
+                    <div className="font-semibold text-ink mb-1">
+                      {isEn ? "It is a signed provenance protocol." : "Det er en signert proveniens-protokoll."}
+                    </div>
+                    <p className="text-sm text-muted leading-relaxed">
+                      {isEn
+                        ? "The core artifact is the receipt. Risk, Evidence and Oversight are optional operational modules built on top."
+                        : "Kjerneartefaktet er kvitteringen. Risk, Evidence og Oversight er valgfrie driftsmoduler bygget oppå."}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* MANIFEST */}
-      <section className="tsp-inverse border-b border-border-strong">
-        <div className="tsp-container py-14 md:py-18 relative">
-          <SectionEyebrow num="04" label={t("manifest.eyebrow")} tone="accent" />
-          <h2 className="mb-10 max-w-2xl">{t("manifest.h2")}</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-10">
-            <div>
-              <div className="tsp-stat-num">{t("manifest.stat1Num")}</div>
-              <div className="tsp-stat-label">{t("manifest.stat1Label")}</div>
-            </div>
-            <div className="md:tsp-stat-divider md:pl-8">
-              <div className="tsp-stat-num">{t("manifest.stat2Num")}</div>
-              <div className="tsp-stat-label">{t("manifest.stat2Label")}</div>
-            </div>
-            <div className="md:tsp-stat-divider md:pl-8">
-              <div className="tsp-stat-num">{t("manifest.stat3Num")}</div>
-              <div className="tsp-stat-label">{t("manifest.stat3Label")}</div>
-            </div>
-            <div className="md:tsp-stat-divider md:pl-8">
-              <div className="tsp-stat-num">{t("manifest.stat4Num")}</div>
-              <div className="tsp-stat-label">{t("manifest.stat4Label")}</div>
-            </div>
+      {/* §05 ARTICLE MAP — Act → TSP, six-for-six */}
+      <section className="border-b border-border">
+        <div className="tsp-container py-16 md:py-20">
+          <SectionEyebrow num="05" label={t("articleMap.eyebrow")} />
+          <div className="max-w-2xl mb-10">
+            <h2 className="mb-4">{t("articleMap.h2")}</h2>
+            <p className="text-muted leading-relaxed">{t("articleMap.lead")}</p>
           </div>
-          <p className="mt-12 max-w-2xl text-base leading-relaxed text-white/75">
-            {t.rich("manifest.claim", {
-              strong: (c) => <em className="text-white not-italic font-medium">{c}</em>,
-            })}
+          <div className="border border-border-strong">
+            <table className="tsp-table w-full">
+              <thead>
+                <tr>
+                  <th className="w-[110px]">{t("articleMap.colArticle")}</th>
+                  <th className="w-[40%]">{t("articleMap.colRequires")}</th>
+                  <th>{t("articleMap.colTspAnswer")}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <ArticleRow
+                  art={t("articleMap.row1Article")}
+                  requires={t("articleMap.row1Requires")}
+                  tsp={t("articleMap.row1Tsp")}
+                />
+                <ArticleRow
+                  art={t("articleMap.row2Article")}
+                  requires={t("articleMap.row2Requires")}
+                  tsp={t("articleMap.row2Tsp")}
+                />
+                <ArticleRow
+                  art={t("articleMap.row3Article")}
+                  requires={t("articleMap.row3Requires")}
+                  tsp={t("articleMap.row3Tsp")}
+                />
+                <ArticleRow
+                  art={t("articleMap.row4Article")}
+                  requires={t("articleMap.row4Requires")}
+                  tsp={t("articleMap.row4Tsp")}
+                />
+                <ArticleRow
+                  art={t("articleMap.row5Article")}
+                  requires={t("articleMap.row5Requires")}
+                  tsp={t("articleMap.row5Tsp")}
+                />
+                <ArticleRow
+                  art={t("articleMap.row6Article")}
+                  requires={t("articleMap.row6Requires")}
+                  tsp={t("articleMap.row6Tsp")}
+                />
+              </tbody>
+            </table>
+          </div>
+          <p className="text-sm text-muted leading-relaxed mt-6 max-w-2xl">
+            {t("articleMap.footer")}
           </p>
         </div>
       </section>
 
-      {/* AUDIENCE */}
+      {/* §06 AUDIENCE */}
       <section className="border-b border-border bg-paper">
         <div className="tsp-container py-16 md:py-20">
-          <SectionEyebrow num="05" label={t("audience.eyebrow")} tone="verify" />
+          <SectionEyebrow num="06" label={t("audience.eyebrow")} tone="verify" />
           <h2 className="mb-3">{t("audience.h2")}</h2>
           <p className="text-muted text-base max-w-2xl mb-10">{t("audience.lead")}</p>
           <div className="grid md:grid-cols-3 gap-px bg-border-strong border border-border-strong">
@@ -219,10 +331,79 @@ export default async function Home({
 
       <FingerprintBand />
 
-      {/* STANDARD */}
+      {/* §07 TRUST FLIP — HTTPS analogy */}
       <section className="border-b border-border">
         <div className="tsp-container py-16 md:py-20">
-          <SectionEyebrow num="06" label={t("standard.eyebrow")} />
+          <SectionEyebrow num="07" label={t("trustFlip.eyebrow")} tone="accent" />
+          <div className="max-w-2xl mb-10">
+            <h2 className="mb-4">{t("trustFlip.h2")}</h2>
+            <p className="text-muted leading-relaxed">{t("trustFlip.lead")}</p>
+          </div>
+          <div className="grid md:grid-cols-2 gap-px bg-border-strong border border-border-strong mb-8">
+            <FlipColumn
+              variant="without"
+              tag={t("trustFlip.withoutTag")}
+              label={t("trustFlip.withoutLabel")}
+              body={t("trustFlip.withoutBody")}
+              sample={
+                isEn
+                  ? "Yes, you qualify for €600 compensation under EU Regulation 261/2004."
+                  : "Ja, du har rett på 600 € kompensasjon etter EU-forordning 261/2004."
+              }
+            />
+            <FlipColumn
+              variant="with"
+              tag={t("trustFlip.withTag")}
+              label={t("trustFlip.withLabel")}
+              body={t("trustFlip.withBody")}
+              sample={
+                isEn
+                  ? "Yes, you qualify for €600 compensation under EU Regulation 261/2004."
+                  : "Ja, du har rett på 600 € kompensasjon etter EU-forordning 261/2004."
+              }
+            />
+          </div>
+          <p className="text-base text-ink italic leading-relaxed max-w-2xl">
+            &laquo; {t("trustFlip.manifesto")} &raquo;
+          </p>
+        </div>
+      </section>
+
+      {/* §08 MANIFEST */}
+      <section className="tsp-inverse border-b border-border-strong">
+        <div className="tsp-container py-14 md:py-18 relative">
+          <SectionEyebrow num="08" label={t("manifest.eyebrow")} tone="accent" />
+          <h2 className="mb-10 max-w-2xl">{t("manifest.h2")}</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-10">
+            <div>
+              <div className="tsp-stat-num">{t("manifest.stat1Num")}</div>
+              <div className="tsp-stat-label">{t("manifest.stat1Label")}</div>
+            </div>
+            <div className="md:tsp-stat-divider md:pl-8">
+              <div className="tsp-stat-num">{t("manifest.stat2Num")}</div>
+              <div className="tsp-stat-label">{t("manifest.stat2Label")}</div>
+            </div>
+            <div className="md:tsp-stat-divider md:pl-8">
+              <div className="tsp-stat-num">{t("manifest.stat3Num")}</div>
+              <div className="tsp-stat-label">{t("manifest.stat3Label")}</div>
+            </div>
+            <div className="md:tsp-stat-divider md:pl-8">
+              <div className="tsp-stat-num">{t("manifest.stat4Num")}</div>
+              <div className="tsp-stat-label">{t("manifest.stat4Label")}</div>
+            </div>
+          </div>
+          <p className="mt-12 max-w-2xl text-base leading-relaxed text-white/75">
+            {t.rich("manifest.claim", {
+              strong: (c) => <em className="text-white not-italic font-medium">{c}</em>,
+            })}
+          </p>
+        </div>
+      </section>
+
+      {/* §09 STANDARD */}
+      <section className="border-b border-border">
+        <div className="tsp-container py-16 md:py-20">
+          <SectionEyebrow num="09" label={t("standard.eyebrow")} />
           <div className="grid lg:grid-cols-[1fr_2fr] gap-10 lg:gap-16">
             <div>
               <h2 className="mb-3">{t("standard.h2")}</h2>
@@ -244,17 +425,17 @@ export default async function Home({
                 version="v0.2.2"
                 desc={t("standard.moduleBadgeDesc")}
                 license="MIT"
-                covers="UX"
+                covers="Art. 50"
               />
             </div>
           </div>
         </div>
       </section>
 
-      {/* PLATFORM */}
+      {/* §10 PLATFORM */}
       <section className="border-b border-border bg-surface">
         <div className="tsp-container py-16 md:py-20">
-          <SectionEyebrow num="07" label={t("platform.eyebrow")} tone="warn" />
+          <SectionEyebrow num="10" label={t("platform.eyebrow")} tone="warn" />
           <div className="grid lg:grid-cols-[1fr_2fr] gap-10 lg:gap-16">
             <div>
               <h2 className="mb-3">{t("platform.h2")}</h2>
@@ -293,10 +474,10 @@ export default async function Home({
 
       <FingerprintBand />
 
-      {/* ENVELOPE */}
+      {/* §11 ENVELOPE */}
       <section className="border-b border-border">
         <div className="tsp-container py-16 md:py-20">
-          <SectionEyebrow num="08" label={t("envelope.eyebrow")} />
+          <SectionEyebrow num="11" label={t("envelope.eyebrow")} />
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 lg:items-start">
             <div className="lg:sticky lg:top-20 lg:self-start">
               <h2 className="mb-4">{t("envelope.h2")}</h2>
@@ -369,54 +550,38 @@ export default async function Home({
         </div>
       </section>
 
-      {/* NOT */}
-      <section className="border-b border-border bg-surface">
+      {/* §12 NO ARGUMENT — three rebuttals */}
+      <section className="border-b border-border bg-paper">
         <div className="tsp-container py-16 md:py-20">
-          <SectionEyebrow
-            num="09"
-            label={isEn ? "Negative-space positioning" : "Hva TSP ikke er"}
-            tone="warn"
-          />
-          <div className="grid lg:grid-cols-[1fr_1.5fr] gap-10 lg:gap-16">
-            <div>
-              <h2 className="mb-4">
-                {isEn ? "A narrow protocol beats a vague platform." : "En smal protokoll slår en vag plattform."}
-              </h2>
-              <p className="text-muted leading-relaxed">
-                {isEn
-                  ? "TSP should be easy to reject when it is the wrong tool. It does one thing: turns AI output from a claim into a verifiable artifact."
-                  : "TSP skal være lett å avvise når det er feil verktøy. Det gjør én ting: gjør AI-output fra en påstand til et verifiserbart artefakt."}
-              </p>
-            </div>
-            <div className="grid sm:grid-cols-2 gap-3">
-              <NotCard text={isEn ? "Not an AI model" : "Ikke en AI-modell"} />
-              <NotCard text={isEn ? "Not an eval suite" : "Ikke en eval-suite"} />
-              <NotCard text={isEn ? "Not a policy engine" : "Ikke en policy-motor"} />
-              <NotCard text={isEn ? "Not a dashboard pretending to be compliance" : "Ikke et dashboard som later som det er compliance"} />
-              <div className="sm:col-span-2 border border-verify/30 bg-verify/5 p-5">
-                <div className="flex items-start gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-verify shrink-0 mt-0.5" />
-                  <div>
-                    <div className="font-semibold text-ink mb-1">
-                      {isEn ? "It is a signed provenance protocol." : "Det er en signert proveniens-protokoll."}
-                    </div>
-                    <p className="text-sm text-muted leading-relaxed">
-                      {isEn
-                        ? "The core artifact is the receipt. Risk, Evidence and Oversight are optional operational modules built on top."
-                        : "Kjerneartefaktet er kvitteringen. Risk, Evidence og Oversight er valgfrie driftsmoduler bygget oppå."}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <SectionEyebrow num="12" label={t("noArgument.eyebrow")} tone="warn" />
+          <div className="max-w-2xl mb-10">
+            <h2 className="mb-4">{t("noArgument.h2")}</h2>
+            <p className="text-muted leading-relaxed">{t("noArgument.lead")}</p>
           </div>
+          <div className="grid md:grid-cols-3 gap-px bg-border-strong border border-border-strong mb-8">
+            <RebuttalCell
+              label={t("noArgument.col1Label")}
+              body={t("noArgument.col1Body")}
+            />
+            <RebuttalCell
+              label={t("noArgument.col2Label")}
+              body={t("noArgument.col2Body")}
+            />
+            <RebuttalCell
+              label={t("noArgument.col3Label")}
+              body={t("noArgument.col3Body")}
+            />
+          </div>
+          <p className="text-base font-medium text-ink leading-relaxed max-w-2xl">
+            {t("noArgument.footer")}
+          </p>
         </div>
       </section>
 
-      {/* NEXT */}
+      {/* §13 NEXT */}
       <section>
         <div className="tsp-container py-16 md:py-20">
-          <SectionEyebrow num="10" label={t("next.eyebrow")} tone="accent" />
+          <SectionEyebrow num="13" label={t("next.eyebrow")} tone="accent" />
           <h2 className="mb-10">{t("next.h2")}</h2>
           <div className="grid sm:grid-cols-3 gap-px bg-border-strong border border-border-strong">
             <AudienceCell
@@ -520,6 +685,105 @@ function SpecCell({
         {term}
       </div>
       <div className="font-mono text-xs text-ink leading-snug">{value}</div>
+    </div>
+  );
+}
+
+function PenaltyCell({
+  num,
+  label,
+  tone,
+}: {
+  num: string;
+  label: string;
+  tone: "danger" | "warn";
+}) {
+  const numColor = tone === "danger" ? "text-danger" : "text-warn";
+  return (
+    <div className="bg-surface p-5">
+      <div
+        className={`font-mono font-medium leading-none mb-2 ${numColor}`}
+        style={{ fontSize: "clamp(1.75rem, 4vw, 2.5rem)", letterSpacing: "-0.02em" }}
+      >
+        {num}
+      </div>
+      <div className="text-xs text-muted leading-snug">{label}</div>
+    </div>
+  );
+}
+
+function ArticleRow({
+  art,
+  requires,
+  tsp,
+}: {
+  art: string;
+  requires: string;
+  tsp: string;
+}) {
+  return (
+    <tr>
+      <td className="font-mono text-ink align-top whitespace-nowrap">{art}</td>
+      <td className="text-sm text-ink align-top leading-relaxed">{requires}</td>
+      <td className="text-sm text-muted align-top leading-relaxed font-mono text-[0.78rem]">
+        {tsp}
+      </td>
+    </tr>
+  );
+}
+
+function FlipColumn({
+  variant,
+  tag,
+  label,
+  body,
+  sample,
+}: {
+  variant: "with" | "without";
+  tag: string;
+  label: string;
+  body: string;
+  sample: string;
+}) {
+  const isWith = variant === "with";
+  const Icon = isWith ? ShieldCheck : ShieldOff;
+  const accent = isWith ? "text-verify" : "text-danger";
+  const pillBg = isWith
+    ? "border-verify/40 text-verify bg-verify/5"
+    : "border-danger/40 text-danger bg-danger/5";
+  return (
+    <div className="bg-surface p-6 flex flex-col">
+      <div className="flex items-center justify-between mb-4">
+        <span className={`inline-flex items-center gap-2 font-medium ${accent}`}>
+          <Icon className="w-4 h-4" />
+          <span className="text-sm">{label}</span>
+        </span>
+        <span className={`tsp-pill ${pillBg}`}>{tag}</span>
+      </div>
+      <div className="border border-border bg-paper p-4 mb-4 font-mono text-sm leading-relaxed text-ink">
+        {sample}
+        {!isWith && (
+          <div className="text-xs text-muted mt-2 font-sans not-italic">
+            — no source, no signature, no hash
+          </div>
+        )}
+        {isWith && (
+          <div className="text-xs text-muted mt-2 font-sans">
+            <span className="font-mono text-verify">✓</span> ed25519 verified · hash{" "}
+            <span className="font-mono">a3f8…d91c</span> · RFC 3161 stamped
+          </div>
+        )}
+      </div>
+      <p className="text-sm text-muted leading-relaxed">{body}</p>
+    </div>
+  );
+}
+
+function RebuttalCell({ label, body }: { label: string; body: string }) {
+  return (
+    <div className="bg-surface p-6 flex flex-col">
+      <div className="font-mono text-sm text-muted mb-3 italic">{label}</div>
+      <p className="text-sm text-ink leading-relaxed">{body}</p>
     </div>
   );
 }

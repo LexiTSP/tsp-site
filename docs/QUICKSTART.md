@@ -11,7 +11,7 @@
 
 ## Vei 1 · Playground (0 installasjon)
 
-1. Gå til `https://truststandardprotocol.org/playground` (eller `localhost:3838/playground` lokalt).
+1. Gå til `https://truststandardprotocol.com/playground` (eller `localhost:3838/playground` lokalt).
 2. Klikk **«Generer nøkkelpar»** — Ed25519-nøkkelpar lages i nettleseren din via WebCrypto. Privat­nøkkelen forlater aldri maskina.
 3. Klikk **«Wrap test-svar»** — et eksempel-svar med kilde-erklæring og prosess-logg pakkes i et envelope. Du ser `contentHash`, signaturer og hele JSON-strukturen.
 4. Klikk **«Verifiser»** — alle 10 verify-checks kjøres lokalt. Grønn = ok.
@@ -65,7 +65,7 @@ const envelope = await wrap({
     flags: []
   },
   signer: keypair.privateKey,
-  manifestRef: 'https://truststandardprotocol.org/.well-known/tsp-manifest.json',
+  manifestRef: 'https://truststandardprotocol.com/.well-known/tsp-manifest.json',
   skipTsa: true  // dev-modus; produksjon: bruk ekte TSA
 });
 
@@ -125,7 +125,7 @@ Badge rendrer status (verified / warn / refusal / flagged / policy-blocked). Kli
 
 Hvis noen har sendt deg et `TrustEnvelope` (typisk som `.json`) og du bare vil vite om det er ekte:
 
-1. Gå til `https://truststandardprotocol.org/playground`.
+1. Gå til `https://truststandardprotocol.com/playground`.
 2. Klikk **«Importer envelope»**, lim inn JSON-en.
 3. Klikk **«Verifiser»** — sitet henter manifestet fra `manifestRef` og kjører de 10 checks i nettleseren din.
 4. Resultat:
@@ -158,9 +158,9 @@ Nei. Standard-sonen (SDK + TrustBadge + manifest) er sovereign-by-default. Verkt
 
 ## Når du sitter fast
 
-- **Spec-detaljer:** `https://truststandardprotocol.org/spec` — full v3-skjemabeskrivelse med JSON-LD.
-- **API-referanse:** `https://truststandardprotocol.org/docs` — alle eksporterte funksjoner.
-- **EU AI Act-mapping:** `https://truststandardprotocol.org/eu-ai-act/article-13` (eller 9/12/14/15) — hvilke schema-felter som dekker hvilke lov-krav.
+- **Spec-detaljer:** `https://truststandardprotocol.com/spec` — full v3-skjemabeskrivelse med JSON-LD.
+- **API-referanse:** `https://truststandardprotocol.com/docs` — alle eksporterte funksjoner.
+- **EU AI Act-mapping:** `https://truststandardprotocol.com/eu-ai-act/article-13` (eller 9/12/14/15) — hvilke schema-felter som dekker hvilke lov-krav.
 - **Issues:** `https://github.com/lexitsp/sdk/issues` (når repo er public).
 - **E-post:** julian@lexico.no.
 

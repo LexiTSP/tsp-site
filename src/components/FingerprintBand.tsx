@@ -26,7 +26,7 @@ const TOKENS = [
   "JCS",
   "RFC 8785",
   "DANE",
-  "_truststandardprotocol.org",
+  "_truststandardprotocol.com",
   "TSA",
   "freetsa.org/tsr",
 ];

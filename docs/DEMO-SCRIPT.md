@@ -26,7 +26,7 @@ Feil rom:
 
 ## Forberedelser (5 min før møtet)
 
-1. **Åpne playground** på `https://truststandardprotocol.org/playground` (eller localhost:3838).
+1. **Åpne playground** på `https://truststandardprotocol.com/playground` (eller localhost:3838).
 2. **Pre-load** den syntetiske NAV-casen fra `docs/examples/synthetic-nav-case.md` (envelope #2 — lov-grunnlag-svar). Lim JSON-en inn på forhånd.
 3. **Ha klar** en eksempel-CSV som mock «vanlig audit-logg». Et regneark holder. Eksempel:
 
@@ -224,7 +224,7 @@ Hvis du har 5 minutter (anskaffelse-møte, lobby, korte vinduer):
 
 Hvis du ikke kan være i rommet:
 
-1. Send playground-URL med pre-loaded envelope: `https://truststandardprotocol.org/playground?demo=synth-nav-002`
+1. Send playground-URL med pre-loaded envelope: `https://truststandardprotocol.com/playground?demo=synth-nav-002`
 2. Loom-video (5 min) som følger script-en over.
 3. Lenker: `WHAT-IS-TSP.md`, `FOR-BUYERS.md`, `CONTRACT-CLAUSE.md`.
 4. Spørsmål i e-posten: «Hvilken responskjede i deres organisasjon ville første pilot-kandidat være?»

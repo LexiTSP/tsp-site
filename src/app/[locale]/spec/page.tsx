@@ -414,7 +414,7 @@ export default async function SpecPage({
             <CodeBlock
               lang="json"
               code={`{
-  "@context": "https://truststandardprotocol.org/context/v3.jsonld",
+  "@context": "https://truststandardprotocol.com/context/v3.jsonld",
   "@type": "TrustEnvelope",
   "tsp": "3.0",
   "content": { "type": "text", "value": "Du har rett på AAP fordi...", "hash": "a3f8...d91c" },

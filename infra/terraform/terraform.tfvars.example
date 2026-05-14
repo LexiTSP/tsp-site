@@ -21,7 +21,7 @@ location    = "fsn1"      # fsn1 (Falkenstein), nbg1 (Nürnberg), hel1 (Helsinki
 server_role = "public-alpha"
 
 # ─── Domain ────────────────────────────────────────────────────────────────
-site_domain = "truststandardprotocol.org"
+site_domain = "truststandardprotocol.com"
 
 # ─── Optional: Cloudflare DNS automation ───────────────────────────────────
 # Leave false if you prefer to manage DNS manually in the CF dashboard.
@@ -30,6 +30,6 @@ manage_cloudflare_dns = false
 # Required only when manage_cloudflare_dns = true.
 # Create token at: https://dash.cloudflare.com/profile/api-tokens
 # Permissions needed:
-#   Zone:DNS:Edit + Zone:Zone Settings:Edit  (scoped to truststandardprotocol.org)
+#   Zone:DNS:Edit + Zone:Zone Settings:Edit  (scoped to truststandardprotocol.com)
 # cloudflare_api_token = "cfapi_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 # cloudflare_zone_id   = "0123456789abcdef0123456789abcdef"

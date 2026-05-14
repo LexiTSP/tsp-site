@@ -22,8 +22,8 @@ Konkret: hvis ingen fremmede har klart wrap/verify-roundtrip mot LexiCos manifes
 
 - npm-pakker public (`@lexitsp/sdk@alpha`, `@lexitsp/trustbadge-react@alpha`)
 - GitHub-repos public med README, LICENSE, SECURITY.md, CHANGELOG
-- Site live på stabil URL (`https://truststandardprotocol.org`)
-- Manifest hosted på `https://truststandardprotocol.org/.well-known/tsp-manifest.json`
+- Site live på stabil URL (`https://truststandardprotocol.com`)
+- Manifest hosted på `https://truststandardprotocol.com/.well-known/tsp-manifest.json`
 - CI på push (`bun run test` + `bun run next build`)
 - Hver public surface (README, npm description, hero, charter) peker mot **én** kanonisk «hva er TSP?»-tekst — `docs/WHAT-IS-TSP.md`. Charter §6.
 

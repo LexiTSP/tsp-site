@@ -82,7 +82,7 @@ variable "ssh_allowed_ips" {
 variable "site_domain" {
   description = "Public domain. Used in Caddyfile and in Cloudflare DNS records if managed here."
   type        = string
-  default     = "truststandardprotocol.org"
+  default     = "truststandardprotocol.com"
 }
 
 variable "manage_cloudflare_dns" {

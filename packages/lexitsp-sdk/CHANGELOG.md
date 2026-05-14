@@ -5,6 +5,13 @@ All notable changes to `@lexitsp/sdk` will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 3.0.0-alpha.5 — 2026-05-14
+
+### Fixed
+- Publishes compiled ESM and declaration files under `dist/` for Node/npm consumers.
+- Keeps the CLI working from the public package via the compiled v3 CLI entrypoint.
+- Supersedes `3.0.0-alpha.4`, which exposed TypeScript source files in npm exports.
+
 ## 3.0.0-alpha.4 — 2026-04-30
 
 ### Added
@@ -93,7 +100,7 @@ production codebase where TSP has run since March 2026.
 - MIT license
 
 ### Specification
-- Implements TSP v2.0 — see [truststandardprotocol.org/spec](https://truststandardprotocol.org/spec)
+- Implements TSP v2.0 — see [truststandardprotocol.com/spec](https://truststandardprotocol.com/spec)
 - Compatible with envelopes produced by other v2.0 conformant implementations
 - Hash algorithm: SHA-256 over canonical JSON
 - Score weights: source 0.5, process 0.3, alignment 0.2

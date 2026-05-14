@@ -93,7 +93,7 @@ Selv om leverandøren wrap-er envelopes, må du ha et sted å motta og lagre dem
 
 - **Lagring** for envelopes (typisk 1–4 KB hver). En S3-bucket eller eksisterende dokument­arkiv holder. Husk WORM-policy.
 - **En manifest** som viser hvilke leverandører/instanser du anerkjenner som signerere. Selvhostet eller via LexiCo.
-- **En verifikator** — kan være `verifyLocal` på truststandardprotocol.org, en intern kjøring av `@lexitsp/sdk`, eller en egen web-UI bygget på SDK-en.
+- **En verifikator** — kan være `verifyLocal` på truststandardprotocol.com, en intern kjøring av `@lexitsp/sdk`, eller en egen web-UI bygget på SDK-en.
 
 Dette er små investeringer (typisk 1–3 dager utvikler-tid).
 
@@ -164,7 +164,7 @@ For en virksomhet som vurderer TSP:
 
 ### 9.1 Internt — denne uka
 
-- Be IT/AI-team om å se på `https://truststandardprotocol.org/playground` (30 sekunder).
+- Be IT/AI-team om å se på `https://truststandardprotocol.com/playground` (30 sekunder).
 - Gi compliance/internrevisjon `docs/FOR-AUDITORS.md` å lese (15 minutter).
 - Få jurist til å se på `docs/CONTRACT-CLAUSE.md` (1 time).
 
@@ -186,8 +186,8 @@ Hvis du vil bli pilot: `docs/PILOT-PROGRAM.md`.
 
 ## 10 · Hvor det blir konkret
 
-- **Spec:** `https://truststandardprotocol.org/spec`
-- **EU AI Act-mapping:** `https://truststandardprotocol.org/eu-ai-act/`
+- **Spec:** `https://truststandardprotocol.com/spec`
+- **EU AI Act-mapping:** `https://truststandardprotocol.com/eu-ai-act/`
 - **Demo-script for interne presentasjoner:** `docs/DEMO-SCRIPT.md`
 - **Kontraktsklausul (jurist-klar, NO + EN):** `docs/CONTRACT-CLAUSE.md`
 - **Audit-walkthrough:** `docs/FOR-AUDITORS.md`

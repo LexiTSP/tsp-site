@@ -59,7 +59,7 @@ Charter §6 binder LexiCo til at marketing aldri overstiger det formatet faktisk
 
 ## Hvor du går videre
 
-- **Vil prøve på 30 sekunder:** `https://truststandardprotocol.org/playground`
+- **Vil prøve på 30 sekunder:** `https://truststandardprotocol.com/playground`
 - **Vil installere på 5 minutter:** `docs/QUICKSTART.md`
 - **Er AI-kjøper (deployer):** `docs/FOR-BUYERS.md`
 - **Er compliance/revisor:** `docs/FOR-AUDITORS.md`

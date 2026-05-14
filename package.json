@@ -10,7 +10,10 @@
   ],
   "scripts": {
     "dev": "next dev -p 3838",
-    "build": "next build",
+    "build:sdk": "bun run --cwd packages/lexitsp-sdk build",
+    "build:trustbadge": "bun run --cwd packages/trustbadge-react build",
+    "build:packages": "bun run build:sdk && bun run build:trustbadge",
+    "build": "bun run build:packages && next build",
     "start": "next start -p 3838",
     "lint": "next lint",
     "test": "bun run test:all",

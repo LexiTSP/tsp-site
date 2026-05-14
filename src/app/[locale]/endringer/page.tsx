@@ -105,7 +105,7 @@ const ENTRIES_NO: Entry[] = [
     body: "Første stabile spec-utgivelse. JSON-LD-format frosset, signaturkjede konsolidert, alle moduler bygd mot samme protokoll.",
     changes: [
       { tag: "breaking", text: "Spec v1.x-konvolutter er ikke kompatible — kjør migrate-script" },
-      { tag: "feature", text: "JSON-LD context fastsatt: truststandardprotocol.org/spec/v2.0" },
+      { tag: "feature", text: "JSON-LD context fastsatt: truststandardprotocol.com/spec/v2.0" },
       { tag: "feature", text: "Risk Dashboard som første betalte modul" },
       { tag: "security", text: "SHA-256 erstatter SHA-1 i ledger-kjede" },
     ],
@@ -178,7 +178,7 @@ const ENTRIES_EN: Entry[] = [
     body: "First stable spec release. JSON-LD format frozen, signature chain consolidated, all modules built against the same protocol.",
     changes: [
       { tag: "breaking", text: "Spec v1.x envelopes are not compatible — run migrate script" },
-      { tag: "feature", text: "JSON-LD context locked: truststandardprotocol.org/spec/v2.0" },
+      { tag: "feature", text: "JSON-LD context locked: truststandardprotocol.com/spec/v2.0" },
       { tag: "feature", text: "Risk Dashboard as the first paid module" },
       { tag: "security", text: "SHA-256 replaces SHA-1 in the ledger chain" },
     ],

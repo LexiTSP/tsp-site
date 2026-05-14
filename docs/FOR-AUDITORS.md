@@ -47,7 +47,7 @@ Scenario: Du skal verifisere at et konkret AI-svar gitt til en borger 3. mars 20
 
 1. Be applikasjonseier om `envelope_id` for det aktuelle svaret.
 2. Hent envelope-en (JSON, typisk 2–4 KB) — fra applikasjonens egen lagring eller via Evidence-modulen.
-3. Åpne `https://truststandardprotocol.org/playground` (eller en hvilken som helst implementasjon av `verifyLocal`).
+3. Åpne `https://truststandardprotocol.com/playground` (eller en hvilken som helst implementasjon av `verifyLocal`).
 4. Importer envelope-en. Verktøyet henter manifestet automatisk fra `manifestRef`.
 5. Se på `verifyLocal`-resultatet:
    - Alle 10 checks grønne → svaret er uendret siden signering.
@@ -142,7 +142,7 @@ Med disse kan du gjennomføre en full stikkprøve-revisjon i nettleseren din, ut
 | Art. 15 (robusthet) | `verifyLocal` 10 checks; tamper-detection er matematisk | `contentHash`, `signatures[]`, `cert-not-revoked` |
 | Art. 17 (kvalitetsstyring) | Charter + audit-pakke + Evidence-eksport | Hele envelope-strukturen + manifest-PKI |
 
-Full mapping på sitet: `https://truststandardprotocol.org/eu-ai-act/article-9` (og 12, 13, 14, 15, 17).
+Full mapping på sitet: `https://truststandardprotocol.com/eu-ai-act/article-9` (og 12, 13, 14, 15, 17).
 
 ---
 
@@ -160,8 +160,8 @@ Full mapping på sitet: `https://truststandardprotocol.org/eu-ai-act/article-9` 
 Spørsmål om revisjon av en konkret TSP-implementasjon — eller om TSP i seg selv som revisjonsobjekt:
 
 - E-post: julian@lexico.no
-- Spec: `https://truststandardprotocol.org/spec`
-- EU AI Act-mapping: `https://truststandardprotocol.org/eu-ai-act/`
+- Spec: `https://truststandardprotocol.com/spec`
+- EU AI Act-mapping: `https://truststandardprotocol.com/eu-ai-act/`
 - Charter: `docs/charter.md`
 
 Charter §8 binder LexiCo til public post-mortems ved tillitsbrudd og til versjons-yanking-prosedyre dokumentert i SDK CHANGELOG. Du har rett til å vite når noe gikk galt.

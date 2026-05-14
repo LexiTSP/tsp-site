@@ -90,7 +90,7 @@ Hvis flere etater i en sektor (f.eks. NAV, Skatteetaten, kommuner) standardisere
 | **Oversight** | Betalt lisens | Human-review-kø. Hosted eller on-prem. |
 | **Public Sector** | Egne vilkår | For norsk offentlig sektor; egen modell. |
 
-**Gainsharing** betyr at LexiCos inntekt på plattform-laget er bundet til kundens etterlevelses­verdi — vi tjener på at TSP fungerer for deg, ikke på flat seat-pris. Detaljer på `https://truststandardprotocol.org/priser`.
+**Gainsharing** betyr at LexiCos inntekt på plattform-laget er bundet til kundens etterlevelses­verdi — vi tjener på at TSP fungerer for deg, ikke på flat seat-pris. Detaljer på `https://truststandardprotocol.com/priser`.
 
 Ingen plattform-modul er kritisk for kjernefunksjonen. Du kan bruke kun standard-laget og være ferdig.
 
@@ -132,7 +132,7 @@ Hvis disse risikoene gjør TSP urealistisk for deg i dag — bruk standarden, ik
 | Bygge en multi-vendor AI-arkitektur | Stille TSP-utstedelse som leverandør-krav. Plattform-laget valgfritt. |
 | Forberede en AI Act-konform implementasjon | Standard + Evidence-modul. Risk hvis du har tids­basert overvåkning. Oversight hvis du har Art. 14-flyter. |
 | Bli pilotpartner | Se `docs/PILOT-PROGRAM.md`. |
-| Bare forstå hva dette er | Lest dette dokumentet, gå til `https://truststandardprotocol.org/playground` og prøv. 30 sekunder. |
+| Bare forstå hva dette er | Lest dette dokumentet, gå til `https://truststandardprotocol.com/playground` og prøv. 30 sekunder. |
 
 ---
 
@@ -152,7 +152,7 @@ TSP konkurrerer ikke direkte med disse — den ligger under dem. Du kan kjøre C
 
 ## 10 · Neste steg for ledere
 
-- **5 minutter:** `https://truststandardprotocol.org/` + playground.
+- **5 minutter:** `https://truststandardprotocol.com/` + playground.
 - **30 minutter:** `docs/ABOUT.md` + dette dokumentet.
 - **2 timer:** Charter (`docs/charter.md`) + EU AI Act-mapping (`/eu-ai-act/`).
 - **Møte:** julian@lexico.no — beslutnings-samtale, ingen pitch.

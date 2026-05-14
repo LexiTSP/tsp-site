@@ -1,6 +1,23 @@
 #cloud-config
 # TSP first-boot configuration. Idempotent — safe to re-run cloud-init.
 # Charter §1: no telemetry, no phone-home, no managed-service dependencies.
+#
+# Rev 2 (2026-05-14): added `unzip` to packages — Bun's installer requires
+# it, and without it Bun failed silently on tsp-site-hel1 while cloud-init
+# still wrote the "complete" marker. Bun install now verifies itself and
+# fails loudly. Removed deprecated nested `metrics` and the unnecessary
+# X-Forwarded-Proto header_up from the Caddyfile.
+#
+# Rev 3 (2026-05-14): explicit `chown -R caddy:caddy /var/log/caddy` before
+# service start (caddy's postinst can recreate the dir as root). final_message
+# corrects the origin-key permissions — `chmod 600` alone locks Caddy out;
+# correct is `chown root:caddy` + `chmod 640`. Both bugs were hit live on
+# tsp-site-hel1.
+#
+# Rev 4 (2026-05-14): documentation note in the Caddyfile block — `admin off`
+# means `caddy reload` does not work; use `systemctl restart caddy`. No code
+# change. (Found while debugging a tsp-site redirect bug — see
+# codex-handoff-tsp-3838-redirect.md.)
 
 hostname: tsp-public-alpha
 manage_etc_hosts: true
@@ -29,6 +46,7 @@ packages:
   - rclone
   - rsync
   - gpg
+  - unzip
   - ca-certificates
   - debian-keyring
   - debian-archive-keyring
@@ -57,13 +75,13 @@ write_files:
     permissions: '0644'
 
   # --- Caddyfile ------------------------------------------------------------
+  # NB: `admin off` below means `caddy reload` does NOT work on this server
+  # (reload posts config to the admin API on :2019, which is disabled).
+  # To apply a Caddyfile change: `sudo systemctl restart caddy` — full
+  # stop/start, ~1s downtime. `caddy validate` works as normal.
   - path: /etc/caddy/Caddyfile
     content: |
       {
-        # Hide Caddy version in headers
-        servers {
-          metrics
-        }
         admin off
       }
 
@@ -99,7 +117,6 @@ write_files:
         encode gzip zstd
         reverse_proxy 127.0.0.1:3838 {
           header_up X-Real-IP {remote_host}
-          header_up X-Forwarded-Proto {scheme}
         }
 
         log {
@@ -192,8 +209,12 @@ runcmd:
   - curl -fsSL -o /etc/ssl/cloudflare-origin-pull-ca.pem https://developers.cloudflare.com/ssl/static/authenticated_origin_pull_ca.pem
   - chmod 644 /etc/ssl/cloudflare-origin-pull-ca.pem
 
-  # Install Bun for the tsp user
+  # Install Bun for the tsp user. `unzip` is in packages: above — Bun's
+  # installer requires it. Verify the binary actually landed; if not,
+  # fail loudly so cloud-init does NOT reach the "complete" marker with
+  # a missing core dependency.
   - su - tsp -c "curl -fsSL https://bun.sh/install | bash"
+  - test -x /home/tsp/.bun/bin/bun || { echo 'FATAL: Bun install failed' >&2; exit 1; }
 
   # Create app and data directories
   - install -d -o tsp -g tsp -m 755 /home/tsp/data
@@ -207,6 +228,11 @@ runcmd:
   - ufw allow 22/tcp comment 'SSH'
   - ufw allow 443/tcp comment 'HTTPS via Cloudflare'
   - ufw --force enable
+
+  # Belt-and-suspenders: ensure caddy owns its log dir before it starts.
+  # The `install -d` above creates it, but the caddy package's postinst
+  # can recreate it as root depending on apt timing — this guarantees it.
+  - chown -R caddy:caddy /var/log/caddy
 
   # Enable services (tsp-site needs the repo cloned first; caddy needs the
   # Cloudflare Origin Cert — see infra/terraform/outputs.tf for the manual steps)
@@ -237,7 +263,11 @@ final_message: |
    
    Manual next steps:
      1. Paste Cloudflare Origin Cert to /etc/ssl/cloudflare-origin.pem
-     2. Paste Origin Key to /etc/ssl/cloudflare-origin-key.pem  (chmod 600)
+     2. Paste Origin Key to /etc/ssl/cloudflare-origin-key.pem — then set
+        ownership so Caddy (runs as user 'caddy') can read it:
+          sudo chown root:caddy /etc/ssl/cloudflare-origin-key.pem
+          sudo chmod 640      /etc/ssl/cloudflare-origin-key.pem
+        (chmod 600 alone locks Caddy out — root-only, and Caddy is not root.)
      3. Clone repo as tsp user: git clone <repo> ~/tsp-site
      4. cd ~/tsp-site && bun install && bun run build
      5. sudo systemctl start caddy tsp-site

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "TSP — Trust Standard Protocol. Open standard for verifiable AI provenance. Site for truststandardprotocol.com.",
+  "description": "TSP — Trust Standard Protocol. Open standard for AI provenance checked with signatures, hashes, and manifests. Site for truststandardprotocol.com.",
   "workspaces": [
     "packages/*"
   ],

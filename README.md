@@ -24,8 +24,8 @@ Denne mappen er en `bun`-workspace. Nettstedet ligger i roten, og pakkene som ne
 ```
 TSP/                                    bun-workspace root + nettsted
 ├── packages/
-│   ├── lexitsp-sdk/                    @lexitsp/sdk@3.0.0-alpha.4 (MIT)
-│   ├── trustbadge-react/               @lexitsp/trustbadge-react@0.2.0 (MIT)
+│   ├── lexitsp-sdk/                    @lexitsp/sdk@3.0.0-alpha.5 (MIT)
+│   ├── trustbadge-react/               @lexitsp/trustbadge-react@0.2.1 (MIT)
 │   ├── risk-server/                    @lexitsp/risk-server@0.1.0-alpha.1 (commercial)
 │   ├── evidence-server/                @lexitsp/evidence-server@0.1.0-alpha.0 (commercial)
 │   ├── oversight-server/               @lexitsp/oversight-server@0.1.0-alpha.0 (commercial)
@@ -214,7 +214,7 @@ Alle sider finnes på norsk (default) og engelsk (`/en/...`).
 - `/.well-known/tsp-manifest.json` og `/examples/manifest.json` finnes med en validert alpha-demo manifest. Bytt til produksjonsnøkler før ekstern round-trip.
 - `fixtures/v3.0` inneholder `TSP-Spec-1.0-Candidate` test vectors, revision 1, validert av en clean-room verifier uten SDK-import.
 
-Neste reelle v1.0-steg er Gate A: en navngitt ekstern organisasjon signerer en TrustEnvelope med egen nøkkel og egen DNS-hostet manifest uten LexiCo-skrevet integrasjonskode. `@lexitsp/sdk@3.0.0-alpha.4` er freeze candidate frem til den signaturen finnes.
+Neste reelle v1.0-steg er Gate A: en navngitt ekstern organisasjon signerer en TrustEnvelope med egen nøkkel og egen DNS-hostet manifest uten LexiCo-skrevet integrasjonskode. `@lexitsp/sdk@3.0.0-alpha.5` er freeze candidate frem til den signaturen finnes.
 
 Canonical public domain er `https://truststandardprotocol.org`. `truststandardprotocol.com` bør redirecte dit, og `tsp.lexico.no` kan beholdes som LexiCo-eid teknisk alias for manifest/redirect. Public GitHub-splitt er tre repoer: `lexitsp/tsp-site`, `lexitsp/sdk` og `lexitsp/trustbadge-react`; kommersielle backend-pakker holdes private/interne i alpha.
 

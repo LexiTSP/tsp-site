@@ -1,6 +1,6 @@
 {
   "name": "@lexitsp/sdk",
-  "version": "3.0.0-alpha.4",
+  "version": "3.0.0-alpha.5",
   "description": "Trust Standard Protocol — runtime compliance layer for the EU AI Act. Wraps AI responses in cryptographically verifiable Trust Envelopes.",
   "license": "MIT",
   "type": "module",

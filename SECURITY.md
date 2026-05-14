@@ -6,8 +6,8 @@ TSP is security-sensitive software: envelopes, manifests, signatures, revocation
 
 The current alpha line is:
 
-- `@lexitsp/sdk` `3.0.0-alpha.4`
-- `@lexitsp/trustbadge-react` `0.2.0`
+- `@lexitsp/sdk` `3.0.0-alpha.5`
+- `@lexitsp/trustbadge-react` `0.2.1`
 - Risk, Evidence, and Oversight `0.1.0-alpha.*` for licensed pilot use only
 
 Alpha APIs may change, but security reports against the current code are welcome.

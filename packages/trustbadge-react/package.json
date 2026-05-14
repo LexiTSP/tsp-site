@@ -1,6 +1,6 @@
 {
   "name": "@lexitsp/trustbadge-react",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Charter §5 TrustBadge as a React component for AI outputs wrapped with @lexitsp/sdk.",
   "license": "MIT",
   "type": "module",
@@ -25,7 +25,7 @@
   "peerDependencies": {
     "react": ">=18",
     "react-dom": ">=18",
-    "@lexitsp/sdk": "^3.0.0-alpha.4"
+    "@lexitsp/sdk": "^3.0.0-alpha.5"
   },
   "devDependencies": {
     "@lexitsp/sdk": "workspace:*",

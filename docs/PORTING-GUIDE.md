@@ -122,7 +122,7 @@ These are byte-identical between wrap and verify. **Do not change them in your p
 
 Once you have a port that passes all test vectors:
 
-1. **Open an issue** on `github.com/lexitsp/spec` with tag `implementation-claim`.
+1. **Open an issue** on `github.com/LexiTSP/spec` with tag `implementation-claim`.
 2. **Provide:**
    - Repository URL
    - Language + runtime versions supported
@@ -181,12 +181,12 @@ Hvis du vurderer en TSP-implementasjon i et annet språk: ta kontakt tidlig. Vi 
 
 ## 13 · Contact and resources
 
-- **Spec:** `https://truststandardprotocol.com/spec` and `github.com/lexitsp/spec`
+- **Spec:** `https://truststandardprotocol.com/spec` and `github.com/LexiTSP/spec`
 - **Test vectors:** `spec/test-vectors/3.0/`
-- **Reference SDK:** `github.com/lexitsp/sdk`
+- **Reference SDK:** `github.com/LexiTSP/sdk`
 - **RFC process:** `docs/SPEC-GOVERNANCE.md`
 - **Email:** julian@lexico.no
-- **Issues / questions:** `github.com/lexitsp/spec/issues`
+- **Issues / questions:** `github.com/LexiTSP/spec/issues`
 
 ---
 

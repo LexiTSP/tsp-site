@@ -450,7 +450,7 @@
     "practiceP2": "EU AI Act art. 14 krever at mennesker har <em>reell</em> evne til å gripe inn. Oversight gir reviewere en tre-tilstands dom (approved / approved-with-concerns / rejected) som signeres <strong>client-side</strong> med reviewer-ens egen Ed25519-nøkkel. Resultatet er en <code>ReviewEnvelope</code> (tsp-review-1.0). Server gir aldri reviewer LLM-genererte forslag, sammendrag eller \"tentative vurderinger\" — type-systemet forbyr det. Mennesket beslutter, ikke AI-en.",
     "licenseSummary": "Kommersiell lisens. SDK + TrustBadge forblir MIT; Oversight-serveren og portalen er betalte verktøy.",
     "licenseDetail1": "@lexitsp/oversight-server@0.1.0-alpha.0 krever skriftlig kommersiell lisens for hosted eller on-prem bruk.",
-    "licenseDetail2": "@lexitsp/trustbadge-react@0.2.1 forblir MIT: den synlige kvitteringen bør spre seg med standarden.",
+    "licenseDetail2": "@lexitsp/trustbadge-react@0.2.2 forblir MIT: den synlige kvitteringen bør spre seg med standarden.",
     "licenseDetail3": "Reviewer-nøkler genereres lokalt (WebCrypto extractable=false) — server har dem aldri.",
     "licenseDetail4": "Triggers: Risk-alarmer (auto) + kunde-skrevne deterministiske regler + manuelle. Ingen AI-pre-filtrering.",
     "componentsEyebrow": "De fire komponentene",
@@ -630,7 +630,7 @@
   },
   "home": {
     "hero": {
-      "specStamp": "Spec live · TSP/3.0.0-alpha.5",
+      "specStamp": "Spec live · TSP/3.0.0-alpha.6",
       "openStandardMit": "Åpen standard · betalte verktøy",
       "eyebrow": "Trust Standard Protocol",
       "h1": "En signert kvittering for hvert AI-svar.",
@@ -639,7 +639,7 @@
       "ctaPrimary": "Se tamper-demoen",
       "ctaSecondary": "Les spesifikasjonen",
       "specCellSpec": "Spec",
-      "specCellSpecValue": "v3.0.0-alpha.5",
+      "specCellSpecValue": "v3.0.0-alpha.6",
       "specCellPackages": "Pakker",
       "specCellPackagesValue": "@lexitsp/sdk · trustbadge-react · risk · evidence · oversight",
       "specCellTests": "Tester",

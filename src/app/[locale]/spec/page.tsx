@@ -96,14 +96,14 @@ export default async function SpecPage({
   const IMPLS = isEn ? IMPLS_EN : IMPLS_NO;
 
   const CHANGES_NO = [
-    { version: "3.0.0-alpha.5", date: "2026-04-30", notes: "Alignment-schema bump + riskSink. 101 SDK-tester. Launch-ready bundle (alpha).", current: true },
+    { version: "3.0.0-alpha.6", date: "2026-04-30", notes: "Alignment-schema bump + riskSink. 101 SDK-tester. Launch-ready bundle (alpha).", current: true },
     { version: "3.0.0-alpha.3", date: "2026-04-30", notes: "Phase 3: RFC 3161 TSA-binding + DANE/TLSA-lookup. 97 tester." },
     { version: "3.0.0-alpha.2", date: "2026-04-30", notes: "Phase 2: manifest-basert PKI med org-rot + instans-cert. tsp CLI. 64 tester." },
     { version: "3.0.0-alpha.1", date: "2026-04-29", notes: "Phase 1: schema + lokal sign/verify. Ed25519, RFC 8785, 10 navngitte verify-checks. 33 tester." },
     { version: "2.x", date: "2026-01 → 04", notes: "Pre-v3 confidence-score-modell. Erstattet av strukturert uncertainty[] og policy-versjonering i v3." },
   ];
   const CHANGES_EN = [
-    { version: "3.0.0-alpha.5", date: "2026-04-30", notes: "Alignment-schema bump + riskSink. 101 SDK tests. Launch-ready bundle (alpha).", current: true },
+    { version: "3.0.0-alpha.6", date: "2026-04-30", notes: "Alignment-schema bump + riskSink. 101 SDK tests. Launch-ready bundle (alpha).", current: true },
     { version: "3.0.0-alpha.3", date: "2026-04-30", notes: "Phase 3: RFC 3161 TSA binding + DANE/TLSA lookup. 97 tests." },
     { version: "3.0.0-alpha.2", date: "2026-04-30", notes: "Phase 2: manifest-based PKI with org root + instance cert. tsp CLI. 64 tests." },
     { version: "3.0.0-alpha.1", date: "2026-04-29", notes: "Phase 1: schema + local sign/verify. Ed25519, RFC 8785, 10 named verify checks. 33 tests." },

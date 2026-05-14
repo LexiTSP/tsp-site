@@ -15,7 +15,7 @@ This HTTPS well-known path is the primary Gate A shape. Other manifest transport
 
 ## Steps
 
-1. Install `@lexitsp/sdk@3.0.0-alpha.5`.
+1. Install `@lexitsp/sdk@3.0.0-alpha.6`.
 2. Generate an org-root key and an instance key.
 3. Publish the signed manifest at `/.well-known/tsp-manifest.json` on a domain controlled by the adopter.
 4. Sign one non-sensitive TrustEnvelope with the instance key.

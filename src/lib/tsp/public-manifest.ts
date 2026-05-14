@@ -1,8 +1,7 @@
 import type { TrustManifest } from "@lexitsp/sdk/v3";
 
-// Alpha demo manifest for the public well-known endpoint. It is a valid,
-// self-signed TSP v3 TrustManifest for canonical-domain smoke tests, but it is
-// not a production signing identity for customer envelopes.
+// Public-alpha production manifest for the canonical well-known endpoint.
+// Private root and instance key material lives outside the repository.
 export const PUBLIC_TSP_MANIFEST = {
   "tsp": "3.0",
   "organization": {
@@ -16,11 +15,11 @@ export const PUBLIC_TSP_MANIFEST = {
       "verify"
     ],
     "kty": "OKP",
-    "x": "nUoVqNgu5zJlVImc4-xXF4VJLFEuXAkUbzgbOndSKeY"
+    "x": "zTM6zg02f_MbN3D_wEmEevxaBbskzGjlbkAXID5db9c"
   },
   "instances": [
     {
-      "id": "lexico-alpha-demo-i1",
+      "id": "lexico-public-alpha-i1",
       "publicKey": {
         "crv": "Ed25519",
         "ext": true,
@@ -28,18 +27,18 @@ export const PUBLIC_TSP_MANIFEST = {
           "verify"
         ],
         "kty": "OKP",
-        "x": "CDRSXG4ljBpJTEZcz_s2x0gh9ZqUkzH7J0SF7mURK6Q"
+        "x": "epYMfvfpOqqMaeoHVp1mCdzSfssc8PV4ozD2nXP-lxE"
       },
       "validFrom": "2026-05-14T00:00:00.000Z",
       "validUntil": "2027-05-14T00:00:00.000Z",
-      "rootSignature": "gQnq7DQ132rN3U2rtBmU9rrGT3eZ8B8REk2FVm+kF68/nJl/t4BJRAJCI5V3udFAft+h4tBroKhbOUBW8zMKAg=="
+      "rootSignature": "1q2TH4C/jfh8B3VNThoTIjaVdlgtmanmgI91yUgP6CRlIIAvibNM+bTfgtwalL85s8EFEYf+cNtwGsmyDDKRAA=="
     }
   ],
   "revoked": [],
   "sequence": 1,
-  "issuedAt": "2026-05-14T00:00:00.000Z",
+  "issuedAt": "2026-05-14T20:52:06.038Z",
   "acceptableAge": {
-    "seconds": 86400
+    "seconds": 2592000
   },
-  "rootSignatureOverManifest": "FWW6gzhcM64oPVosWxiE95C0gU+g6T3Msxp+8Kaj4YHlCtjWaW4rUypdF6/f6NuxSKtRPzrOQ1dIkry6qq6/BQ=="
+  "rootSignatureOverManifest": "kpKXLd8QNQdOASPSviUMjWeFxYQ71ooqRRqkT3U3L9ZOhOvXDI/0ftVlTJGG+7ScmU+fdA2DYRJlxwZGGPprBA=="
 } as unknown as TrustManifest;

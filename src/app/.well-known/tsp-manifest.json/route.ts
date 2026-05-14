@@ -6,7 +6,7 @@ export function GET() {
   return Response.json(PUBLIC_TSP_MANIFEST, {
     headers: {
       "cache-control": "public, max-age=300",
-      "x-tsp-manifest-status": "alpha-demo",
+      "x-tsp-manifest-status": "public-alpha-production-identity",
     },
   });
 }

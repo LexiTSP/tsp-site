@@ -1,0 +1,40 @@
+{
+  "tsp": "3.0",
+  "organization": {
+    "name": "External Adopter Example",
+    "domain": "adopter.example"
+  },
+  "rootKey": {
+    "crv": "Ed25519",
+    "ext": true,
+    "key_ops": [
+      "verify"
+    ],
+    "kty": "OKP",
+    "x": "izUTWpwv-oV-olqmSiDUpe_C4WNyqjf3e1794vxYiaA"
+  },
+  "instances": [
+    {
+      "id": "adopter-instance-1",
+      "publicKey": {
+        "crv": "Ed25519",
+        "ext": true,
+        "key_ops": [
+          "verify"
+        ],
+        "kty": "OKP",
+        "x": "vpuBt1cdmmb4O0pfS3u_l99SBm8LB2DivPws3vSEpJo"
+      },
+      "validFrom": "2026-05-13T00:00:00.000Z",
+      "validUntil": "2027-05-13T00:00:00.000Z",
+      "rootSignature": "q1hMQZHsw/mSpZBn4oMv7NlS9WQ1HlNcxdEs4agsz3CjG6RVnU9L5InUbKad7eC5HYaZy7QeiAFzkG03WYXwDQ=="
+    }
+  ],
+  "revoked": [],
+  "sequence": 1,
+  "issuedAt": "2026-05-13T00:00:00.000Z",
+  "acceptableAge": {
+    "seconds": 31536000
+  },
+  "rootSignatureOverManifest": "SAcxrgFwvWOCpqTPi++tHRH5ZfGVPgOji7czdEVJDETckP/bwDbuPqukFUa4/GKC1toDR/VdP692wabYiEeJCg=="
+}

@@ -1,0 +1,246 @@
+#cloud-config
+# TSP first-boot configuration. Idempotent — safe to re-run cloud-init.
+# Charter §1: no telemetry, no phone-home, no managed-service dependencies.
+
+hostname: tsp-public-alpha
+manage_etc_hosts: true
+
+users:
+  - name: tsp
+    shell: /bin/bash
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    groups: [sudo]
+    lock_passwd: true
+    ssh_authorized_keys:
+      - ${deploy_user_pubkey}
+
+package_update: true
+package_upgrade: true
+
+packages:
+  - ufw
+  - fail2ban
+  - unattended-upgrades
+  - curl
+  - git
+  - build-essential
+  - sqlite3
+  - jq
+  - rclone
+  - rsync
+  - gpg
+  - ca-certificates
+  - debian-keyring
+  - debian-archive-keyring
+  - apt-transport-https
+
+write_files:
+  # --- SSH hardening --------------------------------------------------------
+  - path: /etc/ssh/sshd_config.d/99-tsp.conf
+    content: |
+      PasswordAuthentication no
+      PermitRootLogin prohibit-password
+      KbdInteractiveAuthentication no
+      MaxAuthTries 3
+      Protocol 2
+      X11Forwarding no
+    permissions: '0644'
+
+  # --- UFW firewall (Hetzner Cloud Firewall is the outer wall;
+  #     UFW is defense-in-depth on the host) ---------------------------------
+  - path: /etc/ufw/applications.d/tsp
+    content: |
+      [TSP-HTTPS]
+      title=TSP HTTPS (Cloudflare origin)
+      description=Caddy listens on 443 with mTLS
+      ports=443/tcp
+    permissions: '0644'
+
+  # --- Caddyfile ------------------------------------------------------------
+  - path: /etc/caddy/Caddyfile
+    content: |
+      {
+        # Hide Caddy version in headers
+        servers {
+          metrics
+        }
+        admin off
+      }
+
+      ${site_domain} {
+        # Cloudflare Origin Cert + Authenticated Origin Pulls (mTLS).
+        # The cert files must be installed manually after first boot
+        # (see infra/terraform/outputs.tf for the paste command).
+        tls /etc/ssl/cloudflare-origin.pem /etc/ssl/cloudflare-origin-key.pem {
+          client_auth {
+            mode require_and_verify
+            trust_pool file /etc/ssl/cloudflare-origin-pull-ca.pem
+          }
+        }
+
+        # Manifest endpoints: short cache + stale-while-revalidate.
+        # This is the protocol's reliability surface — keep edge-cached.
+        @manifest path /.well-known/tsp-manifest.json /examples/manifest.json
+        header @manifest {
+          Cache-Control "public, max-age=300, stale-while-revalidate=3600"
+          X-Content-Type-Options nosniff
+        }
+
+        # Security headers (Charter §1 compatible — no third-party loaders)
+        header {
+          Strict-Transport-Security "max-age=15552000; includeSubDomains; preload"
+          X-Content-Type-Options "nosniff"
+          X-Frame-Options "DENY"
+          Referrer-Policy "strict-origin-when-cross-origin"
+          Permissions-Policy "interest-cohort=(), browsing-topics=()"
+          -Server
+        }
+
+        encode gzip zstd
+        reverse_proxy 127.0.0.1:3838 {
+          header_up X-Real-IP {remote_host}
+          header_up X-Forwarded-Proto {scheme}
+        }
+
+        log {
+          output file /var/log/caddy/access.log {
+            roll_size 10mb
+            roll_keep 5
+          }
+          format json
+        }
+      }
+    permissions: '0644'
+
+  # --- systemd unit for the TSP site ---------------------------------------
+  - path: /etc/systemd/system/tsp-site.service
+    content: |
+      [Unit]
+      Description=TSP Public Alpha Site (Next.js via Bun)
+      Documentation=https://truststandardprotocol.org
+      After=network-online.target
+      Wants=network-online.target
+
+      [Service]
+      Type=simple
+      User=tsp
+      Group=tsp
+      WorkingDirectory=/home/tsp/tsp-site
+      Environment=NODE_ENV=production
+      Environment=PORT=3838
+      Environment=HOSTNAME=127.0.0.1
+      ExecStart=/home/tsp/.bun/bin/bun run start
+      Restart=on-failure
+      RestartSec=5
+      StandardOutput=journal
+      StandardError=journal
+      # Sandbox the service
+      NoNewPrivileges=true
+      PrivateTmp=true
+      ProtectSystem=strict
+      ProtectHome=read-only
+      ReadWritePaths=/home/tsp/tsp-site /home/tsp/data
+      ProtectKernelTunables=true
+      ProtectKernelModules=true
+      ProtectControlGroups=true
+      RestrictSUIDSGID=true
+      LockPersonality=true
+
+      [Install]
+      WantedBy=multi-user.target
+    permissions: '0644'
+
+  # --- fail2ban for SSH (defense-in-depth) ---------------------------------
+  - path: /etc/fail2ban/jail.d/sshd.conf
+    content: |
+      [sshd]
+      enabled = true
+      port = 22
+      maxretry = 3
+      bantime = 1h
+      findtime = 10m
+    permissions: '0644'
+
+  # --- unattended-upgrades for security patches only -----------------------
+  - path: /etc/apt/apt.conf.d/52unattended-upgrades-tsp
+    content: |
+      Unattended-Upgrade::Automatic-Reboot "false";
+      Unattended-Upgrade::Allowed-Origins {
+        "$${distro_id}:$${distro_codename}-security";
+        "$${distro_id}ESMApps:$${distro_codename}-apps-security";
+        "$${distro_id}ESM:$${distro_codename}-infra-security";
+      };
+    permissions: '0644'
+
+  # --- log directory for caddy ---------------------------------------------
+  - path: /var/log/caddy/.gitkeep
+    content: ""
+    permissions: '0644'
+
+runcmd:
+  # Restart SSH with new hardened config
+  - systemctl restart ssh
+
+  # Install Caddy from official apt repo (newer than Ubuntu's bundled version)
+  - curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
+  - curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | tee /etc/apt/sources.list.d/caddy-stable.list
+  - apt-get update
+  - apt-get install -y caddy
+
+  # Download Cloudflare Origin Pull CA (for mTLS verification)
+  - mkdir -p /etc/ssl
+  - curl -fsSL -o /etc/ssl/cloudflare-origin-pull-ca.pem https://developers.cloudflare.com/ssl/static/authenticated_origin_pull_ca.pem
+  - chmod 644 /etc/ssl/cloudflare-origin-pull-ca.pem
+
+  # Install Bun for the tsp user
+  - su - tsp -c "curl -fsSL https://bun.sh/install | bash"
+
+  # Create app and data directories
+  - install -d -o tsp -g tsp -m 755 /home/tsp/data
+  - install -d -o tsp -g tsp -m 755 /home/tsp/backups
+  - install -d -o caddy -g caddy -m 755 /var/log/caddy
+
+  # Enable UFW (Hetzner firewall is primary; this is host-level defense)
+  - ufw --force reset
+  - ufw default deny incoming
+  - ufw default allow outgoing
+  - ufw allow 22/tcp comment 'SSH'
+  - ufw allow 443/tcp comment 'HTTPS via Cloudflare'
+  - ufw --force enable
+
+  # Enable services (tsp-site needs the repo cloned first; caddy needs the
+  # Cloudflare Origin Cert — see infra/terraform/outputs.tf for the manual steps)
+  - systemctl daemon-reload
+  - systemctl enable fail2ban
+  - systemctl start fail2ban
+  - systemctl enable unattended-upgrades
+  - systemctl start unattended-upgrades
+  - systemctl enable tsp-site
+  - systemctl enable caddy
+
+  # Sysctl tuning for a small web server
+  - |
+    cat >> /etc/sysctl.d/99-tsp.conf <<EOF
+    net.ipv4.tcp_fastopen=3
+    net.core.somaxconn=4096
+    net.ipv4.tcp_max_syn_backlog=4096
+    vm.swappiness=10
+    EOF
+  - sysctl --system
+
+  # Mark first-boot complete (Terraform polls this file)
+  - touch /var/log/tsp-cloud-init-complete
+
+final_message: |
+  ─────────────────────────────────────────────────────────────────
+   TSP cloud-init complete.
+   
+   Manual next steps:
+     1. Paste Cloudflare Origin Cert to /etc/ssl/cloudflare-origin.pem
+     2. Paste Origin Key to /etc/ssl/cloudflare-origin-key.pem  (chmod 600)
+     3. Clone repo as tsp user: git clone <repo> ~/tsp-site
+     4. cd ~/tsp-site && bun install && bun run build
+     5. sudo systemctl start caddy tsp-site
+   
+   See infra/terraform/outputs.tf for the exact commands.
+  ─────────────────────────────────────────────────────────────────

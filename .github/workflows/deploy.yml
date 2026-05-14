@@ -1,0 +1,189 @@
+name: Deploy to Hetzner
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      skip_smoke:
+        description: "Skip the external smoke test (use if Cloudflare is mid-config)"
+        required: false
+        type: boolean
+        default: false
+
+# Prevent overlapping deploys. Latest commit wins.
+concurrency:
+  group: production-deploy
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  # ────────────────────────────────────────────────────────────────────────
+  # Release gate: this is the same `bun run check:release` Codex wired up.
+  # Charter §6 claim-lint + interop fixtures + build/tests +
+  # production-start smoke + manifest check + package smoke all run here.
+  # If this fails, nothing deploys.
+  # ────────────────────────────────────────────────────────────────────────
+  release-gate:
+    name: Release Gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Cache Bun store
+        uses: actions/cache@v4
+        with:
+          path: ~/.bun/install/cache
+          key: bun-${{ runner.os }}-${{ hashFiles('bun.lock') }}
+          restore-keys: |
+            bun-${{ runner.os }}-
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Run claim-lint (Charter §6 — fast fail)
+        run: bun run check:claims
+
+      - name: Run interop verifier on canonical fixtures
+        run: bun run check:interop
+
+      - name: Run full release gate (build, tests, manifest, prod-start)
+        run: bun run check:release
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: nextjs-build
+          path: |
+            .next/
+            !.next/cache
+          retention-days: 7
+
+  # ────────────────────────────────────────────────────────────────────────
+  # Deploy: SSH to the Hetzner server, pull, rebuild on the host.
+  # The host re-runs the release gate as a safety net before swapping
+  # the systemd unit's working copy.
+  # ────────────────────────────────────────────────────────────────────────
+  deploy:
+    name: Deploy to Hetzner
+    needs: release-gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: production
+      url: https://${{ secrets.SITE_DOMAIN }}
+
+    steps:
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.DEPLOY_SSH_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H "${{ secrets.DEPLOY_HOST }}" >> ~/.ssh/known_hosts 2>/dev/null
+
+      - name: Deploy on Hetzner
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          GIT_SHA: ${{ github.sha }}
+        run: |
+          ssh -i ~/.ssh/deploy_key tsp@$DEPLOY_HOST bash <<EOF
+            set -euo pipefail
+            cd ~/tsp-site
+
+            echo "▸ Fetching latest"
+            git fetch --all --quiet
+            git reset --hard origin/main
+
+            echo "▸ Recording deploy SHA"
+            echo "$GIT_SHA" > .deploy-sha
+            date -u +%FT%TZ > .deploy-time
+
+            echo "▸ Installing dependencies"
+            ~/.bun/bin/bun install --frozen-lockfile
+
+            echo "▸ Running release gate on host"
+            ~/.bun/bin/bun run check:release
+
+            echo "▸ Building"
+            ~/.bun/bin/bun run build
+
+            echo "▸ Restarting tsp-site service"
+            sudo systemctl restart tsp-site
+
+            echo "▸ Waiting for service health"
+            for i in 1 2 3 4 5 6 7 8 9 10; do
+              if curl -fsS http://127.0.0.1:3838/ > /dev/null 2>&1; then
+                echo "✓ tsp-site is responding"
+                break
+              fi
+              if [ \$i -eq 10 ]; then
+                echo "✗ tsp-site failed to become healthy"
+                sudo journalctl -u tsp-site --no-pager -n 50
+                exit 1
+              fi
+              sleep 2
+            done
+
+            sudo systemctl status tsp-site --no-pager
+          EOF
+
+      - name: External smoke test
+        if: ${{ !inputs.skip_smoke }}
+        run: |
+          DOMAIN="${{ secrets.SITE_DOMAIN }}"
+          for i in 1 2 3 4 5; do
+            STATUS=$(curl -fsS -o /tmp/manifest.json -w "%{http_code}" \
+              "https://$DOMAIN/.well-known/tsp-manifest.json" || echo "000")
+            if [ "$STATUS" = "200" ]; then
+              echo "✓ Manifest endpoint OK ($STATUS)"
+              jq -e '.tsp == "3.0"
+                and .organization.domain == env.DOMAIN
+                and .rootKey.kty == "OKP"
+                and (.instances | type == "array")
+                and (.rootSignatureOverManifest | type == "string")' /tmp/manifest.json >/dev/null
+              jq -r '"tsp=\(.tsp) domain=\(.organization.domain) sequence=\(.sequence)"' /tmp/manifest.json
+              exit 0
+            fi
+            echo "Attempt $i: got $STATUS, retrying in 5s..."
+            sleep 5
+          done
+          echo "✗ Manifest endpoint failed external smoke"
+          exit 1
+
+      - name: Clean up SSH key
+        if: always()
+        run: rm -f ~/.ssh/deploy_key
+
+  # ────────────────────────────────────────────────────────────────────────
+  # Notification step — runs on both success and failure.
+  # Hook a webhook here later if you want Slack/Discord/email alerts.
+  # ────────────────────────────────────────────────────────────────────────
+  notify:
+    name: Notify
+    needs: [release-gate, deploy]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Summary
+        run: |
+          echo "## Deploy summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Job | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|---|---|" >> $GITHUB_STEP_SUMMARY
+          echo "| Release gate | ${{ needs.release-gate.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Deploy | ${{ needs.deploy.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Commit: ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+          echo "Site: https://${{ secrets.SITE_DOMAIN }}" >> $GITHUB_STEP_SUMMARY

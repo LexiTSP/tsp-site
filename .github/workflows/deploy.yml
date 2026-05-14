@@ -1,8 +1,6 @@
 name: Deploy to Hetzner
 
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
     inputs:
       skip_smoke:
@@ -83,7 +81,7 @@ jobs:
     timeout-minutes: 10
     environment:
       name: production
-      url: https://${{ secrets.SITE_DOMAIN }}
+      url: https://truststandardprotocol.org
 
     steps:
       - name: Configure SSH
@@ -140,7 +138,7 @@ jobs:
           EOF
 
       - name: External smoke test
-        if: ${{ !inputs.skip_smoke }}
+        if: ${{ inputs.skip_smoke != true }}
         run: |
           DOMAIN="${{ secrets.SITE_DOMAIN }}"
           for i in 1 2 3 4 5; do

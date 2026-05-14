@@ -67,4 +67,5 @@ jobs:
           path: |
             .next/
             !.next/cache
+          if-no-files-found: ignore
           retention-days: 3

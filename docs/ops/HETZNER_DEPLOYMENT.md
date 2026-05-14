@@ -181,7 +181,7 @@ sudo apt install -y nodejs
 ```bash
 # Som tsp-user
 cd /home/tsp
-git clone https://github.com/lexitsp/tsp-site.git    # når public split er gjort
+git clone https://github.com/LexiTSP/tsp-site.git    # når public split er gjort
 cd tsp-site
 bun install
 bun run build  # 55 sider builder grønt

@@ -233,7 +233,7 @@ export default async function Home({
               <ModuleCell
                 href="/core"
                 pkg="@lexitsp/sdk"
-                version="v3.0.0-alpha.5"
+                version="v3.0.0-alpha.6"
                 desc={t("standard.moduleSdkDesc")}
                 license="MIT"
                 covers="Art. 12, 13, 15"
@@ -241,7 +241,7 @@ export default async function Home({
               <ModuleCell
                 href="/oversight"
                 pkg="@lexitsp/trustbadge-react"
-                version="v0.2.1"
+                version="v0.2.2"
                 desc={t("standard.moduleBadgeDesc")}
                 license="MIT"
                 covers="UX"

@@ -42,7 +42,7 @@ Spec-en følger **semver** med disse reglene:
 
 Forslag til spec-endringer (alle, fra trivielle til major) går gjennom en lett RFC-prosess:
 
-1. **Issue** opprettes i `github.com/lexitsp/spec` med tag `rfc-proposal`.
+1. **Issue** opprettes i `github.com/LexiTSP/spec` med tag `rfc-proposal`.
 2. **RFC-tekst** følger malen i `spec/rfcs/_template.md`:
    - Tittel + tracking-ID
    - Problemet som løses (konkret, ikke spekulativ)
@@ -163,8 +163,8 @@ CC-BY 4.0 er valgt over public domain (CC0) fordi attribusjonen sikrer sporbarhe
 
 ## 10 · Hvor du foreslår en endring
 
-- **Issue:** `https://github.com/lexitsp/spec/issues/new?template=rfc-proposal.md`
-- **PR (kun for typo/klargjøring):** `https://github.com/lexitsp/spec/pulls`
+- **Issue:** `https://github.com/LexiTSP/spec/issues/new?template=rfc-proposal.md`
+- **PR (kun for typo/klargjøring):** `https://github.com/LexiTSP/spec/pulls`
 - **Sikkerhet:** security@lexico.no (PGP-fingerprint i `SECURITY.md`)
 - **Diskusjon før RFC:** julian@lexico.no eller åpen issue-tråd
 

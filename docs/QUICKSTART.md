@@ -161,7 +161,7 @@ Nei. Standard-sonen (SDK + TrustBadge + manifest) er sovereign-by-default. Verkt
 - **Spec-detaljer:** `https://truststandardprotocol.com/spec` — full v3-skjemabeskrivelse med JSON-LD.
 - **API-referanse:** `https://truststandardprotocol.com/docs` — alle eksporterte funksjoner.
 - **EU AI Act-mapping:** `https://truststandardprotocol.com/eu-ai-act/article-13` (eller 9/12/14/15) — hvilke schema-felter som dekker hvilke lov-krav.
-- **Issues:** `https://github.com/lexitsp/sdk/issues` (når repo er public).
+- **Issues:** `https://github.com/LexiTSP/sdk/issues` (når repo er public).
 - **E-post:** julian@lexico.no.
 
 ---

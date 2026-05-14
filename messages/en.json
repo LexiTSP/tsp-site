@@ -450,7 +450,7 @@
     "practiceP2": "EU AI Act art. 14 requires that humans have <em>genuine</em> ability to intervene. Oversight gives reviewers a three-state verdict (approved / approved-with-concerns / rejected) which is signed <strong>client-side</strong> with the reviewer's own Ed25519 key. The result is a <code>ReviewEnvelope</code> (tsp-review-1.0). The server never gives the reviewer LLM-generated suggestions, summaries or \"tentative assessments\" — the type system forbids it. The human decides, not the AI.",
     "licenseSummary": "Commercial license. SDK + TrustBadge stay MIT; the Oversight server and portal are paid tools.",
     "licenseDetail1": "@lexitsp/oversight-server@0.1.0-alpha.0 requires a written commercial license for hosted or on-prem use.",
-    "licenseDetail2": "@lexitsp/trustbadge-react@0.2.1 remains MIT: the visible receipt should spread with the standard.",
+    "licenseDetail2": "@lexitsp/trustbadge-react@0.2.2 remains MIT: the visible receipt should spread with the standard.",
     "licenseDetail3": "Reviewer keys generated locally (WebCrypto extractable=false) — server never holds them.",
     "licenseDetail4": "Triggers: Risk alerts (auto) + customer-written deterministic rules + manual. No AI pre-filtering.",
     "componentsEyebrow": "The four components",
@@ -630,7 +630,7 @@
   },
   "home": {
     "hero": {
-      "specStamp": "Spec live · TSP/3.0.0-alpha.5",
+      "specStamp": "Spec live · TSP/3.0.0-alpha.6",
       "openStandardMit": "Open standard · paid tools",
       "eyebrow": "Trust Standard Protocol",
       "h1": "A signed receipt for every AI answer.",
@@ -639,7 +639,7 @@
       "ctaPrimary": "See the tamper demo",
       "ctaSecondary": "Read the spec",
       "specCellSpec": "Spec",
-      "specCellSpecValue": "v3.0.0-alpha.5",
+      "specCellSpecValue": "v3.0.0-alpha.6",
       "specCellPackages": "Packages",
       "specCellPackagesValue": "@lexitsp/sdk · trustbadge-react · risk · evidence · oversight",
       "specCellTests": "Tests",

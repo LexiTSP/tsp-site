@@ -91,7 +91,7 @@ Schema-prinsipp (charter): **eksplisitt-deklarasjon over taus optionality**. Hve
 
 Status per 2026-05-13 (alpha-launch-ready bundle, totalt **223 grønne tester** på tvers — 101 SDK + 24 TrustBadge + 98 plattform-/control-plane-tester):
 
-### I. Protokoll v3.0 — `@lexitsp/sdk@3.0.0-alpha.5` (101 tester)
+### I. Protokoll v3.0 — `@lexitsp/sdk@3.0.0-alpha.6` (101 tester)
 
 **Phase 1** — schema + lokal sign/verify
 
@@ -114,7 +114,7 @@ Status per 2026-05-13 (alpha-launch-ready bundle, totalt **223 grønne tester** 
 
 Eksport-stier: `@lexitsp/sdk/v3`, `@lexitsp/sdk/v3/admin`, `@lexitsp/sdk/node`, `@lexitsp/sdk/types`.
 
-### II. `@lexitsp/trustbadge-react@0.2.1` (24 tester)
+### II. `@lexitsp/trustbadge-react@0.2.2` (24 tester)
 
 Drop-in React-komponent. Renderer envelope-status som farget badge (verified / warn / refusal / flagged / policy-blocked). Modal viser alle 6 punkter fra AI Act Art. 13(3)(b) på naturlig norsk. MIT-lisens.
 
@@ -277,8 +277,8 @@ Test-strategi: vitest for SDK + TrustBadge, **`bun test`** for alle backends (vi
 ```
 TSP/                             # bun-workspace root + nettsted
 ├── packages/
-│   ├── lexitsp-sdk/             # @lexitsp/sdk@3.0.0-alpha.5
-│   ├── trustbadge-react/        # @lexitsp/trustbadge-react@0.2.1
+│   ├── lexitsp-sdk/             # @lexitsp/sdk@3.0.0-alpha.6
+│   ├── trustbadge-react/        # @lexitsp/trustbadge-react@0.2.2
 │   ├── risk-server/             # @lexitsp/risk-server@0.1.0-alpha.1
 │   ├── evidence-server/         # @lexitsp/evidence-server@0.1.0-alpha.0
 │   └── oversight-server/        # @lexitsp/oversight-server@0.1.0-alpha.0

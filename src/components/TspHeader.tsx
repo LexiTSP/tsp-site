@@ -83,7 +83,7 @@ export function TspHeader() {
             role="img"
           />
           <span className="font-medium text-ink tracking-tight text-[1.05rem]">TSP</span>
-          <span className="font-mono text-xs text-muted">v3.0.0-alpha.5 spec</span>
+          <span className="font-mono text-xs text-muted">v3.0.0-alpha.6 spec</span>
         </Link>
 
         <nav className="hidden lg:flex items-center gap-1 text-sm">

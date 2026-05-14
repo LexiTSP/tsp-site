@@ -83,7 +83,7 @@ examples/pilot
 2. **First push triggers GitHub Actions** on tsp-site if `.github/workflows/` was copied across. Verify the release gate passes.
 3. **Publish sdk and trustbadge-react to npm.** Run `bun publish --dry-run` first to confirm package metadata is correct.
 4. **Verify externally.** Fresh clone of `lexitsp/tsp-site` on a different machine, `bun install && bun run check:release` from zero. In the public repo this is the public-only gate: site build, SDK/TrustBadge tests, claim-lint, manifest check, interop fixtures, package smoke and production-start smoke.
-5. **Tag releases.** `git tag -a v3.0.0-alpha.5 -m "Public alpha"` in each repo, then `git push --tags`.
+5. **Tag releases.** `git tag -a v3.0.0-alpha.6 -m "Public alpha"` in each repo, then `git push --tags`.
 
 ## When to re-run
 

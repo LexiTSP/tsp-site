@@ -30,7 +30,7 @@ export function generateStaticParams() {
 }
 
 const SITE_URL =
-  process.env.NEXT_PUBLIC_TSP_SITE_URL ?? "https://truststandardprotocol.org";
+  process.env.NEXT_PUBLIC_TSP_SITE_URL ?? "https://truststandardprotocol.com";
 
 export async function generateMetadata({
   params,

@@ -3,7 +3,7 @@
 > **Åpen spesifikasjon og referanseimplementasjon for kryptografisk etterprøvbar AI-proveniens.**
 > Spor hvert AI-svar tilbake til kilden. Bevis at det er uendret.
 
-Dette repoet er en **standalone TSP-workspace** for TSP (`truststandardprotocol.org`): nettstedet ligger i roten, og SDK, TrustBadge og plattform-modulene ligger i `./packages/`.
+Dette repoet er en **standalone TSP-workspace** for TSP (`truststandardprotocol.com`): nettstedet ligger i roten, og SDK, TrustBadge og plattform-modulene ligger i `./packages/`.
 
 ---
 
@@ -216,7 +216,7 @@ Alle sider finnes på norsk (default) og engelsk (`/en/...`).
 
 Neste reelle v1.0-steg er Gate A: en navngitt ekstern organisasjon signerer en TrustEnvelope med egen nøkkel og egen DNS-hostet manifest uten LexiCo-skrevet integrasjonskode. `@lexitsp/sdk@3.0.0-alpha.5` er freeze candidate frem til den signaturen finnes.
 
-Canonical public domain er `https://truststandardprotocol.org`. `truststandardprotocol.com` bør redirecte dit, og `tsp.lexico.no` kan beholdes som LexiCo-eid teknisk alias for manifest/redirect. Public GitHub-splitt er tre repoer: `lexitsp/tsp-site`, `lexitsp/sdk` og `lexitsp/trustbadge-react`; kommersielle backend-pakker holdes private/interne i alpha.
+Canonical public domain er `https://truststandardprotocol.com`. `truststandardprotocol.org` kan redirecte dit hvis domenet brukes defensivt, og `tsp.lexico.no` kan beholdes som LexiCo-eid teknisk alias for manifest/redirect. Public GitHub-splitt er tre repoer: `LexiTSP/tsp-site`, `LexiTSP/sdk` og `LexiTSP/trustbadge-react`; kommersielle backend-pakker holdes private/interne i alpha.
 
 ---
 

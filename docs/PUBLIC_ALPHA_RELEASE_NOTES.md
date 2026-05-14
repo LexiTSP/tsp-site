@@ -14,7 +14,7 @@ Date: 2026-05-13
 
 ## Manual External Dependencies
 
-Julian owns DNS, GitHub repository setup, npm scope/package publish and production hosting. Canonical public domain is `https://truststandardprotocol.org`; `truststandardprotocol.com` should redirect there and `tsp.lexico.no` remains a LexiCo-owned technical alias. After those are done, run the external install smoke from a clean machine.
+Julian owns DNS, GitHub repository setup, npm scope/package publish and production hosting. Canonical public domain is `https://truststandardprotocol.com`; `truststandardprotocol.org` can redirect there if used defensively and `tsp.lexico.no` remains a LexiCo-owned technical alias. After those are done, run the external install smoke from a clean machine.
 
 Public GitHub shape:
 

@@ -117,7 +117,7 @@ write_files:
     content: |
       [Unit]
       Description=TSP Public Alpha Site (Next.js via Bun)
-      Documentation=https://truststandardprotocol.org
+      Documentation=https://truststandardprotocol.com
       After=network-online.target
       Wants=network-online.target
 

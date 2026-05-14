@@ -18,7 +18,7 @@ End state: an empty server ready to receive `git clone` and a Cloudflare Origin 
 - A Hetzner Cloud account with a project created
 - A Hetzner Cloud API token (Read & Write)
 - An SSH ed25519 keypair you own
-- (Optional) A Cloudflare account with the zone for `truststandardprotocol.org` added and nameservers pointed at CF
+- (Optional) A Cloudflare account with the zone for `truststandardprotocol.com` added and nameservers pointed at CF
 - (Optional) A Cloudflare API token with `Zone:DNS:Edit + Zone:Zone Settings:Edit`
 
 ## 1 · Initial provisioning (≈3 minutes)
@@ -47,7 +47,7 @@ If `NOT-READY`, watch progress with: `ssh root@<ip> 'tail -f /var/log/cloud-init
 
 ## 2 · Cloudflare DNS (skip if `manage_cloudflare_dns = true`)
 
-In the Cloudflare dashboard for `truststandardprotocol.org`:
+In the Cloudflare dashboard for `truststandardprotocol.com`:
 
 1. DNS → Add A record `@` → IPv4 from `terraform output server_ipv4` → **Proxied (orange cloud)**
 2. DNS → Add AAAA record `@` → IPv6 from `terraform output server_ipv6` → **Proxied**
@@ -60,7 +60,7 @@ In the Cloudflare dashboard for `truststandardprotocol.org`:
 The Caddyfile requires `/etc/ssl/cloudflare-origin.pem` and `/etc/ssl/cloudflare-origin-key.pem`. Generate the cert in Cloudflare and paste it to the server:
 
 1. CF dashboard → SSL/TLS → **Origin Server** → **Create Certificate**
-   - Hostnames: `truststandardprotocol.org`, `*.truststandardprotocol.org`
+   - Hostnames: `truststandardprotocol.com`, `*.truststandardprotocol.com`
    - Validity: **15 years**
    - Type: **ECC** (P-256)
 2. Copy the displayed certificate (PEM, including `-----BEGIN CERTIFICATE-----`) to a local file `origin.pem`
@@ -101,8 +101,8 @@ sudo systemctl status tsp-site --no-pager
 Verify externally:
 
 ```bash
-curl -fsS https://truststandardprotocol.org/.well-known/tsp-manifest.json \
-  | jq -e '.tsp == "3.0" and .organization.domain == "truststandardprotocol.org" and (.rootSignatureOverManifest | type == "string")'
+curl -fsS https://truststandardprotocol.com/.well-known/tsp-manifest.json \
+  | jq -e '.tsp == "3.0" and .organization.domain == "truststandardprotocol.com" and (.rootSignatureOverManifest | type == "string")'
 ```
 
 ## 5 · Lock down SSH
@@ -121,7 +121,7 @@ Add these secrets to the `tsp-site` GitHub repo (Settings → Secrets and variab
 |---|---|
 | `DEPLOY_HOST` | `terraform output -raw server_ipv4` |
 | `DEPLOY_SSH_KEY` | Contents of `~/.ssh/id_ed25519` (private key matching the public key in `terraform.tfvars`) |
-| `SITE_DOMAIN` | `truststandardprotocol.org` |
+| `SITE_DOMAIN` | `truststandardprotocol.com` |
 
 Then every `git push origin main` triggers the release-gate workflow: claim-lint + interop + build/tests + production-start smoke. Only after that passes does it SSH to the server, pull, rebuild, and restart the systemd unit. See `.github/workflows/deploy.yml`.
 

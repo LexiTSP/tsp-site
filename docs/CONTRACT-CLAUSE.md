@@ -59,7 +59,7 @@ Hele TrustEnvelope skal være kryptografisk signert med en algoritme og nøkkell
 
 Leverandøren skal enten:
 
-a) implementere TSP Trust Standard Protocol som beskrevet i den til enhver tid gjeldende offentlige spesifikasjonen (CC-BY 4.0), tilgjengelig på `https://truststandardprotocol.org/spec`, eller
+a) implementere TSP Trust Standard Protocol som beskrevet i den til enhver tid gjeldende offentlige spesifikasjonen (CC-BY 4.0), tilgjengelig på `https://truststandardprotocol.com/spec`, eller
 
 b) dokumentere en egen implementasjon som er funksjonelt ekvivalent, og som tillater verifikasjon med samme grad av åpenhet, uavhengighet og kryptografisk integritet som TSP-standarden, herunder:
 
@@ -130,7 +130,7 @@ The entire TrustEnvelope shall be cryptographically signed using an algorithm an
 
 The Provider shall either:
 
-a) implement the TSP Trust Standard Protocol as described in the public specification in force from time to time (CC-BY 4.0), available at `https://truststandardprotocol.org/spec`, or
+a) implement the TSP Trust Standard Protocol as described in the public specification in force from time to time (CC-BY 4.0), available at `https://truststandardprotocol.com/spec`, or
 
 b) document a proprietary implementation that is functionally equivalent and that permits verification with the same degree of openness, independence and cryptographic integrity as the TSP standard, including:
 
@@ -179,7 +179,7 @@ For mindre kontrakter eller når juridisk overhead må holdes nede:
 
 ### Norsk
 
-«Leverandøren skal levere hver AI-utgang som omfattes av denne avtalen som en kryptografisk signert envelope inneholdende kilde-erklæring, prosess-logg, alignment-metadata og hash-kjedet tidsstempel, kompatibel med TSP-spesifikasjonen (`https://truststandardprotocol.org/spec`) eller funksjonelt ekvivalent åpen standard.
+«Leverandøren skal levere hver AI-utgang som omfattes av denne avtalen som en kryptografisk signert envelope inneholdende kilde-erklæring, prosess-logg, alignment-metadata og hash-kjedet tidsstempel, kompatibel med TSP-spesifikasjonen (`https://truststandardprotocol.com/spec`) eller funksjonelt ekvivalent åpen standard.
 
 Kunden skal ha rett til å verifisere envelopes uten tilgang til Leverandørens infrastruktur, og til å motta komplette envelopes for et representativt utvalg utganger for revisjons- og tilsyns­formål.
 
@@ -187,7 +187,7 @@ Ved kontrakts­opphør skal Leverandøren levere ut alle envelopes signert under
 
 ### English
 
-"The Provider shall deliver each AI output covered by this Agreement as a cryptographically signed envelope containing source declaration, process log, alignment metadata and a hash-chained timestamp, compatible with the TSP specification (`https://truststandardprotocol.org/spec`) or a functionally equivalent open standard.
+"The Provider shall deliver each AI output covered by this Agreement as a cryptographically signed envelope containing source declaration, process log, alignment metadata and a hash-chained timestamp, compatible with the TSP specification (`https://truststandardprotocol.com/spec`) or a functionally equivalent open standard.
 
 The Customer shall have the right to verify envelopes without access to the Provider's infrastructure, and to receive complete envelopes for a representative sample of outputs for audit and supervision purposes.
 
@@ -268,7 +268,7 @@ Den kritiske egenskapen i §X.4: kravet er *funksjonelt ekvivalent åpen standar
 
 ## Kilder og referanser
 
-- TSP Spesifikasjon: `https://truststandardprotocol.org/spec`
+- TSP Spesifikasjon: `https://truststandardprotocol.com/spec`
 - AI Act Art. 12 (logging): https://artificialintelligenceact.eu/article/12/
 - AI Act Art. 13 (transparens): https://artificialintelligenceact.eu/article/13/
 - ETSI EN 319 411-2 (signaturkrav): standard for elektroniske signaturer

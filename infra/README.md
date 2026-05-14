@@ -1,6 +1,6 @@
 # TSP Infrastructure
 
-Reproducible Hetzner Cloud + Cloudflare deployment for `truststandardprotocol.org` public-alpha and the commercial backend pilots.
+Reproducible Hetzner Cloud + Cloudflare deployment for `truststandardprotocol.com` public-alpha and the commercial backend pilots.
 
 Charter §1 (sovereign-by-default) and §9 (standalone first) apply: no managed-service lock-in, every step here can be reproduced by a third-party operator from this repo alone.
 

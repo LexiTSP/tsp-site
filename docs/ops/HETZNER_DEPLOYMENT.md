@@ -1,6 +1,6 @@
 # Hetzner Deployment Guide — TSP Public Alpha
 
-> Hosting-strategi for `truststandardprotocol.org` og kommersielle backend-piloter (Risk/Evidence/Oversight/Control Plane). Skrevet for TSP-stakken: Bun + Hono + bun:sqlite + Next.js 15. Charter §1 (sovereign-by-default) og §5 (åpen referanse) tas på alvor — ingen managed-service lock-in.
+> Hosting-strategi for `truststandardprotocol.com` og kommersielle backend-piloter (Risk/Evidence/Oversight/Control Plane). Skrevet for TSP-stakken: Bun + Hono + bun:sqlite + Next.js 15. Charter §1 (sovereign-by-default) og §5 (åpen referanse) tas på alvor — ingen managed-service lock-in.
 
 ---
 
@@ -16,7 +16,7 @@
 
 - **EU-soil narrative.** Falkenstein/Nürnberg/Helsinki. For en EU AI Act-positionert protokoll er det fortelleringsmessig pluss, ikke minus.
 - **Pris/ytelse.** Selv etter april-2026-økningen er Hetzner ~3× billigere enn DigitalOcean på sammenlignbare specs. Hele TSP-stacken (site + manifest + tre kommersielle backend-moduler) holder seg trygt under 5000 NOK/mnd-rammen.
-- **Full TLS-kontroll.** Du eier sertifikatet på origin. Det betyr noe når dere senere aktiverer DANE/TLSA på `truststandardprotocol.org` — managed-PaaS-er som Vercel og Cloudflare Pages tar den kontrollen fra deg.
+- **Full TLS-kontroll.** Du eier sertifikatet på origin. Det betyr noe når dere senere aktiverer DANE/TLSA på `truststandardprotocol.com` — managed-PaaS-er som Vercel og Cloudflare Pages tar den kontrollen fra deg.
 - **Bun + Hono + bun:sqlite passer som hånd i hanske.** Én prosess, én disk, ingen managed-service-shopping. Det er nettopp arkitekturen Hetzner Cloud er bygd for.
 - **Generøs traffic-allowance.** 20 TB/mnd inkludert på EU-plans dekker alpha- og pilot-skala uten å tenke på det.
 
@@ -46,7 +46,7 @@ I tillegg finnes:
 
 ### TSP-spesifikke valg
 
-**Public-alpha site + manifest-origin (`truststandardprotocol.org`):**
+**Public-alpha site + manifest-origin (`truststandardprotocol.com`):**
 > CCX13 i Falkenstein (FSN1) eller Helsinki (HEL1). 2 dedicated vCPU, 8 GB RAM, 80 GB NVMe. Ca. €15-17/mnd post-økning. Dedikert vCPU er overkill teknisk men gjør at signatur/canonicalize-throughput er forutsigbart — viktig når en revisor benchmarker mot deres egen kjøretid.
 
 **Risk/Evidence/Oversight/Control Plane backend-piloter:**
@@ -201,7 +201,7 @@ sudo apt install -y caddy
 `/etc/caddy/Caddyfile`:
 
 ```caddy
-truststandardprotocol.org {
+truststandardprotocol.com {
   # Cloudflare Origin Certificate
   tls /etc/ssl/cloudflare-origin.pem /etc/ssl/cloudflare-origin-key.pem {
     client_auth {
@@ -255,7 +255,7 @@ sudo journalctl -u tsp-site -f
 
 I Cloudflare-dashbordet:
 
-1. Add site → `truststandardprotocol.org` → endre nameservers hos registrar.
+1. Add site → `truststandardprotocol.com` → endre nameservers hos registrar.
 2. DNS: A-record `@` → Hetzner-IP, **Proxied (orange cloud)**.
 3. SSL/TLS → **Full (strict)**.
 4. SSL/TLS → Edge Certificates → enable **Always Use HTTPS**, **HSTS** (max-age 6mnd, includeSubdomains, preload).
@@ -341,7 +341,7 @@ Crontab:
 
 ### 7.1 Manifest-endepunktets pålitelighet er protokollens pålitelighet
 
-Hver ekstern verifier som kjører `verifyLocal()` fetcher `truststandardprotocol.org/.well-known/tsp-manifest.json`. Hvis det er nede, er TSP-demoen nede.
+Hver ekstern verifier som kjører `verifyLocal()` fetcher `truststandardprotocol.com/.well-known/tsp-manifest.json`. Hvis det er nede, er TSP-demoen nede.
 
 - Cloudflare-cache + stale-while-revalidate gir 0 ms svar selv ved origin-feil.
 - Vurder å parallellpublisere på `tsp.lexico.no` (LexiCo-eid teknisk alias) med samme manifest og DNS-failover via Cloudflare Load Balancer.
@@ -377,7 +377,7 @@ Bytt arkitektur når én av disse trigges:
 | Trigger | Neste steg |
 |---|---|
 | Første betalende pilot signert | Bytt til AX-line dedicated, separat boks per kunde-pilot |
-| Norsk offentlig sektor i pilot-stadiet | Vurder NORSK-eid hosting (Basefarm, IT-Bedriften, Powertech) for *deres* deployment — behold Hetzner for `truststandardprotocol.org` |
+| Norsk offentlig sektor i pilot-stadiet | Vurder NORSK-eid hosting (Basefarm, IT-Bedriften, Powertech) for *deres* deployment — behold Hetzner for `truststandardprotocol.com` |
 | >100 req/s sustained mot manifest | Behold arkitektur, men eksporter manifest til R2 + Cloudflare-rute direkte fra R2 (slutt å hit Hetzner-origin) |
 | Multi-tenant control-plane skal være public-SaaS | Da må dere ha managed Postgres et sted (Neon, Supabase, eller Hetzner Managed Database når det modnes) |
 | Datatilsynet eller revisor kommenterer hosting-valg | Da har dere et reelt datapunkt og kan ta beslutningen informert |
@@ -407,9 +407,9 @@ sudo systemctl restart tsp-site
 
 ### Health-check
 ```bash
-curl -fsS https://truststandardprotocol.org/.well-known/tsp-manifest.json \
-  | jq -e '.tsp == "3.0" and .organization.domain == "truststandardprotocol.org" and (.rootSignatureOverManifest | type == "string")'
-curl -fsS https://truststandardprotocol.org/api/health  # når implementert
+curl -fsS https://truststandardprotocol.com/.well-known/tsp-manifest.json \
+  | jq -e '.tsp == "3.0" and .organization.domain == "truststandardprotocol.com" and (.rootSignatureOverManifest | type == "string")'
+curl -fsS https://truststandardprotocol.com/api/health  # når implementert
 ```
 
 ### Backup-verifikasjon
@@ -429,7 +429,7 @@ sudo /usr/local/bin/refresh-cf-ips.sh
 ## 10. Footguns spesifikke for Hetzner
 
 - **Konto-suspensjon uten varsel.** Verifiser virksomheten din i Hetzner-kontoen så tidlig som mulig (last opp LexiCo AS-registrering). Verifiserte business-accounts har vesentlig lavere suspensjons-rate.
-- **Abuse-rapporter.** Hetzner videresender alt automatisk. Hold en aktiv abuse@truststandardprotocol.org og svar innen 24 timer på alt. Ikke-respons = automatisk suspensjon.
+- **Abuse-rapporter.** Hetzner videresender alt automatisk. Hold en aktiv abuse@truststandardprotocol.com og svar innen 24 timer på alt. Ikke-respons = automatisk suspensjon.
 - **Backup på samme konto er ikke backup.** Repeterer for syvende gang. R2 eller B2 utenfor Hetzner.
 - **Cloud Backup-feature sletter ved server-cancel.** Hvis dere oppgraderer/migrerer en server, EXPORT først til snapshot, så cancel.
 - **Storage Box ≠ encrypted-at-rest av default.** Krypter klientside før upload (eksempel-scriptet over gjør det med gpg).
@@ -446,7 +446,7 @@ sudo /usr/local/bin/refresh-cf-ips.sh
 | Hetzner Cloud Backups (begge servere) | +20% | ~€10 |
 | Cloudflare Free plan | — | €0 |
 | Cloudflare R2 (10 GB backups, 100 GB egress) | — | ~€1 |
-| Cloudflare-domener (truststandardprotocol.org + .com redirect) | — | ~€10/år |
+| Cloudflare-domener (truststandardprotocol.com + optional .org redirect) | — | ~€10/år |
 | **Sum (cloud + backup-egress)** | | **~€60/mnd** |
 
 Til sammenligning: tilsvarende setup på Vercel Pro + Supabase + Cloudflare R2 ville være €60-100/mnd kun for én av tjenestene. Hetzner-rammen lar dere holde charterets «under 5000 NOK/mnd»-disiplin selv etter at backend-piloter er live.

@@ -181,7 +181,7 @@ Hvis du vurderer en TSP-implementasjon i et annet språk: ta kontakt tidlig. Vi 
 
 ## 13 · Contact and resources
 
-- **Spec:** `https://truststandardprotocol.org/spec` and `github.com/lexitsp/spec`
+- **Spec:** `https://truststandardprotocol.com/spec` and `github.com/lexitsp/spec`
 - **Test vectors:** `spec/test-vectors/3.0/`
 - **Reference SDK:** `github.com/lexitsp/sdk`
 - **RFC process:** `docs/SPEC-GOVERNANCE.md`

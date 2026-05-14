@@ -19,7 +19,7 @@
     "build": "tsup src/index.ts --format esm --dts --out-dir dist --clean --external react --external react-dom --external @lexitsp/sdk"
   },
   "keywords": ["tsp", "trust-standard-protocol", "trustbadge", "react", "ai-governance"],
-  "homepage": "https://truststandardprotocol.org",
+  "homepage": "https://truststandardprotocol.com",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/LexiTSP/trustbadge-react.git"

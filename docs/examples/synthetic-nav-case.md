@@ -2,7 +2,7 @@
 
 > En reproduserbar Proof-tier demo: tre AI-svar i en saksbehandlings­flyt, alle wrappet med TSP, klare for stikkprøve-revisjon. Ingen ekte borger­data, ingen avhengighet til eksterne produkter — kun for demo og opplæring.
 >
-> Brukes til: dev-demoer, audit-walkthroughs, intern opplæring, ekstern verifisering. Hver envelope kan kopieres og kjøres gjennom `verifyLocal` på `https://truststandardprotocol.org/playground` eller via SDK.
+> Brukes til: dev-demoer, audit-walkthroughs, intern opplæring, ekstern verifisering. Hver envelope kan kopieres og kjøres gjennom `verifyLocal` på `https://truststandardprotocol.com/playground` eller via SDK.
 
 ---
 
@@ -22,7 +22,7 @@ Hver envelope kjedes til den forrige. Sammen utgjør de en hash-kjedet hendelses
 
 ```json
 {
-  "@context": "https://truststandardprotocol.org/contexts/tsp-3.0.jsonld",
+  "@context": "https://truststandardprotocol.com/contexts/tsp-3.0.jsonld",
   "version": "TSP/3.0",
   "envelopeId": "env-synth-001",
   "issuedAt": "2026-05-09T08:14:22.000Z",
@@ -66,7 +66,7 @@ Hver envelope kjedes til den forrige. Sammen utgjør de en hash-kjedet hendelses
       "value": "base64:zXk9P2vQ7..."
     }
   ],
-  "manifestRef": "https://truststandardprotocol.org/.well-known/tsp-manifest.json"
+  "manifestRef": "https://truststandardprotocol.com/.well-known/tsp-manifest.json"
 }
 ```
 
@@ -81,7 +81,7 @@ Hver envelope kjedes til den forrige. Sammen utgjør de en hash-kjedet hendelses
 
 ```json
 {
-  "@context": "https://truststandardprotocol.org/contexts/tsp-3.0.jsonld",
+  "@context": "https://truststandardprotocol.com/contexts/tsp-3.0.jsonld",
   "version": "TSP/3.0",
   "envelopeId": "env-synth-002",
   "issuedAt": "2026-05-09T08:14:38.000Z",
@@ -139,7 +139,7 @@ Hver envelope kjedes til den forrige. Sammen utgjør de en hash-kjedet hendelses
       "value": "base64:Q7zXk9P2vQ..."
     }
   ],
-  "manifestRef": "https://truststandardprotocol.org/.well-known/tsp-manifest.json"
+  "manifestRef": "https://truststandardprotocol.com/.well-known/tsp-manifest.json"
 }
 ```
 
@@ -155,7 +155,7 @@ Hver envelope kjedes til den forrige. Sammen utgjør de en hash-kjedet hendelses
 
 ```json
 {
-  "@context": "https://truststandardprotocol.org/contexts/tsp-3.0.jsonld",
+  "@context": "https://truststandardprotocol.com/contexts/tsp-3.0.jsonld",
   "version": "TSP/3.0",
   "envelopeId": "env-synth-003",
   "issuedAt": "2026-05-09T08:15:04.000Z",
@@ -202,7 +202,7 @@ Hver envelope kjedes til den forrige. Sammen utgjør de en hash-kjedet hendelses
       "value": "base64:vQ7zXk9P2..."
     }
   ],
-  "manifestRef": "https://truststandardprotocol.org/.well-known/tsp-manifest.json"
+  "manifestRef": "https://truststandardprotocol.com/.well-known/tsp-manifest.json"
 }
 ```
 
@@ -218,7 +218,7 @@ Hver envelope kjedes til den forrige. Sammen utgjør de en hash-kjedet hendelses
 
 ### A · Verifiser i playground (30 sekunder)
 
-1. Gå til `https://truststandardprotocol.org/playground`
+1. Gå til `https://truststandardprotocol.com/playground`
 2. Klikk **«Importer envelope»**
 3. Lim inn JSON for envelope #2 (eller alle tre)
 4. Klikk **«Verifiser»**

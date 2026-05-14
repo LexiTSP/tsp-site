@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 
 const SITE_URL =
-  process.env.NEXT_PUBLIC_TSP_SITE_URL ?? "https://truststandardprotocol.org";
+  process.env.NEXT_PUBLIC_TSP_SITE_URL ?? "https://truststandardprotocol.com";
 
 export default function robots(): MetadataRoute.Robots {
   return {

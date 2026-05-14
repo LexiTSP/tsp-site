@@ -141,7 +141,7 @@ jobs:
       - name: External smoke test
         if: ${{ inputs.skip_smoke != true }}
         run: |
-          DOMAIN="${{ secrets.SITE_DOMAIN }}"
+          export DOMAIN="${{ secrets.SITE_DOMAIN }}"
           for i in 1 2 3 4 5; do
             STATUS=$(curl -fsS -o /tmp/manifest.json -w "%{http_code}" \
               "https://$DOMAIN/.well-known/tsp-manifest.json" || echo "000")

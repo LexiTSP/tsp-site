@@ -20,8 +20,8 @@ export async function generateMetadata({
   const isEn = locale === "en";
   return {
     title: isEn
-      ? "TSP API reference — @lexitsp/sdk v3.0.0-alpha.4"
-      : "TSP API-referanse — @lexitsp/sdk v3.0.0-alpha.4",
+      ? "TSP API reference — @lexitsp/sdk v3.0.0-alpha.5"
+      : "TSP API-referanse — @lexitsp/sdk v3.0.0-alpha.5",
     description: isEn
       ? "Practical guide to @lexitsp/sdk v3: wrap, verifyLocal, manifest PKI, RFC 3161 TSA and DANE binding."
       : "Praktisk guide til @lexitsp/sdk v3: wrap, verifyLocal, manifest-PKI, RFC 3161 TSA og DANE-binding.",
@@ -39,7 +39,7 @@ export default async function DocsPage({
   return (
     <div className="tsp-container py-12">
       <div className="tsp-eyebrow text-brand mb-2">
-        {isEn ? "Documentation · v3.0.0-alpha.4" : "Dokumentasjon · v3.0.0-alpha.4"}
+        {isEn ? "Documentation · v3.0.0-alpha.5" : "Dokumentasjon · v3.0.0-alpha.5"}
       </div>
       <h1 className="text-4xl font-bold mb-3">
         {isEn ? "TSP — API reference" : "TSP — API-referanse"}

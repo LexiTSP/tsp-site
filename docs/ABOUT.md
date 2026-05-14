@@ -262,8 +262,8 @@ Status per 2026-05-13 (alpha-launch-ready bundle, **223 grønne tester** totalt 
 
 | Sub-prosjekt | Versjon | Tester | Status |
 |---|---|---|---|
-| `@lexitsp/sdk` (Protokoll v3) | 3.0.0-alpha.4 | 101 | Phase 1+2+3 + I-pluss komplett |
-| `@lexitsp/trustbadge-react` | 0.2.0 | 24 | MIT, publish-klar |
+| `@lexitsp/sdk` (Protokoll v3) | 3.0.0-alpha.5 | 101 | Phase 1+2+3 + I-pluss komplett |
+| `@lexitsp/trustbadge-react` | 0.2.1 | 24 | MIT, publish-klar |
 | `@lexitsp/risk-server` | 0.1.0-alpha.1 | 31 | Kommersiell lisens |
 | `@lexitsp/evidence-server` | 0.1.0-alpha.0 | 30 | Kommersiell lisens |
 | `@lexitsp/oversight-server` | 0.1.0-alpha.0 | 23 | Kommersiell lisens, charter §7 i 3 lag |

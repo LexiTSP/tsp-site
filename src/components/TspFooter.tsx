@@ -30,7 +30,7 @@ export function TspFooter() {
             {t("tagline")}
           </p>
           <div className="flex gap-2 flex-wrap text-xxs">
-            <span className="tsp-pill">v3.0.0-alpha.4</span>
+            <span className="tsp-pill">v3.0.0-alpha.5</span>
             <span className="tsp-pill tsp-pill--warn">{t("alpha")}</span>
             <span className="tsp-pill">Free standard</span>
           </div>

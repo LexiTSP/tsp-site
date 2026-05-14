@@ -298,7 +298,7 @@ TSP/                             # bun-workspace root + nettsted
 | ----------------------------------- | -------------------------------------- | -------------------------- |
 | `@lexitsp/sdk`                      | MIT                                    | npm (publish-klar)         |
 | `@lexitsp/trustbadge-react`         | MIT                                    | npm (publish-klar)         |
-| Spec (TSP-protokollen)              | CC-BY 4.0                              | github.com/Lexi-Co/*       |
+| Spec (TSP-protokollen)              | CC-BY 4.0                              | github.com/LexiTSP/*       |
 | Risk / Evidence / Oversight servers | Kommersiell lisens                     | LexiCo-hostet eller on-prem |
 
 Sovereign-first: standarden kan kjøres uten LexiCo. De ferdige plattformmodulene kan leveres hosted eller on-prem under kommersiell lisens.

@@ -341,7 +341,7 @@ Test-strategi: `vitest` for SDK + TrustBadge, `bun test` for backends (vitest-vi
 |---|---|---|
 | `@lexitsp/sdk` | MIT | npm (publish-klar) |
 | `@lexitsp/trustbadge-react` | MIT | npm (publish-klar) |
-| TSP spesifikasjon | CC-BY 4.0 | github.com/Lexi-Co/* + `/spec` på sitet |
+| TSP spesifikasjon | CC-BY 4.0 | github.com/LexiTSP/* + `/spec` på sitet |
 | Risk / Evidence / Oversight | Kommersiell lisens; kildekode tilgjengelig for lisensierte kunder | LexiCo-hostet eller on-prem |
 
 Sovereign-first: standarden kan implementeres uten LexiCo. Ferdige LexiCo-verktøy kan leveres hosted eller on-prem under kommersiell lisens.

@@ -78,7 +78,7 @@ export function TspFooter() {
             <FooterLink href="/kontakt" label={t("linkContact")} strong />
             <li>
               <a
-                href="https://github.com/Lexi-Co"
+                href="https://github.com/LexiTSP"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-ink inline-flex items-center gap-1.5 no-underline"

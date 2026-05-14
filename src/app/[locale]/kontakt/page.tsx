@@ -135,7 +135,7 @@ export default async function KontaktPage({
           <strong className="text-ink">{t("metaCompany")}</strong> {t("metaCompanyValue")}
         </span>
         <a
-          href="https://github.com/Lexi-Co"
+          href="https://github.com/LexiTSP"
           target="_blank"
           rel="noopener noreferrer"
           className="hover:text-brand inline-flex items-center gap-1"

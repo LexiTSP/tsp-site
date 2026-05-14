@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "TSP — Trust Standard Protocol. Open specification and public site for cryptographically verifiable AI provenance.",
+  "description": "TSP — Trust Standard Protocol. Open specification and public site for AI provenance checked with signatures, hashes, and manifests.",
   "workspaces": [
     "packages/lexitsp-sdk",
     "packages/trustbadge-react"

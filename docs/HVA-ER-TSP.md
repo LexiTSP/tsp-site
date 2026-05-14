@@ -203,7 +203,7 @@ Det som fortsatt ikke bør overselges:
 - Risk er ikke et ferdig SaaS-dashboard.
 - Evidence er ikke en ferdig "one button PDF to auditor"-opplevelse.
 - Oversight har alpha-portal, men ikke en polert reviewer-suite.
-- Hosted Studio og full self-serve SaaS er fortsatt planlagt, ikke ferdig shipped.
+- Full self-serve SaaS er fortsatt planlagt, ikke ferdig shipped; alpha-fokuset er hosted pilot og operatørstyrt control plane.
 - Ekstern release krever fortsatt public GitHub/npm/domain/manifest-hosting og launch-herding.
 
 Den mest realistiske kommersielle pakken nå er en smal **TSP Tools Pilot**: ett kundeløp, ett AI-workflow, Risk ingest, Oversight review og Evidence dossier.

@@ -3,7 +3,7 @@
 TSP is split into two zones:
 
 - Open standard zone: spec, `@lexitsp/sdk`, TrustBadge, examples, docs, and local verification tooling.
-- Commercial tools zone: Risk, Evidence, Oversight, and future hosted Studio workflows.
+- Commercial tools zone: Risk, Evidence, Oversight, and hosted pilot operations.
 
 Contributions should preserve that boundary. The open standard must stay useful without LexiCo-hosted infrastructure.
 
@@ -31,18 +31,18 @@ Charter §6 is the practical review rule: language must match what the code actu
 
 Avoid claims such as:
 
-- "HTTPS for AI"
-- "Proof of compliance"
+- transport-protocol metaphors that TSP does not implement
+- unsupported proof or compliance guarantees
 - "Production-ready" for alpha modules
-- Finished hosted Studio or dashboard claims before those flows exist
+- Finished self-serve SaaS or dashboard claims before those flows exist
 
 Prefer concrete language:
 
 - "Signed TrustEnvelope"
-- "Verifiable AI provenance"
+- "AI provenance that recipients can check against signatures, hashes, and manifests"
 - "Local verify"
 - "Paid pilot backend"
-- "Planned hosted workspace"
+- "Hosted pilot alpha"
 
 ## Pull Request Checklist
 

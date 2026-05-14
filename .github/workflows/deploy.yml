@@ -67,6 +67,7 @@ jobs:
           path: |
             .next/
             !.next/cache
+          if-no-files-found: ignore
           retention-days: 7
 
   # ────────────────────────────────────────────────────────────────────────
@@ -81,7 +82,7 @@ jobs:
     timeout-minutes: 10
     environment:
       name: production
-      url: https://truststandardprotocol.org
+      url: https://truststandardprotocol.com
 
     steps:
       - name: Configure SSH

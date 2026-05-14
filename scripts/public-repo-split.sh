@@ -206,6 +206,19 @@ done
 rewrite_public_site_package "$OUTPUT_DIR/tsp-site"
 ok "tsp-site package.json rewritten for public-only release gate"
 
+if command -v bun >/dev/null; then
+  bun install >/dev/null
+  ok "tsp-site public lockfile refreshed"
+else
+  warn "bun not installed — package.json changed but lockfile was not refreshed"
+fi
+
+if ! git diff --quiet; then
+  git add package.json bun.lock bun.lockb 2>/dev/null || git add package.json bun.lock
+  git commit -m "Prepare public tsp-site package metadata" >/dev/null
+  ok "tsp-site public package metadata committed"
+fi
+
 SIZE=$(du -sh . 2>/dev/null | cut -f1)
 COMMITS=$(git rev-list --count HEAD)
 ok "tsp-site:    $SIZE, $COMMITS commits, no private path leaks"

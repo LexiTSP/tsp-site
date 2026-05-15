@@ -1,0 +1,74 @@
+{
+  "tsp": "3.0",
+  "content": {
+    "type": "text",
+    "value": "This response is a TSP v3.0 candidate interop fixture.",
+    "hash": "29115eaa9189dbf73f97add55ab6b54d6a587049c0968e623f38d8b6241383c2"
+  },
+  "declaration": {
+    "primarySource": {
+      "type": "official-document",
+      "url": "https://adopter.example/policies/source-a",
+      "title": "External adopter source policy",
+      "retrieved": "2026-05-13T00:00:00.000Z"
+    },
+    "citations": [
+      {
+        "url": "https://adopter.example/policies/source-a#section-1",
+        "paragraph": "1",
+        "quote": "Fixture source quote for interop testing.",
+        "retrieved": "2026-05-13T00:00:00.000Z"
+      }
+    ]
+  },
+  "process": {
+    "model": {
+      "name": "fixture-model",
+      "version": "1",
+      "provider": "external-adopter-example",
+      "temperature": 0,
+      "contextWindow": 8192
+    },
+    "systemPrompt": {
+      "hash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "text": "Return only the fixture response."
+    },
+    "pipeline": [
+      {
+        "name": "fixture-generation",
+        "durationMs": 12,
+        "meta": {
+          "deterministicFixture": true
+        }
+      }
+    ]
+  },
+  "alignment": {
+    "uncertainty": [],
+    "flags": [],
+    "humanReviewRequired": false,
+    "policy": {
+      "id": "fixture-policy",
+      "version": "1.0"
+    }
+  },
+  "timestamp": {
+    "claimed": "2026-05-13T00:00:00.000Z",
+    "tsaToken": "__phase1__",
+    "tsaUrl": "https://placeholder.invalid/phase1"
+  },
+  "ledger": {
+    "id": "019e1d3b-4000-7000-8000-000000000001",
+    "prevHash": "0000000000000000000000000000000000000000000000000000000000000000",
+    "hash": "1f48e9bba11e73f12df814068774c52a55ff87b093c528d881541849854b3301"
+  },
+  "signatures": [
+    {
+      "role": "instance",
+      "algorithm": "ed25519",
+      "keyRef": "https://adopter.example/.well-known/tsp-manifest.json#adopter-instance-1",
+      "signature": "05Jz+3sZOixA+vWNgvxo95tDv5fRxBdFw6ZBtXf4W0LC/oD8YuaUCKwUqHzZ6u1xEng0gFSyehv3G04kT7n/Aw=A",
+      "certChain": []
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "name": "@lexitsp/trustbadge-react",
+  "version": "0.2.2",
+  "description": "React TrustBadge component for Trust Standard Protocol envelopes.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./styles.css": "./src/styles.css"
+  },
+  "sideEffects": ["**/*.css"],
+  "files": ["dist", "src/styles.css", "README.md", "LICENSE", "CHANGELOG.md"],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm --dts --out-dir dist --clean --external react --external react-dom --external @lexitsp/sdk",
+    "test": "vitest run"
+  },
+  "keywords": ["tsp", "trust-standard-protocol", "trustbadge", "react", "ai-governance"],
+  "homepage": "https://truststandardprotocol.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LexiTSP/trustbadge-react.git"
+  },
+  "author": "LexiCo AS <hello@lexico.no>",
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18",
+    "@lexitsp/sdk": "^3.0.0-alpha.6"
+  },
+  "devDependencies": {
+    "@lexitsp/sdk": "workspace:*",
+    "tsup": "^8.5.1",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.1.0",
+    "@types/react": "^19.0.2",
+    "@types/react-dom": "^19.0.2",
+    "jsdom": "^26.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "typescript": "^5.7.2",
+    "vitest": "^1.6.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "bun": ">=1.0.0"
+  }
+}

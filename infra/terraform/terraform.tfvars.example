@@ -1,0 +1,35 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# TSP Terraform variables — COPY TO terraform.tfvars AND FILL IN
+# Never commit terraform.tfvars (it is in .gitignore).
+# ─────────────────────────────────────────────────────────────────────────────
+
+# Hetzner Cloud API token. Create at:
+#   https://console.hetzner.cloud/ → Security → API Tokens → Read & Write
+hcloud_token = "hcloud_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+# Your SSH public key. Get with: cat ~/.ssh/id_ed25519.pub
+ssh_public_key = "ssh-ed25519 AAAA... julian@lexico"
+
+# Lock SSH to your IP for production. Find yours: curl ifconfig.me
+# Use 0.0.0.0/0 only during initial setup.
+ssh_allowed_ips = ["0.0.0.0/0", "::/0"]
+
+# ─── Server ────────────────────────────────────────────────────────────────
+server_name = "tsp-public-alpha"
+server_type = "ccx13"     # ccx13 = €16/mo, 2 dedicated vCPU, 8GB RAM, 80GB NVMe
+location    = "fsn1"      # fsn1 (Falkenstein), nbg1 (Nürnberg), hel1 (Helsinki)
+server_role = "public-alpha"
+
+# ─── Domain ────────────────────────────────────────────────────────────────
+site_domain = "truststandardprotocol.com"
+
+# ─── Optional: Cloudflare DNS automation ───────────────────────────────────
+# Leave false if you prefer to manage DNS manually in the CF dashboard.
+manage_cloudflare_dns = false
+
+# Required only when manage_cloudflare_dns = true.
+# Create token at: https://dash.cloudflare.com/profile/api-tokens
+# Permissions needed:
+#   Zone:DNS:Edit + Zone:Zone Settings:Edit  (scoped to truststandardprotocol.com)
+# cloudflare_api_token = "cfapi_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+# cloudflare_zone_id   = "0123456789abcdef0123456789abcdef"

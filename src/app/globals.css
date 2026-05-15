@@ -1,0 +1,788 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ═══════════════════════════════════════════════════════════════════════
+ * TSP design — sub-prosjekt IV
+ * Aestetisk: technical-spec-document med govt-utilitarian pusterom
+ * Palett: mono + alvorlig aksent + funksjonelle status-farger
+ * Typografi: IBM Plex Sans + IBM Plex Mono
+ * ═══════════════════════════════════════════════════════════════════════ */
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-base, 16px);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+  }
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    line-height: 1.55;
+  }
+
+  /* Typografisk hierarki — IBM Plex Sans hele veien. Bumped sizes/tracking
+     for presence uten å gå editorial-magazine. */
+  h1 {
+    font-size: clamp(2.25rem, 5vw, 3.25rem); /* 36-52px */
+    line-height: 1.08;
+    font-weight: 600;
+    letter-spacing: 0;
+  }
+  h2 {
+    font-size: clamp(1.625rem, 3.2vw, 2.125rem); /* 26-34px */
+    line-height: 1.2;
+    font-weight: 600;
+    letter-spacing: 0;
+  }
+  h3 {
+    font-size: 1.25rem;
+    line-height: 1.35;
+    font-weight: 500;
+  }
+  h4 {
+    font-size: 1.0625rem;
+    line-height: 1.4;
+    font-weight: 600;
+  }
+  p {
+    line-height: 1.65;
+  }
+
+  code, pre, kbd, samp {
+    font-family: var(--font-mono);
+  }
+  code {
+    font-size: 0.9375em;
+  }
+
+  a {
+    color: var(--color-brand);
+    text-decoration: none;
+    text-underline-offset: 3px;
+    transition: color 100ms ease;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+
+  ::selection {
+    background: var(--color-ink);
+    color: var(--color-paper);
+  }
+}
+
+@layer components {
+  .tsp-container {
+    width: 100%;
+    max-width: var(--layout-max-width);
+    margin: 0 auto;
+    padding-left: var(--layout-gutter);
+    padding-right: var(--layout-gutter);
+  }
+
+  /* Smal prose-kolonne (govt-utilitarian) — for lesetekst */
+  .tsp-prose {
+    max-width: 64ch;
+  }
+
+  .tsp-card {
+    background: var(--color-surface);
+    border: var(--card-border-width) solid var(--color-border);
+    border-radius: var(--card-radius);
+  }
+
+  /* Strukturert info-panel (hero, evidence-blocks) — definition-list-aktig */
+  .tsp-panel {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--card-radius);
+    padding: 1.75rem;
+  }
+
+  .tsp-panel-section + .tsp-panel-section {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .tsp-panel-section dt {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-muted);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+
+  .tsp-panel-section dd {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    color: var(--color-ink);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════
+   * SPEC-CARD — paper-artefakt: TrustEnvelope visuelt
+   * Brukes i EnvelopeArtifact, evt. på spec-side for skjema-illustrasjoner
+   * ═══════════════════════════════════════════════════════════════════ */
+
+  .tsp-spec-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--card-radius);
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    max-width: 100%;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .tsp-spec-card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.55rem 1.25rem;
+    border-bottom: 1px solid var(--color-border-strong);
+    background: var(--color-paper);
+    font-size: 0.6875rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    font-weight: 500;
+    min-width: 0;
+    flex-wrap: wrap;
+  }
+
+  .tsp-spec-card-head > span,
+  .tsp-spec-card-head > div {
+    min-width: 0;
+  }
+
+  .tsp-spec-card-head > div {
+    flex-wrap: wrap;
+  }
+
+  .tsp-spec-card-row {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 1rem;
+    padding: 0.75rem 1.25rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .tsp-spec-card-row > dt {
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-muted);
+    font-weight: 500;
+    align-self: start;
+    padding-top: 2px;
+  }
+
+  .tsp-spec-card-row > dd {
+    margin: 0;
+    color: var(--color-ink);
+    min-width: 0;
+    word-break: break-word;
+  }
+
+  @media (max-width: 520px) {
+    .tsp-spec-card-head {
+      align-items: flex-start;
+      padding: 0.55rem 1rem;
+    }
+
+    .tsp-spec-card-row {
+      grid-template-columns: 1fr;
+      gap: 0.35rem;
+      padding: 0.75rem 1rem;
+    }
+
+    .tsp-spec-card-foot {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+  }
+
+  .tsp-spec-card-foot {
+    padding: 0.55rem 1.25rem;
+    border-top: 1px solid var(--color-border);
+    background: var(--color-paper);
+    font-size: 0.6875rem;
+    color: var(--color-muted);
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    letter-spacing: 0.05em;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════
+   * FINGERPRINT-BAND — slank, full-bredde, mellom seksjoner
+   * Krypto-primitiver som visuell tekstur
+   * ═══════════════════════════════════════════════════════════════════ */
+
+  .tsp-fingerprint-band {
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-paper);
+    padding: 0.6rem 0;
+    overflow: hidden;
+    /* Fade-out begge kanter — gjør ribbon-truncation tilsiktet, ikke "tekst som lekker" */
+    -webkit-mask-image: linear-gradient(
+      90deg,
+      transparent 0%,
+      #000 8%,
+      #000 92%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      90deg,
+      transparent 0%,
+      #000 8%,
+      #000 92%,
+      transparent 100%
+    );
+  }
+
+  .tsp-fingerprint-band .tsp-container {
+    overflow: hidden;
+  }
+
+  .tsp-fingerprint-track {
+    display: flex;
+    gap: 1.5rem;
+    white-space: nowrap;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    font-weight: 500;
+  }
+
+  .tsp-fingerprint-track > span {
+    flex-shrink: 0;
+  }
+
+  .tsp-fingerprint-sep {
+    color: var(--color-border-strong);
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════
+   * STAMP — liten hjørne-identitet
+   * Brukes i hero, header, footer
+   * ═══════════════════════════════════════════════════════════════════ */
+
+  .tsp-stamp {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.22rem 0.55rem;
+    border: 1px solid var(--color-border-strong);
+    background: var(--color-surface);
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    font-weight: 500;
+    border-radius: 2px;
+  }
+
+  .tsp-stamp-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--color-verify);
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+    animation: tsp-pulse 2.4s ease-in-out infinite;
+  }
+
+  /* Knapper */
+  .tsp-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: var(--button-radius);
+    padding: var(--button-padding-y) var(--button-padding-x);
+    font-weight: var(--button-weight);
+    font-size: 0.9375rem;
+    line-height: 1;
+    transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease;
+    text-decoration: none;
+  }
+  .tsp-btn:hover { text-decoration: none; }
+
+  .tsp-btn-primary {
+    @apply tsp-btn;
+    background: var(--color-ink);
+    color: var(--color-paper);
+    border: 1px solid var(--color-ink);
+  }
+  .tsp-btn-primary:hover {
+    background: var(--color-brand);
+    border-color: var(--color-brand);
+    color: #ffffff;
+  }
+
+  .tsp-btn-secondary {
+    @apply tsp-btn;
+    background: transparent;
+    color: var(--color-ink);
+    border: 1px solid var(--color-border-strong);
+  }
+  .tsp-btn-secondary:hover {
+    border-color: var(--color-ink);
+    background: rgba(0, 0, 0, 0.03);
+  }
+
+  .tsp-btn-verify {
+    @apply tsp-btn;
+    background: var(--color-verify);
+    color: #ffffff;
+    border: 1px solid var(--color-verify);
+  }
+  .tsp-btn-verify:hover {
+    background: var(--color-verify-dark);
+    border-color: var(--color-verify-dark);
+  }
+
+  .tsp-input {
+    width: 100%;
+    border-radius: var(--input-radius);
+    border: 1px solid var(--color-border-strong);
+    background: var(--color-surface);
+    padding: var(--input-padding-y) var(--input-padding-x);
+    font-size: 1rem;
+    font-family: var(--font-sans);
+  }
+  .tsp-input:focus {
+    outline: 2px solid var(--input-focus-ring);
+    outline-offset: -1px;
+    border-color: var(--input-focus-ring);
+  }
+
+  .tsp-label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-muted);
+    margin-bottom: 0.4rem;
+    font-weight: 500;
+  }
+
+  /* Pill — flat, ingen skygge */
+  .tsp-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    border-radius: 2px;
+    border: 1px solid var(--color-border-strong);
+    background: transparent;
+    padding: 0.15rem 0.55rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+  }
+
+  .tsp-code {
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    background: rgba(0, 0, 0, 0.04);
+    padding: 0.1rem 0.35rem;
+    border-radius: 2px;
+    color: var(--color-ink);
+    border: 1px solid var(--color-border);
+  }
+
+  .tsp-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-weight: 500;
+    color: var(--color-muted);
+  }
+
+  .tsp-section-marker {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-muted);
+    letter-spacing: 0.05em;
+  }
+
+  /* Editorial section eyebrow: numbered chip + plain label.
+     Replaces "§ N · Title" pattern on landing/pitch surfaces.
+     Spec/legal pages keep tsp-section-marker. */
+  .tsp-section-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    margin-bottom: 0.5rem;
+  }
+  .tsp-section-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.85rem;
+    height: 1.4rem;
+    padding: 0 0.45rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: var(--color-brand);
+    background: rgb(var(--color-brand-rgb) / 0.07);
+    border: 1px solid rgb(var(--color-brand-rgb) / 0.18);
+    border-radius: 2px;
+  }
+  .tsp-section-num--verify {
+    color: var(--color-verify);
+    background: rgb(var(--color-verify-rgb) / 0.08);
+    border-color: rgb(var(--color-verify-rgb) / 0.22);
+  }
+  .tsp-section-num--warn {
+    color: var(--color-warn);
+    background: rgb(var(--color-warn-rgb) / 0.08);
+    border-color: rgb(var(--color-warn-rgb) / 0.22);
+  }
+  .tsp-section-num--accent {
+    color: var(--color-accent-dark);
+    background: rgb(var(--color-accent-rgb) / 0.14);
+    border-color: rgb(var(--color-accent-rgb) / 0.40);
+  }
+  .tsp-section-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    font-weight: 500;
+    color: var(--color-muted);
+  }
+
+  /* Hover-lift for grid-cells (module/audience cards) */
+  .tsp-cell-lift {
+    transition:
+      transform 220ms var(--motion-easing),
+      border-color 220ms var(--motion-easing),
+      box-shadow 220ms var(--motion-easing);
+    will-change: transform;
+  }
+  .tsp-cell-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px -10px rgb(var(--color-ink-rgb) / 0.18);
+  }
+
+  /* Hero canvas — kun brand-glød øverst-høyre, ingen oker-gradient.
+     Oker brukes utelukkende som geometriske former (HeroSeal, chips). */
+  .tsp-hero-surface {
+    position: relative;
+    background:
+      radial-gradient(ellipse 80% 100% at 92% -10%, rgb(var(--color-brand-rgb) / 0.07), transparent 55%),
+      linear-gradient(180deg, var(--color-elevated) 0%, var(--color-paper) 100%);
+  }
+
+  /* Civic registration-marks — print-style hjørnetegn i oker.
+     Brukes på hero som "stempel-rammer", små ankere i hver kant. */
+  .tsp-reg-mark {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border: 1.5px solid var(--color-accent);
+    pointer-events: none;
+  }
+  .tsp-reg-mark--tl { top: 18px; left: 18px; border-right: none; border-bottom: none; }
+  .tsp-reg-mark--tr { top: 18px; right: 18px; border-left: none; border-bottom: none; }
+  .tsp-reg-mark--bl { bottom: 18px; left: 18px; border-right: none; border-top: none; }
+  .tsp-reg-mark--br { bottom: 18px; right: 18px; border-left: none; border-top: none; }
+
+  /* Editorial accent helpers — bruk på menneske-flater, ikke status */
+  .tsp-accent-rule {
+    border-top: 2px solid var(--color-accent);
+  }
+  .tsp-accent-text {
+    color: var(--color-accent-dark);
+  }
+  .tsp-accent-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.18rem 0.55rem;
+    background: rgb(var(--color-accent-rgb) / 0.08);
+    border: 1px solid rgb(var(--color-accent-rgb) / 0.28);
+    border-radius: 2px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-accent-dark);
+    letter-spacing: 0.04em;
+  }
+
+  /* Display class — eksplisitt tightere tracking på utvalgte hero-elementer */
+  .tsp-display {
+    letter-spacing: -0.025em;
+    font-weight: 500;
+  }
+
+  /* Tre-lags surface-system (paper < surface < elevated) — gir dybde */
+  .tsp-bg-elevated {
+    background: var(--color-elevated);
+    box-shadow: 0 1px 0 rgb(var(--color-ink-rgb) / 0.04), 0 4px 18px -8px rgb(var(--color-ink-rgb) / 0.08);
+  }
+
+  /* Inverse manifest-strip — brand-navy bg med hvit tekst.
+     Bryter hvit-på-hvit-monotonien én gang per side. Kontrast = pop. */
+  .tsp-inverse {
+    background: var(--color-brand-dark);
+    color: #FFFFFF;
+    position: relative;
+  }
+  .tsp-inverse h2,
+  .tsp-inverse h3 {
+    color: #FFFFFF;
+  }
+  .tsp-inverse a {
+    color: var(--color-accent);
+  }
+  .tsp-inverse a:hover {
+    color: #FFFFFF;
+  }
+  /* Subtil tekstur — vertikale "ledger-streker" via gradient, gir dybde */
+  .tsp-inverse::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(
+      90deg,
+      transparent 0,
+      transparent 79px,
+      rgb(255 255 255 / 0.04) 79px,
+      rgb(255 255 255 / 0.04) 80px
+    );
+    pointer-events: none;
+  }
+
+  /* Big-stat-tall — display-skala for manifest-strip */
+  .tsp-stat-num {
+    font-size: clamp(3rem, 7vw, 4.5rem);
+    line-height: 0.95;
+    font-weight: 500;
+    letter-spacing: -0.035em;
+    color: var(--color-accent);
+    font-variant-numeric: tabular-nums;
+  }
+  .tsp-stat-label {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgb(255 255 255 / 0.65);
+    margin-top: 0.5rem;
+  }
+  .tsp-stat-divider {
+    border-left: 1px solid rgb(255 255 255 / 0.15);
+  }
+
+  /* Inverse-overrides — chips/labels får riktig kontrast på mørk bg */
+  .tsp-inverse .tsp-section-label {
+    color: rgb(255 255 255 / 0.55);
+  }
+  .tsp-inverse .tsp-section-num {
+    color: var(--color-accent);
+    background: rgb(var(--color-accent-rgb) / 0.16);
+    border-color: rgb(var(--color-accent-rgb) / 0.45);
+  }
+  .tsp-inverse .tsp-section-num--accent {
+    color: var(--color-accent);
+    background: rgb(var(--color-accent-rgb) / 0.20);
+    border-color: rgb(var(--color-accent-rgb) / 0.55);
+  }
+
+  /* Primary CTA — bumped variant for hero (more dominant) */
+  .tsp-btn-primary-lg {
+    @apply tsp-btn-primary;
+    padding: 14px 26px;
+    font-size: 1rem;
+  }
+  .tsp-btn-secondary-lg {
+    @apply tsp-btn-secondary;
+    padding: 14px 26px;
+    font-size: 1rem;
+  }
+
+  /* Spec-document table */
+  .tsp-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+  }
+  .tsp-table th {
+    text-align: left;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-muted);
+    padding: 0.65rem 0.75rem;
+    border-bottom: 1px solid var(--color-border-strong);
+    font-weight: 500;
+  }
+  .tsp-table td {
+    padding: 0.65rem 0.75rem;
+    border-bottom: 1px solid var(--color-border);
+    vertical-align: top;
+  }
+  .tsp-table td:first-child {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--color-ink);
+  }
+}
+
+/* Status-farger på pills */
+.tsp-pill--verified {
+  border-color: var(--color-verify);
+  color: var(--color-verify);
+}
+.tsp-pill--warn {
+  border-color: var(--color-warn);
+  color: var(--color-warn);
+}
+.tsp-pill--danger {
+  border-color: var(--color-danger);
+  color: var(--color-danger);
+}
+.tsp-pill--strong {
+  background: var(--color-ink);
+  color: var(--color-paper);
+  border-color: var(--color-ink);
+}
+
+/* Animasjoner — kun de funksjonelle */
+@keyframes tsp-blink {
+  50% { opacity: 0.35; }
+}
+
+@keyframes tsp-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+}
+
+@keyframes tsp-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.5; transform: scale(0.85); }
+}
+
+.tsp-shake {
+  animation: tsp-shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+.tsp-live-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-verify);
+  animation: tsp-pulse 2.4s ease-in-out infinite;
+}
+
+/* RANGE SLIDER (playground) */
+input[type="range"] {
+  height: 4px;
+  background: var(--color-border);
+  border-radius: 0;
+  outline: none;
+  -webkit-appearance: none;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  background: var(--color-ink);
+  border-radius: 50%;
+  cursor: pointer;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  background: var(--color-ink);
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+}
+
+/* DIFF-HIGHLIGHTING (playground manipulasjon + envelope-artifact tamper) */
+.tsp-diff-added {
+  background: rgba(185, 28, 28, 0.1);
+  color: var(--color-danger);
+  text-decoration: underline wavy;
+  text-decoration-color: rgba(185, 28, 28, 0.5);
+  padding: 0 2px;
+}
+
+.tsp-tamper-changed {
+  background: rgba(var(--color-danger-rgb), 0.12);
+  color: var(--color-danger);
+  text-decoration: underline wavy var(--color-danger);
+  text-underline-offset: 2px;
+  padding: 0 2px;
+  border-radius: 1px;
+}
+
+.tsp-hash-broken {
+  color: var(--color-danger);
+  font-weight: 600;
+  text-decoration: line-through;
+}
+
+.tsp-hash-new {
+  color: var(--color-warn);
+  font-weight: 600;
+}
+
+/* Tamper-CTA — ghost-stil med danger-tekst/border, ikke fylt rød.
+   Signal-vekt uten å rope. Hover fyller for tilbakemelding. */
+.tsp-btn-tamper {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 5px 11px;
+  border-radius: 2px;
+  background: transparent;
+  color: var(--color-danger);
+  border: 1px solid rgb(var(--color-danger-rgb) / 0.55);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: background 140ms ease, color 140ms ease, border-color 140ms ease;
+}
+.tsp-btn-tamper:hover {
+  background: var(--color-danger);
+  color: #fff;
+  border-color: var(--color-danger);
+}
+.tsp-btn-tamper.is-armed {
+  color: var(--color-muted);
+  border-color: var(--color-border-strong);
+}
+.tsp-btn-tamper.is-armed:hover {
+  background: var(--color-ink);
+  color: var(--color-paper);
+  border-color: var(--color-ink);
+}

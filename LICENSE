@@ -1,0 +1,17 @@
+TSP Public Site License
+
+Copyright (c) 2026 LexiCo AS
+
+This repository contains the public Trust Standard Protocol website, public
+documentation, examples, interop fixtures, and public package workspace wiring.
+Unless a file or package states otherwise, the site code, visual design, and
+copy are proprietary to LexiCo AS and all rights are reserved.
+
+Open/public components use their own licenses:
+
+- packages/lexitsp-sdk is MIT licensed.
+- packages/trustbadge-react is MIT licensed.
+- The TSP specification text is published under CC-BY 4.0.
+
+Commercial hosted tools and implementation support are separate pilot offerings
+and are not included in this public repository.

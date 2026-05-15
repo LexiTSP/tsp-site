@@ -5,6 +5,7 @@ const SITE_URL =
 
 const ROUTES = [
   "",
+  "/ai-act-august-2",
   "/eu-ai-act",
   "/eu-ai-act/article-9",
   "/eu-ai-act/article-12",

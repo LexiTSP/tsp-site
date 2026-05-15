@@ -4,14 +4,14 @@ import { ArrowRight, FileCode, AlertOctagon, ShieldCheck, Terminal } from "lucid
 
 const COPY = {
   no: {
-    title: "Verifisering — TSP v3",
+    title: "TrustEnvelope Validator — TSP",
     description:
-      "Verifiser TSP v3-envelopes lokalt med verifyLocal eller online med manifest, revokering, TSA og sequence-state.",
-    h1: "Verifiser TSP v3-envelopes.",
+      "Verifiser en TrustEnvelope i nettleseren, manipuler samplet, og se kryptografien fange endringen.",
+    h1: "Verifiser en TrustEnvelope.",
     lead:
-      "Den autoritative verify-flyten ligger i @lexitsp/sdk/v3. Lokal verifisering sjekker schema, content hash, ledger hash og signatur. Online-verifisering legger til manifest, org-root, cert-kjede, revokering, TSA og valgfri DANE.",
+      "Last samplet, se VERIFISERT, endre ett tegn, og se kvitteringen falle til INVALID. Dette er gapet TSP dekker: ikke mer tillit basert på påstander, men bevis som kan kontrolleres.",
     status:
-      "Denne siden kjører lokal og online TSP v3-verifisering i nettleseren. Lokal modus gjør ingen nettverkskall; online modus feiler lukket på manifest-, trust- eller TSA-feil.",
+      "Lokal modus gjør ingen nettverkskall. Avansert modus kan bruke manifest, revokering, TSA og sequence-state når du vil teste en produksjonslignende flyt.",
     terminalTitle: "Verifiser lokalt",
     terminalHelp:
       "Lokal-modus krever at du kjenner instansens offentlige nøkkel. Den gjør ingen nettverkskall.",
@@ -19,9 +19,9 @@ const COPY = {
     onlineTitle: "Verifiser online",
     onlineHelp:
       "Online-modus henter manifestet fra signature.keyRef og feiler lukket ved nettverks-, trust- eller TSA-feil med mindre legacy alpha-TSA er eksplisitt tillatt.",
-    playgroundTitle: "Interaktiv demo",
+    playgroundTitle: "Signing playground",
     playgroundBody:
-      "Playgrounden signerer et svar i nettleseren og viser hvordan verifisering bryter når innholdet endres etter signering.",
+      "Bygg og signer en envelope i nettleseren før du verifiserer eller manipulerer den her.",
     playgroundCta: "Åpne playground",
     specTitle: "Full v3-skjema",
     specBody:
@@ -30,14 +30,14 @@ const COPY = {
     statusLabel: "Status",
   },
   en: {
-    title: "Verification — TSP v3",
+    title: "TrustEnvelope Validator — TSP",
     description:
-      "Verify TSP v3 envelopes locally with verifyLocal or online with manifest, revocation, TSA, and sequence-state checks.",
-    h1: "Verify TSP v3 envelopes.",
+      "Verify a TrustEnvelope in the browser, tamper the sample, and watch cryptography catch the change.",
+    h1: "Verify a TrustEnvelope.",
     lead:
-      "The authoritative verification flow lives in @lexitsp/sdk/v3. Local verification checks schema, content hash, ledger hash, and signature. Online verification adds manifest, org-root, certificate chain, revocation, TSA, and optional DANE.",
+      "Load the sample, see VERIFIED, change one character, and watch the receipt flip to INVALID. This is the gap TSP closes: trust by proof, not trust by assertion.",
     status:
-      "This page runs local and online TSP v3 verification in the browser. Local mode performs no network calls; online mode fails closed on manifest, trust, or TSA failures.",
+      "Local mode performs no network calls. Advanced mode can use manifest, revocation, TSA and sequence-state checks when you want to test a production-style path.",
     terminalTitle: "Verify locally",
     terminalHelp:
       "Local mode requires the instance public key. It performs no network calls.",
@@ -45,9 +45,9 @@ const COPY = {
     onlineTitle: "Verify online",
     onlineHelp:
       "Online mode fetches the manifest from signature.keyRef and fails closed on network, trust, or TSA failures unless legacy alpha TSA is explicitly allowed.",
-    playgroundTitle: "Interactive demo",
+    playgroundTitle: "Signing playground",
     playgroundBody:
-      "The playground signs an answer in the browser and shows how verification breaks when content changes after signing.",
+      "Build and sign an envelope in the browser before verifying or tampering with it here.",
     playgroundCta: "Open playground",
     specTitle: "Full v3 schema",
     specBody:
@@ -76,7 +76,7 @@ export default async function VerifyPage({
   const copy = locale === "en" ? COPY.en : COPY.no;
   return (
     <div className="tsp-container py-16">
-      <div className="tsp-section-marker mb-3">§ Verify · alpha</div>
+      <div className="tsp-section-marker mb-3">§ Validator · alpha</div>
       <h1 className="mb-4">{copy.h1}</h1>
       <p className="text-lg text-muted max-w-2xl mb-3">
         {copy.lead}
@@ -142,6 +142,7 @@ console.log(result.valid ? "OK" : "FAIL", result.checks);`}</pre>
 
         <Link
           href="/spec"
+          data-cta="read_spec"
           className="block border border-border bg-surface p-6 hover:border-brand no-underline"
         >
           <div className="flex items-center gap-2 mb-2">

@@ -28,7 +28,7 @@
     },
     "packages/lexitsp-sdk": {
       "name": "@lexitsp/sdk",
-      "version": "3.0.0-alpha.5",
+      "version": "3.0.0-alpha.6",
       "bin": {
         "tsp": "bin/tsp.mjs",
       },
@@ -48,7 +48,7 @@
     },
     "packages/trustbadge-react": {
       "name": "@lexitsp/trustbadge-react",
-      "version": "0.2.1",
+      "version": "0.2.2",
       "devDependencies": {
         "@lexitsp/sdk": "workspace:*",
         "@testing-library/jest-dom": "^6.6.3",
@@ -63,7 +63,7 @@
         "vitest": "^1.6.0",
       },
       "peerDependencies": {
-        "@lexitsp/sdk": "^3.0.0-alpha.5",
+        "@lexitsp/sdk": "^3.0.0-alpha.6",
         "react": ">=18",
         "react-dom": ">=18",
       },

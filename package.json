@@ -3,13 +3,13 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "TSP — Trust Standard Protocol. Open specification and public site for AI provenance checked with signatures, hashes, and manifests.",
+  "description": "TSP — Trust Standard Protocol. Open specification and public site for cryptographically verifiable AI provenance.",
   "workspaces": [
     "packages/lexitsp-sdk",
     "packages/trustbadge-react"
   ],
   "scripts": {
-    "dev": "next dev -p 3838",
+    "dev": "bun run scripts/dev-server.mjs",
     "build:sdk": "bun run --cwd packages/lexitsp-sdk build",
     "build:trustbadge": "bun run --cwd packages/trustbadge-react build",
     "build:packages": "bun run build:sdk && bun run build:trustbadge",
@@ -19,6 +19,7 @@
     "test": "bun run test:all",
     "check": "bun run build && bun run test:all",
     "test:all": "bun run test:sdk && bun run test:trustbadge",
+    "test:site": "bun test src/**/*.test.ts",
     "test:sdk": "bun run --cwd packages/lexitsp-sdk vitest run",
     "test:trustbadge": "bun run --cwd packages/trustbadge-react vitest run",
     "check:claims": "bun run scripts/assert-charter-claims.mjs",
@@ -49,5 +50,13 @@
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.17",
     "typescript": "^5.7.2"
-  }
+  },
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "example": "examples"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

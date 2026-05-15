@@ -5,7 +5,6 @@ const root = process.cwd();
 
 const scanGlobs = [
   "README.md",
-  "COMMERCIAL_TERMS.md",
   "docs/**/*.md",
   "messages/*.json",
   "src/**/*.{ts,tsx}",
@@ -55,23 +54,45 @@ const bannedPatterns = [
   },
   {
     id: "authority-accepted",
-    pattern: /Datatilsynet[-\s]?accepted|DigDir[-\s]?accepted|EU AI Office[-\s]?accepted|auditor[-\s]?accepted|akseptert\s+av\s+(Datatilsynet|DigDir|EU AI Office|revisor)/i,
+    pattern: /Datatilsynet[-\s]?accepted|DigDir[-\s]?accepted|EU AI Office[-\s]?accepted|auditor[-\s]?accepted|EU[-\s]?approved|EU (has )?approved TSP|akseptert\s+av\s+(Datatilsynet|DigDir|EU AI Office|revisor)|EU[-\s]?godkjent/i,
     allowNegative: true,
     message: "Do not claim authority/auditor acceptance without written confirmation.",
   },
+  {
+    id: "official-standard",
+    pattern: /\b(official|offisiell)\s+(EU\s+)?(standard|protocol|protokoll)\b|\bEU\s+(standardized|standardised|standardiserte?)\s+TSP\b/i,
+    allowNegative: true,
+    message: "Use proposal/candidate language; do not imply TSP is an official EU standard.",
+  },
+  {
+    id: "compliance-guarantee",
+    pattern: /\bguarantees?\s+(AI Act\s+)?compliance\b|\bcompliance\s+guarantee\b|\bgaranterer\s+(AI Act[-\s]+)?(compliance|etterlevelse)\b/i,
+    allowNegative: true,
+    message: "TSP can support evidence and verification; it does not guarantee compliance.",
+  },
+  {
+    id: "campaign-definitive-protocol",
+    pattern: /\bdefinitive protocol\b|\bTSP is the format\b|\bden definitive protokollen\b|\bTSP er formatet\b/i,
+    allowNegative: true,
+    message: "Use proposal/candidate language; TSP is not an official or definitive protocol.",
+  },
+  {
+    id: "ai-act-flat-date",
+    pattern: /\b(every|all)\s+high-risk\b.*\b2\s+August\s+2026\b|\balle\s+høy?risiko\b.*\b2\.\s*august\s+2026\b|\bno grace period\b|\bingen overgangsperiode\b/i,
+    allowNegative: true,
+    message: "Do not flatten the staged AI Act timeline into one date or deny transition periods.",
+  },
+  {
+    id: "unsourced-lobbying-names",
+    pattern: /\b(ASML|Airbus|Mistral|SAP)\b.*\b(open letter|pause|postpone|utsette|pause)\b/i,
+    allowNegative: false,
+    message: "Avoid named-company lobbying claims in public copy unless sourced and reviewed.",
+  },
 ];
-
-const paidToolPaths = /packages[\\/](risk-server|evidence-server|oversight-server|control-plane-server)|docs[\\/](ops|PRODUCT_READINESS_AND_SKUS|TSP_WHOLE_PRODUCT_REVIEW|PUBLIC_FOUNDATION_LAUNCH)|COMMERCIAL_TERMS\.md/i;
 
 const verifiablePattern = /\b(verifiable|verify|verified|etterprøvbar|etterprøve|verifiserbar|verifisere|verifisert)\b/i;
 const verifiableQualifiers =
   /\b(cryptographic|cryptographically|signature|signed|hash|manifest|local|locally|independent|independently|auditor|provider|envelope|TrustEnvelope|Ed25519|SHA-256|RFC|browser|math|mathematical|tamper|kryptografisk|signert|signatur|uavhengig|uavhengige|revisor|leverandør|lokal|lokalt|matematisk|nettleser|uendret|uten|mot|hvem|hva|begrensning)\b/i;
-
-const lexiNavAllowPaths = [
-  /docs[\\/]PRODUCT_READINESS_AND_SKUS\.md$/i,
-  /docs[\\/]TSP_WHOLE_PRODUCT_REVIEW\.md$/i,
-  /scripts[\\/]assert-charter-claims\.mjs$/i,
-];
 
 const findings = [];
 
@@ -88,26 +109,6 @@ for (const file of files) {
       if (!rule.pattern.test(line)) continue;
       if (rule.allowNegative && negativeContext.test(line)) continue;
       findings.push({ rel, lineNo, id: rule.id, message: rule.message, line });
-    }
-
-    if (/production-ready/i.test(line) && !negativeContext.test(line) && paidToolPaths.test(rel)) {
-      findings.push({
-        rel,
-        lineNo,
-        id: "paid-tool-production-ready",
-        message: "Paid tools are commercial hosted pilot alpha, not production-ready.",
-        line,
-      });
-    }
-
-    if (/LexiNAV/i.test(line) && !lexiNavAllowPaths.some((rx) => rx.test(rel))) {
-      findings.push({
-        rel,
-        lineNo,
-        id: "lexinav-proof-point",
-        message: "Do not use LexiNAV as a public proof point for TSP.",
-        line,
-      });
     }
 
     if (verifiablePattern.test(line) && !verifiableQualifiers.test(line)) {

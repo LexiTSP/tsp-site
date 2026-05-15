@@ -11,7 +11,6 @@ import {
   XCircle,
   AlertTriangle,
 } from "lucide-react";
-import { EnvelopeArtifact } from "@/components/EnvelopeArtifact";
 import { FingerprintBand } from "@/components/FingerprintBand";
 import { HeroSeal } from "@/components/HeroSeal";
 import { CliffCountdown } from "@/components/CliffCountdown";
@@ -25,6 +24,38 @@ export default async function Home({
   setRequestLocale(locale);
   const t = await getTranslations("home");
   const isEn = locale === "en";
+  const articleMapRows = [
+    {
+      art: t("articleMap.row1Article"),
+      requires: t("articleMap.row1Requires"),
+      tsp: t("articleMap.row1Tsp"),
+    },
+    {
+      art: t("articleMap.row2Article"),
+      requires: t("articleMap.row2Requires"),
+      tsp: t("articleMap.row2Tsp"),
+    },
+    {
+      art: t("articleMap.row3Article"),
+      requires: t("articleMap.row3Requires"),
+      tsp: t("articleMap.row3Tsp"),
+    },
+    {
+      art: t("articleMap.row4Article"),
+      requires: t("articleMap.row4Requires"),
+      tsp: t("articleMap.row4Tsp"),
+    },
+    {
+      art: t("articleMap.row5Article"),
+      requires: t("articleMap.row5Requires"),
+      tsp: t("articleMap.row5Tsp"),
+    },
+    {
+      art: t("articleMap.row6Article"),
+      requires: t("articleMap.row6Requires"),
+      tsp: t("articleMap.row6Tsp"),
+    },
+  ];
 
   return (
     <div>
@@ -42,8 +73,8 @@ export default async function Home({
           }}
         />
         <div className="tsp-container py-16 md:py-24 relative">
-          <div className="grid lg:grid-cols-[1fr_540px] gap-10 lg:gap-14 items-start">
-            <div>
+          <div className="grid min-w-0 gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,540px)] lg:gap-14 items-start">
+            <div className="min-w-0">
               <div className="flex items-center gap-3 mb-8 flex-wrap">
                 <span className="tsp-stamp">
                   <span
@@ -71,17 +102,17 @@ export default async function Home({
                 })}
               </p>
               <div className="flex flex-wrap gap-3">
-                <Link href="/playground" className="tsp-btn-primary-lg">
+                <Link href="/verify" data-cta="verify_envelope" className="tsp-btn-primary-lg">
                   {t("hero.ctaPrimary")} <ArrowRight className="w-4 h-4" />
                 </Link>
-                <Link href="/spec" className="tsp-btn-secondary-lg">
+                <Link href="/spec" data-cta="read_spec" className="tsp-btn-secondary-lg">
                   {t("hero.ctaSecondary")}
                 </Link>
               </div>
             </div>
 
-            <div>
-              <EnvelopeArtifact />
+            <div className="min-w-0">
+              <ValidatorPreview isEn={isEn} />
             </div>
           </div>
         </div>
@@ -100,10 +131,28 @@ export default async function Home({
         </div>
       </section>
 
-      {/* §02 CLIFF — penalty + countdown + postponement */}
+      {/* §02 VERIFICATION GAP */}
+      <section className="border-b border-border bg-surface">
+        <div className="tsp-container py-14 md:py-18">
+          <SectionEyebrow num="02" label={t("verificationGap.eyebrow")} tone="accent" />
+          <div className="grid gap-8 lg:grid-cols-[0.95fr_1.2fr] lg:gap-14">
+            <div>
+              <h2 className="mb-4">{t("verificationGap.h2")}</h2>
+              <p className="text-muted leading-relaxed">{t("verificationGap.lead")}</p>
+            </div>
+            <div className="grid gap-px border border-border-strong bg-border-strong md:grid-cols-3">
+              <GapCell title={t("verificationGap.card1Title")} body={t("verificationGap.card1Body")} />
+              <GapCell title={t("verificationGap.card2Title")} body={t("verificationGap.card2Body")} />
+              <GapCell title={t("verificationGap.card3Title")} body={t("verificationGap.card3Body")} />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* §03 CLIFF — penalty + countdown + postponement */}
       <section className="border-b border-border-strong bg-paper relative overflow-hidden">
         <div className="tsp-container py-16 md:py-20 relative">
-          <SectionEyebrow num="02" label={t("cliff.eyebrow")} tone="warn" />
+          <SectionEyebrow num="03" label={t("cliff.eyebrow")} tone="warn" />
           <div className="grid lg:grid-cols-[1.1fr_1fr] gap-10 lg:gap-16 items-start">
             <div>
               <h2 className="mb-5 max-w-xl">{t("cliff.h2")}</h2>
@@ -146,16 +195,19 @@ export default async function Home({
               <p className="text-ink font-medium leading-relaxed text-lg">
                 {t("cliff.calloutEmphasis")}
               </p>
+              <Link href="/ai-act-august-2" data-cta="ai_act_campaign" className="mt-6 inline-flex items-center gap-1 text-sm font-semibold text-brand hover:underline">
+                {t("cliff.campaignCta")} <ArrowRight className="h-3.5 w-3.5" />
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* §03 CORE DEMO */}
+      {/* §04 CORE DEMO */}
       <section className="border-b border-border">
         <div className="tsp-container py-14 md:py-18">
           <SectionEyebrow
-            num="03"
+            num="04"
             label={isEn ? "The product in one loop" : "Produktet i én loop"}
             tone="verify"
           />
@@ -196,11 +248,11 @@ export default async function Home({
         </div>
       </section>
 
-      {/* §04 NOT — moved up: disarms early */}
+      {/* §05 NOT — moved up: disarms early */}
       <section className="border-b border-border bg-surface">
         <div className="tsp-container py-16 md:py-20">
           <SectionEyebrow
-            num="04"
+            num="05"
             label={isEn ? "Negative-space positioning" : "Hva TSP ikke er"}
             tone="warn"
           />
@@ -243,13 +295,13 @@ export default async function Home({
       {/* §05 ARTICLE MAP — Act → TSP, six-for-six */}
       <section className="border-b border-border">
         <div className="tsp-container py-16 md:py-20">
-          <SectionEyebrow num="05" label={t("articleMap.eyebrow")} />
+          <SectionEyebrow num="06" label={t("articleMap.eyebrow")} />
           <div className="max-w-2xl mb-10">
             <h2 className="mb-4">{t("articleMap.h2")}</h2>
             <p className="text-muted leading-relaxed">{t("articleMap.lead")}</p>
           </div>
           <div className="border border-border-strong">
-            <table className="tsp-table w-full">
+            <table className="tsp-table hidden w-full table-fixed md:table">
               <thead>
                 <tr>
                   <th className="w-[110px]">{t("articleMap.colArticle")}</th>
@@ -258,38 +310,23 @@ export default async function Home({
                 </tr>
               </thead>
               <tbody>
-                <ArticleRow
-                  art={t("articleMap.row1Article")}
-                  requires={t("articleMap.row1Requires")}
-                  tsp={t("articleMap.row1Tsp")}
-                />
-                <ArticleRow
-                  art={t("articleMap.row2Article")}
-                  requires={t("articleMap.row2Requires")}
-                  tsp={t("articleMap.row2Tsp")}
-                />
-                <ArticleRow
-                  art={t("articleMap.row3Article")}
-                  requires={t("articleMap.row3Requires")}
-                  tsp={t("articleMap.row3Tsp")}
-                />
-                <ArticleRow
-                  art={t("articleMap.row4Article")}
-                  requires={t("articleMap.row4Requires")}
-                  tsp={t("articleMap.row4Tsp")}
-                />
-                <ArticleRow
-                  art={t("articleMap.row5Article")}
-                  requires={t("articleMap.row5Requires")}
-                  tsp={t("articleMap.row5Tsp")}
-                />
-                <ArticleRow
-                  art={t("articleMap.row6Article")}
-                  requires={t("articleMap.row6Requires")}
-                  tsp={t("articleMap.row6Tsp")}
-                />
+                {articleMapRows.map((row) => (
+                  <ArticleRow key={row.art} art={row.art} requires={row.requires} tsp={row.tsp} />
+                ))}
               </tbody>
             </table>
+            <div className="divide-y divide-border md:hidden">
+              {articleMapRows.map((row) => (
+                <ArticleMapCard
+                  key={row.art}
+                  art={row.art}
+                  requires={row.requires}
+                  tsp={row.tsp}
+                  requiresLabel={t("articleMap.colRequires")}
+                  tspLabel={t("articleMap.colTspAnswer")}
+                />
+              ))}
+            </div>
           </div>
           <p className="text-sm text-muted leading-relaxed mt-6 max-w-2xl">
             {t("articleMap.footer")}
@@ -300,7 +337,7 @@ export default async function Home({
       {/* §06 AUDIENCE */}
       <section className="border-b border-border bg-paper">
         <div className="tsp-container py-16 md:py-20">
-          <SectionEyebrow num="06" label={t("audience.eyebrow")} tone="verify" />
+          <SectionEyebrow num="07" label={t("audience.eyebrow")} tone="verify" />
           <h2 className="mb-3">{t("audience.h2")}</h2>
           <p className="text-muted text-base max-w-2xl mb-10">{t("audience.lead")}</p>
           <div className="grid md:grid-cols-3 gap-px bg-border-strong border border-border-strong">
@@ -334,7 +371,7 @@ export default async function Home({
       {/* §07 TRUST FLIP — HTTPS analogy */}
       <section className="border-b border-border">
         <div className="tsp-container py-16 md:py-20">
-          <SectionEyebrow num="07" label={t("trustFlip.eyebrow")} tone="accent" />
+          <SectionEyebrow num="08" label={t("trustFlip.eyebrow")} tone="accent" />
           <div className="max-w-2xl mb-10">
             <h2 className="mb-4">{t("trustFlip.h2")}</h2>
             <p className="text-muted leading-relaxed">{t("trustFlip.lead")}</p>
@@ -369,10 +406,34 @@ export default async function Home({
         </div>
       </section>
 
-      {/* §08 MANIFEST */}
+      {/* STANDING BAND — interop + offline + EU credibility */}
+      <section className="border-b border-border bg-paper">
+        <div className="tsp-container py-10 md:py-12">
+          <div className="tsp-eyebrow mb-6">{t("standing.eyebrow")}</div>
+          <div className="grid md:grid-cols-3 gap-px bg-border-strong border border-border-strong">
+            <StandingCell
+              num={t("standing.col1Num")}
+              label={t("standing.col1Label")}
+              body={t("standing.col1Body")}
+            />
+            <StandingCell
+              num={t("standing.col2Num")}
+              label={t("standing.col2Label")}
+              body={t("standing.col2Body")}
+            />
+            <StandingCell
+              num={t("standing.col3Num")}
+              label={t("standing.col3Label")}
+              body={t("standing.col3Body")}
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* §09 MANIFEST */}
       <section className="tsp-inverse border-b border-border-strong">
         <div className="tsp-container py-14 md:py-18 relative">
-          <SectionEyebrow num="08" label={t("manifest.eyebrow")} tone="accent" />
+          <SectionEyebrow num="09" label={t("manifest.eyebrow")} tone="accent" />
           <h2 className="mb-10 max-w-2xl">{t("manifest.h2")}</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-10">
             <div>
@@ -403,7 +464,7 @@ export default async function Home({
       {/* §09 MODULES — standard zone (MIT) + platform zone (commercial) */}
       <section className="border-b border-border">
         <div className="tsp-container py-16 md:py-20">
-          <SectionEyebrow num="09" label={t("modules.eyebrow")} />
+          <SectionEyebrow num="10" label={t("modules.eyebrow")} />
           <div className="max-w-2xl mb-10">
             <h2 className="mb-3">{t("modules.h2")}</h2>
             <p className="text-muted mb-2 leading-relaxed">{t("modules.lead")}</p>
@@ -465,9 +526,9 @@ export default async function Home({
       {/* §10 ENVELOPE */}
       <section className="border-b border-border">
         <div className="tsp-container py-16 md:py-20">
-          <SectionEyebrow num="10" label={t("envelope.eyebrow")} />
-          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 lg:items-start">
-            <div className="lg:sticky lg:top-20 lg:self-start">
+          <SectionEyebrow num="11" label={t("envelope.eyebrow")} />
+          <div className="grid min-w-0 gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-16 lg:items-start">
+            <div className="min-w-0 lg:sticky lg:top-20 lg:self-start">
               <h2 className="mb-4">{t("envelope.h2")}</h2>
               <p className="text-muted text-base mb-5">{t("envelope.lead")}</p>
               <dl className="space-y-5">
@@ -480,9 +541,9 @@ export default async function Home({
                 {t("envelope.readFullSchema")} <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>
-            <div>
+            <div className="min-w-0">
               <div className="tsp-eyebrow mb-3">{t("envelope.wireRepresentation")}</div>
-              <pre className="text-xs leading-relaxed font-mono bg-surface border border-border p-5 overflow-x-auto">
+              <pre className="max-w-full overflow-x-auto border border-border bg-surface p-5 font-mono text-xs leading-relaxed">
 {`{
   "tsp": "3.0",
   "content": {
@@ -541,7 +602,7 @@ export default async function Home({
       {/* §11 NO ARGUMENT — three rebuttals */}
       <section className="border-b border-border bg-paper">
         <div className="tsp-container py-16 md:py-20">
-          <SectionEyebrow num="11" label={t("noArgument.eyebrow")} tone="warn" />
+          <SectionEyebrow num="12" label={t("noArgument.eyebrow")} tone="warn" />
           <div className="max-w-2xl mb-10">
             <h2 className="mb-4">{t("noArgument.h2")}</h2>
             <p className="text-muted leading-relaxed">{t("noArgument.lead")}</p>
@@ -569,7 +630,7 @@ export default async function Home({
       {/* §12 NEXT */}
       <section>
         <div className="tsp-container py-16 md:py-20">
-          <SectionEyebrow num="12" label={t("next.eyebrow")} tone="accent" />
+          <SectionEyebrow num="13" label={t("next.eyebrow")} tone="accent" />
           <h2 className="mb-10">{t("next.h2")}</h2>
           <div className="grid sm:grid-cols-3 gap-px bg-border-strong border border-border-strong">
             <AudienceCell
@@ -613,6 +674,68 @@ function DemoStep({
       </div>
       <div className="font-semibold text-ink mb-2">{title}</div>
       <p className="text-sm text-muted leading-relaxed">{body}</p>
+    </div>
+  );
+}
+
+function ValidatorPreview({ isEn }: { isEn: boolean }) {
+  const rows = isEn
+    ? [
+        ["schema", "well-formed TrustEnvelope v3.0"],
+        ["contentHash", "canonical payload matches"],
+        ["ledgerHash", "hash chain intact"],
+        ["signature", "Ed25519 signature valid"],
+      ]
+    : [
+        ["schema", "gyldig TrustEnvelope v3.0"],
+        ["contentHash", "kanonisk payload stemmer"],
+        ["ledgerHash", "hash-kjeden er intakt"],
+        ["signature", "Ed25519-signatur gyldig"],
+      ];
+
+  return (
+    <div className="border border-[#d7a548]/35 bg-[#050b14] p-5 text-white shadow-[0_22px_70px_rgba(5,11,20,0.25)]">
+      <div className="mb-5 flex items-center justify-between gap-4 border-b border-white/10 pb-4">
+        <div>
+          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-white/45">
+            TrustEnvelope Validator
+          </div>
+          <div className="mt-2 flex items-center gap-2 text-verify">
+            <ShieldCheck className="h-5 w-5" />
+            <span className="font-mono text-2xl font-semibold tracking-[0.08em]">VERIFIED</span>
+          </div>
+        </div>
+        <div className="border border-[#d7a548]/30 bg-[#d7a548]/10 px-3 py-2 text-right font-mono text-xs text-[#e8c783]">
+          tsp: 3.0
+          <br />
+          local-only
+        </div>
+      </div>
+      <div className="space-y-2">
+        {rows.map(([name, detail]) => (
+          <div key={name} className="grid grid-cols-[auto_1fr] gap-3 border border-white/10 bg-white/[0.03] p-3">
+            <CheckCircle2 className="mt-0.5 h-4 w-4 text-verify" />
+            <div className="min-w-0">
+              <div className="font-mono text-xs font-semibold text-white">{name}</div>
+              <div className="break-words text-xs text-white/55">{detail}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="mt-4 border-l-2 border-[#d7a548] bg-[#d7a548]/8 py-3 pl-4 text-sm leading-relaxed text-white/70">
+        {isEn
+          ? "Change one character after signing and this panel flips to invalid."
+          : "Endre ett tegn etter signering, og panelet faller til invalid."}
+      </div>
+    </div>
+  );
+}
+
+function GapCell({ title, body }: { title: string; body: string }) {
+  return (
+    <div className="bg-paper p-5">
+      <div className="mb-2 font-semibold text-ink">{title}</div>
+      <p className="text-sm leading-relaxed text-muted">{body}</p>
     </div>
   );
 }
@@ -691,7 +814,7 @@ function PenaltyCell({
     <div className="bg-surface p-5">
       <div
         className={`font-mono font-medium leading-none mb-2 ${numColor}`}
-        style={{ fontSize: "clamp(1.75rem, 4vw, 2.5rem)", letterSpacing: "-0.02em" }}
+        style={{ fontSize: "clamp(1.75rem, 4vw, 2.5rem)", letterSpacing: 0 }}
       >
         {num}
       </div>
@@ -711,12 +834,46 @@ function ArticleRow({
 }) {
   return (
     <tr>
-      <td className="font-mono text-ink align-top whitespace-nowrap">{art}</td>
-      <td className="text-sm text-ink align-top leading-relaxed">{requires}</td>
-      <td className="text-sm text-muted align-top leading-relaxed font-mono text-[0.78rem]">
+      <td className="align-top font-mono text-ink whitespace-nowrap">{art}</td>
+      <td className="min-w-0 break-words align-top text-sm leading-relaxed text-ink">{requires}</td>
+      <td className="min-w-0 break-words align-top font-mono text-sm text-[0.78rem] leading-relaxed text-muted">
         {tsp}
       </td>
     </tr>
+  );
+}
+
+function ArticleMapCard({
+  art,
+  requires,
+  tsp,
+  requiresLabel,
+  tspLabel,
+}: {
+  art: string;
+  requires: string;
+  tsp: string;
+  requiresLabel: string;
+  tspLabel: string;
+}) {
+  return (
+    <div className="bg-surface p-4">
+      <div className="mb-3 font-mono text-sm font-semibold text-ink">{art}</div>
+      <div className="space-y-3">
+        <div>
+          <div className="mb-1 text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-muted">
+            {requiresLabel}
+          </div>
+          <p className="text-sm leading-relaxed text-ink">{requires}</p>
+        </div>
+        <div>
+          <div className="mb-1 text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-muted">
+            {tspLabel}
+          </div>
+          <p className="break-words font-mono text-[0.78rem] leading-relaxed text-muted">{tsp}</p>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -767,6 +924,29 @@ function FlipColumn({
   );
 }
 
+function StandingCell({
+  num,
+  label,
+  body,
+}: {
+  num: string;
+  label: string;
+  body: string;
+}) {
+  return (
+    <div className="bg-surface p-6 flex flex-col">
+      <div
+        className="font-mono font-medium text-ink leading-none mb-3"
+        style={{ fontSize: "clamp(1.5rem, 3vw, 2rem)", letterSpacing: "-0.02em" }}
+      >
+        {num}
+      </div>
+      <div className="text-sm font-semibold text-ink mb-2">{label}</div>
+      <p className="text-sm text-muted leading-relaxed">{body}</p>
+    </div>
+  );
+}
+
 function RebuttalCell({ label, body }: { label: string; body: string }) {
   return (
     <div className="bg-surface p-6 flex flex-col">
@@ -794,13 +974,13 @@ function ModuleCell({
   return (
     <Link
       href={href}
-      className="tsp-cell-lift block bg-surface p-5 hover:bg-paper group no-underline"
+      className="tsp-cell-lift block min-w-0 overflow-hidden bg-surface p-5 hover:bg-paper group no-underline"
     >
-      <div className="flex items-baseline justify-between mb-2 gap-2">
-        <code className="text-sm font-medium text-ink truncate">{pkg}</code>
+      <div className="flex min-w-0 items-baseline justify-between gap-2 mb-2">
+        <code className="min-w-0 truncate text-sm font-medium text-ink">{pkg}</code>
         <span className="tsp-section-marker shrink-0">{version}</span>
       </div>
-      <p className="text-sm text-muted leading-snug mb-4">{desc}</p>
+      <p className="break-words text-sm text-muted leading-snug mb-4">{desc}</p>
       <div className="flex items-center justify-between text-xs">
         <span className="tsp-pill">{license}</span>
         <span className="tsp-section-marker">{covers}</span>

@@ -78,14 +78,14 @@ export const theme: Theme = {
    */
   colors: {
     /** Aksent — alvorlig koks-blå. Brukes KUN for handling/lenker/aktiv-tilstand. */
-    brand: "#2157A5",
-    brandDark: "#0F2544",
-    brandLight: "#4F83D1",
+    brand: "#1E3A5F",
+    brandDark: "#152A47",
+    brandLight: "#3D5A85",
 
     /** Editorial accent — varm oker. Brukes på menneske-flater, editorial pull-quotes,
      *  stempler, "humans approved this"-momenter. IKKE statussfarge. */
-    accent: "#F2B84B",
-    accentDark: "#A66A12",
+    accent: "#B5895A",
+    accentDark: "#8E6940",
 
     /** Status: verified (TrustBadge-grønn, nedtonet) */
     verify: "#047857",
@@ -97,13 +97,13 @@ export const theme: Theme = {
     danger: "#B91C1C",
 
     /** Tekst og bakgrunn — tre-lags papir-estetikk */
-    ink: "#111827",
-    paper: "#F5F7FB",
-    surface: "#FFFFFF",
+    ink: "#0C0C0C",
+    paper: "#F4F2EC",
+    surface: "#FBFAF7",
     elevated: "#FFFFFF",
-    muted: "#526071",
-    border: "#D8DEE8",
-    borderStrong: "#AEB8C7",
+    muted: "#525252",
+    border: "#D4D2CC",
+    borderStrong: "#A3A19A",
   },
 
   /* ═════════════ TYPOGRAFI ═════════════

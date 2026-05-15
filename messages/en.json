@@ -36,8 +36,8 @@
     "complianceIsoDesc": "TSP as the technical backbone for certification.",
     "devSpecDesc": "Formal JSON specification (RFC 8785-canonicalized).",
     "devApiDocsDesc": "SDK reference and integration guide.",
-    "devPlaygroundDesc": "Sign and tamper with an envelope.",
-    "devVerifyDesc": "Canonical validator for TrustEnvelopes."
+    "devPlaygroundDesc": "Build an envelope interactively.",
+    "devVerifyDesc": "Check the validity of an envelope."
   },
   "footer": {
     "tagline": "Open specification and reference SDK for cryptographically verifiable AI provenance. Protocol, SDK, TrustBadge and hosted backends that help produce AI Act evidence. Built by a small team that believes trust in AI must be engineered in — not advertised.",
@@ -713,13 +713,13 @@
   },
   "home": {
     "hero": {
-      "specStamp": "Spec live · evidence-ready · MIT",
-      "openStandardMit": "Open standard · No vendor lock-in",
+      "specStamp": "Spec live · TSP/3.0.0-alpha.6",
+      "openStandardMit": "Open standard · paid tools",
       "eyebrow": "Trust Standard Protocol",
-      "h1": "Cryptographic proof for AI outputs.",
-      "lead": "TSP turns AI answers into independently verifiable TrustEnvelopes: <kilde>what was said</kilde>, <model>which source and process produced it</model>, and whether the bytes still match.",
-      "leadTechnical": "Think HTTPS-style verification for AI as an analogy: not a promise that the provider is good, but a way to inspect the proof. The open protocol and SDK are free; operational Risk, Evidence and Oversight tooling is optional.",
-      "ctaPrimary": "Verify a TrustEnvelope",
+      "h1": "A signed receipt for every AI answer.",
+      "lead": "TSP signs each AI answer with <kilde>source</kilde>, <model>model</model> and <time>time</time>. Later, anyone can verify the answer without asking the vendor. Change one character after signing and the break is visible immediately.",
+      "leadTechnical": "Technically: an open standard that wraps every AI output as a signed <code>TrustEnvelope</code> — Ed25519, SHA-256, RFC 3161 and a hash chain. Sovereign-by-default, MIT-licensed reference implementation; paid platform tools are optional.",
+      "ctaPrimary": "See the tamper demo",
       "ctaSecondary": "Read the spec",
       "specCellSpec": "Spec",
       "specCellSpecValue": "v3.0.0-alpha.6",
@@ -745,16 +745,16 @@
     },
     "manifest": {
       "eyebrow": "What you actually get",
-      "h2": "Verifies offline. No vendor required.",
+      "h2": "An open standard. Not a platform you get locked into.",
       "stat1Num": "6 / 6",
-      "stat1Label": "AI Act pressure points mapped",
+      "stat1Label": "EU AI Act articles covered",
       "stat2Num": "0",
-      "stat2Label": "Vendors required to verify",
-      "stat3Num": "2",
-      "stat3Label": "MIT reference packages",
+      "stat2Label": "Vendor lock-in",
+      "stat3Num": "4",
+      "stat3Label": "Open crypto standards",
       "stat4Num": "MIT",
       "stat4Label": "Standard zone, forever",
-      "claim": "<strong>We claim only what the code actually does.</strong> The standard is open (CC-BY 4.0), the SDK and TrustBadge are MIT, and verification works without asking TSP or any SaaS vendor for permission. If we disappear, your implementation keeps working."
+      "claim": "<strong>We claim only what the code actually does.</strong> The standard is open (CC-BY 4.0), the reference implementation and TrustBadge are MIT, and the paid tools sit above that layer. If we disappear, your implementation keeps working."
     },
     "audience": {
       "eyebrow": "Who this is for",
@@ -927,6 +927,12 @@
       "col3Label": "\"Too complex.\"",
       "col3Body": "One integration pattern: wrap the output, publish the manifest, show the badge. Verification works locally, without trusting us. No new trust silo is required.",
       "footer": "Default-test the open standard. Reject it only with a better neutral signed receipt format."
+    },
+    "abstract": {
+      "eyebrow": "How it works",
+      "p1": "When an AI produces an answer today, that answer is a <em>claim</em>. There's no structured way to verify where the answer came from, which model generated it, what policy it was produced under, or whether it has been altered after the fact.",
+      "p2": "TSP turns the AI output into a <em>structured artifact</em>. Each answer is wrapped as a <code>TrustEnvelope</code> with three regulator-relevant fields — <strong>Source declaration</strong>, <strong>Process log</strong>, <strong>Alignment metadata</strong> — plus an Ed25519 signature, an RFC 3161 timestamp and a hash chain with UUIDv7 IDs. The structure is open, the cryptography is standard, and verification is independent of the vendor.",
+      "p3": "The standard is the protocol. The platform modules (Risk, Evidence, Oversight) are optional hosted backends mapped to EU AI Act and ISO/IEC 42001. You can implement the standard in any language, or use our reference packages."
     }
   }
 }

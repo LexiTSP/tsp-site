@@ -36,8 +36,8 @@
     "complianceIsoDesc": "TSP som teknisk ryggrad for sertifisering.",
     "devSpecDesc": "Formell JSON-spesifikasjon (RFC 8785-kanonikalisert).",
     "devApiDocsDesc": "SDK-referanse og integrasjonsguide.",
-    "devPlaygroundDesc": "Signer og manipuler en envelope.",
-    "devVerifyDesc": "Kanonisk validator for TrustEnvelopes."
+    "devPlaygroundDesc": "Bygg en envelope interaktivt.",
+    "devVerifyDesc": "Sjekk gyldigheten til en envelope."
   },
   "footer": {
     "tagline": "Åpen spesifikasjon og referanse-SDK for kryptografisk etterprøvbar AI-proveniens. Protokoll, SDK, TrustBadge og hostede backends som hjelper deg produsere AI Act-evidence. Drives av et lite team som mener tillit til AI må bygges inn — ikke annonseres.",
@@ -713,13 +713,13 @@
   },
   "home": {
     "hero": {
-      "specStamp": "Spec live · evidence-klar · MIT",
-      "openStandardMit": "Åpen standard · ingen vendor lock-in",
+      "specStamp": "Spec live · TSP/3.0.0-alpha.6",
+      "openStandardMit": "Åpen standard · betalte verktøy",
       "eyebrow": "Trust Standard Protocol",
-      "h1": "Kryptografisk bevis for AI-output.",
-      "lead": "TSP gjør AI-svar om til uavhengig verifiserbare TrustEnvelopes: <kilde>hva som ble sagt</kilde>, <model>hvilken kilde og prosess som produserte det</model>, og om byte-innholdet fortsatt stemmer.",
-      "leadTechnical": "Tenk HTTPS-aktig verifisering for AI som en analogi: ikke et løfte om at leverandøren er god, men en måte å inspisere beviset på. Åpen protokoll og SDK er gratis; operative Risk-, Evidence- og Oversight-verktøy er valgfrie.",
-      "ctaPrimary": "Verifiser en TrustEnvelope",
+      "h1": "En signert kvittering for hvert AI-svar.",
+      "lead": "TSP signerer hvert AI-svar med <kilde>kilde</kilde>, <model>modell</model> og <time>tidspunkt</time>. Senere kan hvem som helst etterprøve svaret — uten å spørre leverandøren. Endrer noen ett tegn etter signering, ser du det umiddelbart.",
+      "leadTechnical": "Teknisk: en åpen standard som wrapper hver AI-utgang som en signert <code>TrustEnvelope</code> — Ed25519, SHA-256, RFC 3161 og hash-kjede. Sovereign-by-default, MIT-lisensiert referanseimplementasjon; betalte plattformverktøy er valgfrie.",
+      "ctaPrimary": "Se tamper-demoen",
       "ctaSecondary": "Les spesifikasjonen",
       "specCellSpec": "Spec",
       "specCellSpecValue": "v3.0.0-alpha.6",
@@ -745,16 +745,16 @@
     },
     "manifest": {
       "eyebrow": "Hva du faktisk får",
-      "h2": "Verifiserer offline. Ingen leverandør kreves.",
+      "h2": "En åpen standard. Ikke en plattform du blir låst inn i.",
       "stat1Num": "6 / 6",
-      "stat1Label": "AI Act-presspunkter mappet",
+      "stat1Label": "EU AI Act-artikler dekket",
       "stat2Num": "0",
-      "stat2Label": "Leverandører kreves for verifisering",
-      "stat3Num": "2",
-      "stat3Label": "MIT-referansepakker",
+      "stat2Label": "Vendor lock-in",
+      "stat3Num": "4",
+      "stat3Label": "Åpne krypto-standarder",
       "stat4Num": "MIT",
       "stat4Label": "Standard-sonen, alltid",
-      "claim": "<strong>Vi hevder bare det koden faktisk gjør.</strong> Standarden er åpen (CC-BY 4.0), SDK og TrustBadge er MIT, og verifisering fungerer uten at du spør TSP eller en SaaS-leverandør om lov. Hvis vi forsvinner, fortsetter implementasjonen din å fungere."
+      "claim": "<strong>Vi hevder bare det koden faktisk gjør.</strong> Standarden er åpen (CC-BY 4.0), referanseimplementasjonen og TrustBadge er MIT, og de betalte verktøyene ligger over dette laget. Hvis vi forsvinner, fortsetter implementasjonen din å fungere."
     },
     "audience": {
       "eyebrow": "Hvem er dette for",
@@ -927,6 +927,12 @@
       "col3Label": "«For komplekst.»",
       "col3Body": "Kjerneintegrasjonen er ett smalt funksjonskall rundt outputen. Verifisering fungerer offline, uten oss. Referansepakkene dekker både SDK og brukerflate-merket, mens betalte moduler finnes når team vil slippe driftsarbeidet.",
       "footer": "Gjør TSP til default-adopter-spørsmålet i procurement: enten TSP-kompatible TrustEnvelopes, eller et like sterkt signert evidence-artefakt."
+    },
+    "abstract": {
+      "eyebrow": "Hvordan det fungerer",
+      "p1": "Når en AI gir et svar i dag, er svaret en <em>påstand</em>. Det er ingen strukturert måte å etterprøve hvor svaret kom fra, hvilken modell som genererte det, hva slags policy det ble produsert under, eller om det er endret i ettertid.",
+      "p2": "TSP gjør AI-utgangen til et <em>strukturert artefakt</em>. Hvert svar wrappes som en <code>TrustEnvelope</code> med tre regulator-relevante felter — <strong>Kilde-erklæring</strong>, <strong>Prosess-logg</strong>, <strong>Alignment-metadata</strong> — pluss en Ed25519-signatur, en RFC 3161-tidsstempel og en hash-kjede med UUIDv7-IDer. Strukturen er åpen, kryptografien er standard, og verifiseringen er uavhengig av leverandøren.",
+      "p3": "Standarden er protokollen. Plattform-modulene (Risk, Evidence, Oversight) er valgfrie hostede backends mot EU AI Act og ISO/IEC 42001. Du kan implementere standarden i hvilket som helst språk, eller bruke våre referanse-pakker."
     }
   }
 }

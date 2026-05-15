@@ -28,14 +28,14 @@
   h1 {
     font-size: clamp(2.25rem, 5vw, 3.25rem); /* 36-52px */
     line-height: 1.08;
-    font-weight: 600;
-    letter-spacing: 0;
+    font-weight: 500;
+    letter-spacing: -0.025em;
   }
   h2 {
     font-size: clamp(1.625rem, 3.2vw, 2.125rem); /* 26-34px */
     line-height: 1.2;
-    font-weight: 600;
-    letter-spacing: 0;
+    font-weight: 500;
+    letter-spacing: -0.018em;
   }
   h3 {
     font-size: 1.25rem;
@@ -138,8 +138,6 @@
     font-family: var(--font-mono);
     font-size: 0.8125rem;
     line-height: 1.5;
-    max-width: 100%;
-    min-width: 0;
     overflow: hidden;
   }
 
@@ -156,17 +154,6 @@
     text-transform: uppercase;
     color: var(--color-muted);
     font-weight: 500;
-    min-width: 0;
-    flex-wrap: wrap;
-  }
-
-  .tsp-spec-card-head > span,
-  .tsp-spec-card-head > div {
-    min-width: 0;
-  }
-
-  .tsp-spec-card-head > div {
-    flex-wrap: wrap;
   }
 
   .tsp-spec-card-row {
@@ -190,26 +177,7 @@
   .tsp-spec-card-row > dd {
     margin: 0;
     color: var(--color-ink);
-    min-width: 0;
     word-break: break-word;
-  }
-
-  @media (max-width: 520px) {
-    .tsp-spec-card-head {
-      align-items: flex-start;
-      padding: 0.55rem 1rem;
-    }
-
-    .tsp-spec-card-row {
-      grid-template-columns: 1fr;
-      gap: 0.35rem;
-      padding: 0.75rem 1rem;
-    }
-
-    .tsp-spec-card-foot {
-      padding-left: 1rem;
-      padding-right: 1rem;
-    }
   }
 
   .tsp-spec-card-foot {
@@ -251,10 +219,6 @@
       #000 92%,
       transparent 100%
     );
-  }
-
-  .tsp-fingerprint-band .tsp-container {
-    overflow: hidden;
   }
 
   .tsp-fingerprint-track {

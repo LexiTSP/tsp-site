@@ -19,13 +19,13 @@ infra/
     └── README.md                   provisioning runbook
 ```
 
-CI/CD lives in `.github/workflows/deploy.yml` at the repo root and uses `bun run check:release` as its release gate (claim-lint + interop fixtures + build/tests + production-start smoke).
+CI/CD lives in `.github/workflows/deploy.yml` at the repo root and uses `bun run check:release` as its release gate (secret scan + claim-lint + interop fixtures + build/tests + production-start smoke).
 
 ## Three-step deploy from zero
 
 1. **Provision** the server: `cd infra/terraform && terraform apply` (≈3 min)
 2. **Bootstrap** TLS: Cloudflare Origin Certificate paste, see `terraform/README.md` §3
-3. **Deploy** the site: `git push origin main` triggers the GitHub Actions workflow
+3. **Deploy** the site: run the manual `Deploy to Hetzner` GitHub Actions workflow after `main` has passed the PR release gate
 
 End state: HTTPS site behind Cloudflare with mTLS-locked origin, automated nightly offsite backups to R2, signed manifest served with `Cache-Control: public, max-age=300, stale-while-revalidate=3600`.
 
@@ -36,5 +36,5 @@ Approximately €30/mnd for site + manifest origin (CCX13 + backups + Cloudflare
 ## When to re-run
 
 - `terraform apply` only on infrastructure changes (server type, location, firewall rules)
-- `git push origin main` for every code change — the GitHub Actions workflow handles it
+- merge to `main` for every code change, then trigger the manual deploy workflow
 - `terraform destroy` if you ever need to nuke the server (state, snapshots, IPs all go with it — make sure offsite backups are current first)

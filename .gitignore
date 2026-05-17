@@ -5,6 +5,12 @@ out/
 *.log
 .env
 .env.local
+*.key
+*.pem
+*.p12
+*.pfx
+TSPREACH.txt
 .DS_Store
 tsconfig.tsbuildinfo
 .rework-backup/
+.deploy-backups/

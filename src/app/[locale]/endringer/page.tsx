@@ -76,7 +76,7 @@ const ENTRIES_NO: Entry[] = [
     title: "Whitepaper, /kontakt og audience-strip",
     body: "Konkrete konverterings-veier for offentlig sektor og utviklere. Vi begynte å bygge ut markedssiden seriøst — fortsatt åpen og ærlig, men med faktiske handlings­knapper.",
     changes: [
-      { tag: "feature", text: "Whitepaper v0.1 (PDF) — runtime-compliance for EU AI Act, ~28 sider" },
+      { tag: "feature", text: "Legacy whitepaper draft — historisk, ikke dagens offentlige posisjonering" },
       { tag: "feature", text: "/kontakt-side med audience-spesifikke pre-utfylte mailto-er" },
       { tag: "feature", text: "/priser med tre tier-kort + ærlig pilot-prising-disclaimer" },
       { tag: "feature", text: "Audience-strip på hjemme­siden (compliance / utvikler / innkjøper)" },
@@ -101,11 +101,11 @@ const ENTRIES_NO: Entry[] = [
   {
     date: "2026-04-15",
     version: "v2.0.0",
-    title: "TSP Spec v2.0 — stable",
-    body: "Første stabile spec-utgivelse. JSON-LD-format frosset, signaturkjede konsolidert, alle moduler bygd mot samme protokoll.",
+    title: "TSP Spec v2.0 — historical release",
+    body: "Første stabile spec-utgivelse. Denne posten er historisk; dagens offentlige grense er v3-alpha med manifest-basert identitet.",
     changes: [
       { tag: "breaking", text: "Spec v1.x-konvolutter er ikke kompatible — kjør migrate-script" },
-      { tag: "feature", text: "JSON-LD context fastsatt: truststandardprotocol.com/spec/v2.0" },
+      { tag: "feature", text: "Legacy JSON-LD context fastsatt for v2-generasjonen" },
       { tag: "feature", text: "Risk Dashboard som første betalte modul" },
       { tag: "security", text: "SHA-256 erstatter SHA-1 i ledger-kjede" },
     ],
@@ -149,7 +149,7 @@ const ENTRIES_EN: Entry[] = [
     title: "Whitepaper, /kontakt and audience strip",
     body: "Concrete conversion paths for public sector and developers. We started building out the marketing site seriously — still open and honest, but with actual action buttons.",
     changes: [
-      { tag: "feature", text: "Whitepaper v0.1 (PDF) — runtime compliance for EU AI Act, ~28 pages" },
+      { tag: "feature", text: "Legacy whitepaper draft — historical, not the current public positioning" },
       { tag: "feature", text: "/kontakt page with audience-specific pre-filled mailtos" },
       { tag: "feature", text: "/priser with three tier cards + honest pilot pricing disclaimer" },
       { tag: "feature", text: "Audience strip on the home page (compliance / developer / buyer)" },
@@ -174,11 +174,11 @@ const ENTRIES_EN: Entry[] = [
   {
     date: "2026-04-15",
     version: "v2.0.0",
-    title: "TSP Spec v2.0 — stable",
-    body: "First stable spec release. JSON-LD format frozen, signature chain consolidated, all modules built against the same protocol.",
+    title: "TSP Spec v2.0 — historical release",
+    body: "First stable spec release. This entry is historical; the current public boundary is v3 alpha with manifest-backed identity.",
     changes: [
       { tag: "breaking", text: "Spec v1.x envelopes are not compatible — run migrate script" },
-      { tag: "feature", text: "JSON-LD context locked: truststandardprotocol.com/spec/v2.0" },
+      { tag: "feature", text: "Legacy JSON-LD context locked for the v2 generation" },
       { tag: "feature", text: "Risk Dashboard as the first paid module" },
       { tag: "security", text: "SHA-256 replaces SHA-1 in the ledger chain" },
     ],
@@ -208,8 +208,8 @@ const ROADMAP_NO = [
     when: "Q4 2026",
   },
   {
-    title: "@lexico/tsp på npm",
-    desc: "Etter v3.0-stabilitet publiseres SDK-en formelt. Foreløpig: clone fra GitHub.",
+    title: "@lexitsp/sdk på npm",
+    desc: "SDK-en publiseres under offentlig @lexitsp-scope. Bruk alpha-taggen til stable er klar.",
     when: "Q1 2027",
   },
   {
@@ -231,8 +231,8 @@ const ROADMAP_EN = [
     when: "Q4 2026",
   },
   {
-    title: "@lexico/tsp on npm",
-    desc: "After v3.0 stability the SDK is published formally. For now: clone from GitHub.",
+    title: "@lexitsp/sdk on npm",
+    desc: "The SDK is published under the public @lexitsp scope. Use the alpha tag until stable is ready.",
     when: "Q1 2027",
   },
   {

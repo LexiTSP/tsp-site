@@ -177,7 +177,7 @@ POST /v1/items  (Bearer customer-token)
   "tags": ["welfare-eligibility-edge"],
   "rationale": "Bruker har dokumentert nedsatt arbeidsevne, men §11-5...",
   "reviewer": {
-    "keyRef": "https://nav.no/.well-known/tsp/keys.json#reviewer-lh-1",
+    "keyRef": "https://nav.no/.well-known/tsp-manifest.json#reviewer-lh-1",
     "role": "human-reviewer"
   },
   "decidedAt": "2026-04-22T14:32:18Z",
@@ -193,34 +193,32 @@ POST /v1/items  (Bearer customer-token)
         <p>
           {isEn ? (
             <>
-              A pilot deployment automatically routes envelopes with <code>humanReviewRequired: true</code> to a review
-              queue staffed once a week by one caseworker at LexiCo. During 2026, around 3% of total
-              envelopes have passed through human review — most due to a combination of{" "}
-              <em>&quot;welfare&quot; domain + below 70% confidence</em>.
+              A deployment can route envelopes with <code>humanReviewRequired: true</code> to a review
+              queue staffed by the customer&apos;s own reviewers. Typical triggers include a high-stakes
+              domain, missing source confidence, refusal metadata, or structured uncertainty on a central field.
             </>
           ) : (
             <>
-              En pilot-deployment ruter automatisk envelope-er med <code>humanReviewRequired: true</code> til en
-              gjennomgangskø som bemanner-er én gang i uken av én saksbehandler hos LexiCo. I løpet av 2026
-              har ca. 3 % av totale envelopes passert gjennom menneskelig review — de fleste pga.
-              kombinasjon av <em>&quot;welfare&quot; domene + under 70 % konfidens</em>.
+              En deployment kan rute envelope-er med <code>humanReviewRequired: true</code> til en
+              gjennomgangskø bemannet av kundens egne reviewers. Typiske triggere er high-stakes domene,
+              manglende kildekonfidens, refusal-metadata eller strukturert usikkerhet på et sentralt felt.
             </>
           )}
         </p>
         <p>
           {isEn
-            ? "Of those reviewed, approximately 70% are approved unchanged, 25% approved after editing, and 5% rejected outright. Rejected answers are not silently replaced — the user is notified that their answer has been reviewed by an expert and updated."
-            : "Av disse reviewet blir ca. 70 % godkjent uendret, 25 % godkjent etter redigering, og 5 % avvist helt. Avviste svar erstattes ikke stille — brukeren får melding om at svaret deres har blitt gjennomgått av en ekspert og oppdatert."}
+            ? "The important property is not the review rate. It is that approved, edited, and rejected outcomes become signed review evidence tied to the original envelope hash."
+            : "Det viktige er ikke review-raten. Det viktige er at godkjente, redigerte og avviste utfall blir signert review-bevis bundet til den opprinnelige envelope-hashen."}
         </p>
         <p>
           {isEn ? (
             <>
-              The whole trail is visible on <ExternalRef href="https://example.com/ledger">the pilot deployment transparency log</ExternalRef> —
+              The whole trail can be visible in <ExternalRef href="https://example.com/ledger">a deployment transparency log</ExternalRef> —
               both the AI proposal and the human override decision.
             </>
           ) : (
             <>
-              Hele dette sporet er synlig på <ExternalRef href="https://example.com/ledger">pilotens åpenhetslogg</ExternalRef> —
+              Hele dette sporet kan vises i <ExternalRef href="https://example.com/ledger">en deployment-åpenhetslogg</ExternalRef> —
               både AI-forslaget og det menneskelige overstyringsvedtaket.
             </>
           )}

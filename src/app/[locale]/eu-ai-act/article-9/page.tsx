@@ -72,8 +72,8 @@ export default async function Article9Page({
         module="Risk"
         moduleHref="/risk"
         summary={isEn
-          ? "TSP Risk is a dashboard over the ledger data — risk distribution over time, bias drift detection, alerting on flagging. A core SKU in our commercial model."
-          : "TSP Risk er et dashboard over ledger-dataene — risk-distribusjon over tid, bias-drift-deteksjon, alerting på flagging. Kjerne-SKU i vår kommersielle modell."}
+          ? "TSP Risk is an optional operational layer over ledger data: risk distribution over time, drift signals, and alerting on structured flags."
+          : "TSP Risk er et valgfritt operasjonelt lag over ledger-data: risikodistribusjon over tid, drift-signaler og varsling på strukturerte flagg."}
       >
         <SectionHeading>{isEn ? "What the Risk module reads" : "Hva Risk-modulen leser"}</SectionHeading>
         <Prose>
@@ -235,8 +235,8 @@ const riskSignals = pointers.map(p => ({
       <DeploymentExample>
         <p>
           {isEn
-            ? "A pilot deployment runs an internal TSP Risk instance that monitors all envelopes written by the deployment ledger. The most important alert rules:"
-            : "En pilot-deployment har en intern TSP Risk-instans som overvåker alle envelopes skrevet av deployment-ledgeren. Viktigste alert-regler:"}
+            ? "A deployment can run an internal TSP Risk instance that monitors envelopes written by the deployment ledger. Typical alert rules:"
+            : "En deployment kan kjøre en intern TSP Risk-instans som overvåker envelopes skrevet av deployment-ledgeren. Typiske alert-regler:"}
         </p>
         <ul className="list-disc list-inside space-y-1 ml-2">
           <li>
@@ -274,8 +274,8 @@ const riskSignals = pointers.map(p => ({
         </ul>
         <p>
           {isEn
-            ? "All alerts land in a dedicated Slack channel and in the monthly report that is generated automatically for the LexiCo board."
-            : "Alle alerts havner i en dedikert Slack-kanal og i månedsrapporten som genereres automatisk for LexiCo-styret."}
+            ? "Alerts can land in the customer&apos;s incident channel and in a monthly evidence report for the responsible governance team."
+            : "Varsler kan lande i kundens incident-kanal og i en månedlig bevisrapport for ansvarlig governance-team."}
         </p>
       </DeploymentExample>
 

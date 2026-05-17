@@ -1,13 +1,14 @@
 import { Link } from "@/i18n/navigation";
 import { Package, Scale, Eye, Archive, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import { V2BoundaryNote, V2CanonicalStrip, V2PageHero } from "./V2ProofSurface";
 
 /**
  * ModuleLayout — felles skall for /core, /risk, /oversight, /evidence.
  *
- * Hero-header med lisens/pricing, sticky sidenav med alle moduler, og content-område.
- * Modul-navn/tagline/pricing leses fra messages.moduleLayout.modules.{slug}.
+ * Hero-header, sticky sidenav med alle moduler, og content-område.
+ * Modul-navn/tagline leses fra messages.moduleLayout.modules.{slug}.
  */
 
 type ModuleSlug = "core" | "risk" | "oversight" | "evidence";
@@ -21,7 +22,7 @@ type ModuleMeta = {
 };
 
 // Strukturell metadata (lisens/ikon/aksent) — disse skal IKKE oversettes.
-// Tekst (name/tagline/pricing) hentes fra translations.
+// Tekst (name/tagline) hentes fra translations.
 export const TSP_MODULE_META: ModuleMeta[] = [
   { slug: "core", license: "MIT", icon: Package, accent: "brand" },
   { slug: "risk", license: "Commercial", icon: Scale, accent: "verify", star: true },
@@ -36,65 +37,51 @@ interface Props {
 
 export function ModuleLayout({ moduleSlug, children }: Props) {
   const t = useTranslations("moduleLayout");
+  const locale = useLocale();
+  const isEn = locale === "en";
   const mod = TSP_MODULE_META.find((m) => m.slug === moduleSlug)!;
-  const Icon = mod.icon;
   const name = t(`modules.${moduleSlug}.name`);
   const tagline = t(`modules.${moduleSlug}.tagline`);
-  const pricing = t(`modules.${moduleSlug}.pricing`);
-
-  const numTone =
-    mod.accent === "verify"
-      ? "tsp-section-num--verify"
-      : mod.accent === "warn"
-        ? "tsp-section-num--warn"
-        : "";
-
-  const moduleNum = String(
-    TSP_MODULE_META.findIndex((m) => m.slug === moduleSlug) + 1,
-  ).padStart(2, "0");
+  const moduleLabel = moduleSlug === "core"
+    ? (isEn ? "Open protocol core" : "Åpen protokollkjerne")
+    : (isEn ? "Optional operations layer" : "Valgfritt operasjonelt lag");
+  const boundaryCopy = moduleSlug === "core"
+    ? (isEn
+      ? "Core is the protocol primitive: envelope structure, signing surface, canonicalization, hash chain, and verification. It is not a governance dashboard and does not replace legal assessment."
+      : "Core er protokollprimitiven: envelope-struktur, signeringsflate, kanonisering, hash-kjede og verifikasjon. Det er ikke et governance-dashboard og erstatter ikke juridisk vurdering.")
+    : (isEn
+      ? "This module sits above the open protocol. It can help teams operate evidence, risk, or review workflows, but it is not required to create or verify a valid TSP receipt."
+      : "Denne modulen ligger over den åpne protokollen. Den kan hjelpe team med bevis-, risiko- eller review-workflows, men kreves ikke for å lage eller verifisere en gyldig TSP-kvittering.");
 
   return (
     <div>
-      {/* Hero strip */}
-      <section className="tsp-hero-surface border-b border-border">
-        <div className="tsp-container py-12 md:py-16">
-          <nav className="tsp-section-marker mb-6 flex items-center gap-2">
-            <Link href="/" className="hover:text-ink no-underline">
-              TSP
-            </Link>
-            <span className="opacity-40">·</span>
-            <span className="text-ink">{name}</span>
-          </nav>
-
-          <div className="grid lg:grid-cols-[1fr_320px] gap-8 lg:gap-12 items-start">
-            <div>
-              <div className="tsp-section-eyebrow mb-5">
-                <span className={cn("tsp-section-num", numTone)}>{moduleNum}</span>
-                <span className="tsp-section-label">{t("tspModule")}</span>
-              </div>
-
-              <div className="flex items-start gap-4 mb-5">
-                <Icon className="w-9 h-9 text-ink shrink-0 mt-1.5" />
-                <h1 className="flex-1">TSP {name}</h1>
-              </div>
-
-              <p className="text-lg text-ink max-w-2xl leading-relaxed mb-6">{tagline}</p>
-
-              <div className="flex flex-wrap items-center gap-2.5">
-                {mod.star && (
-                  <span className="tsp-accent-pill">
-                    <span className="w-1.5 h-1.5 rounded-full bg-accent inline-block" />
-                    {t("coreSku")}
-                  </span>
-                )}
-                <span className="tsp-pill">{mod.license}</span>
-                <span className="tsp-section-marker">·</span>
-                <span className="tsp-section-marker">{pricing}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <V2PageHero
+        eyebrow={`${moduleLabel} · TSP ${name}`}
+        title={
+          isEn
+            ? `TSP ${name}: proof-first infrastructure, not another dashboard.`
+            : `TSP ${name}: bevis først, ikke enda et dashboard.`
+        }
+        lead={tagline}
+        primaryCta={{
+          href: moduleSlug === "core" ? "/verify" : "/eu-ai-act",
+          label: moduleSlug === "core"
+            ? (isEn ? "Verify a receipt" : "Verifiser kvittering")
+            : (isEn ? "See evidence map" : "Se bevismapping"),
+        }}
+        secondaryCta={{
+          href: moduleSlug === "core" ? "/spec" : "/core",
+          label: moduleSlug === "core"
+            ? (isEn ? "Read the spec" : "Les spec")
+            : (isEn ? "Open protocol core" : "Åpen protokollkjerne"),
+        }}
+        proofItems={[
+          { label: isEn ? "Layer" : "Lag", value: moduleLabel },
+          { label: isEn ? "Surface" : "Flate", value: moduleSlug === "core" ? "MIT / TrustEnvelope v3" : isEn ? "Pilot operations module" : "Pilotmodul for drift" },
+          { label: isEn ? "Boundary" : "Grense", value: moduleSlug === "core" ? "Required for TSP receipts" : "Optional above Core" },
+        ]}
+      />
+      <V2CanonicalStrip locale={locale} />
 
       {/* Main grid */}
       <div className="tsp-container py-12">
@@ -139,7 +126,12 @@ export function ModuleLayout({ moduleSlug, children }: Props) {
             </div>
           </aside>
 
-          <article className="max-w-3xl space-y-12">{children}</article>
+          <article className="max-w-3xl space-y-12">
+            <V2BoundaryNote title={isEn ? "What this layer means" : "Hva dette laget betyr"}>
+              {boundaryCopy}
+            </V2BoundaryNote>
+            {children}
+          </article>
         </div>
       </div>
     </div>

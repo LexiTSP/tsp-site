@@ -42,8 +42,8 @@ Spec-en følger **semver** med disse reglene:
 
 Forslag til spec-endringer (alle, fra trivielle til major) går gjennom en lett RFC-prosess:
 
-1. **Issue** opprettes i `github.com/LexiTSP/spec` med tag `rfc-proposal`.
-2. **RFC-tekst** følger malen i `spec/rfcs/_template.md`:
+1. **Issue** opprettes i `github.com/LexiTSP/tsp-site` med tag `rfc-proposal`.
+2. **RFC-tekst** følger malen i `docs/rfc/0000-template.md`:
    - Tittel + tracking-ID
    - Problemet som løses (konkret, ikke spekulativ)
    - Foreslått endring (schema-diff hvis aktuelt)
@@ -120,7 +120,7 @@ Vanlige bindinger:
 |---|---|---|
 | **Normativ tekst** | `spec/TSP-3.0.md` | Bindende beskrivelse av schema, validering og verify-checks |
 | **JSON-LD context** | `spec/contexts/tsp-3.0.jsonld` | Maskin-lesbar kontrakt; brukes i envelope `@context` |
-| **Test-vektorer** | `spec/test-vectors/3.0/*.json` | Kanoniske eksempler implementasjoner verifiserer mot |
+| **Test-vektorer** | `fixtures/v3.0/*.json` | Kanoniske eksempler implementasjoner verifiserer mot |
 
 Alle tre artefakter må være i sync — en endring i normativ tekst uten oppdaterte test-vektorer er en spec-feil.
 
@@ -163,10 +163,10 @@ CC-BY 4.0 er valgt over public domain (CC0) fordi attribusjonen sikrer sporbarhe
 
 ## 10 · Hvor du foreslår en endring
 
-- **Issue:** `https://github.com/LexiTSP/spec/issues/new?template=rfc-proposal.md`
-- **PR (kun for typo/klargjøring):** `https://github.com/LexiTSP/spec/pulls`
+- **Issue:** `https://github.com/LexiTSP/tsp-site/issues/new?template=rfc-proposal.md`
+- **PR (kun for typo/klargjøring):** `https://github.com/LexiTSP/tsp-site/pulls`
 - **Sikkerhet:** security@lexico.no (PGP-fingerprint i `SECURITY.md`)
-- **Diskusjon før RFC:** julian@lexico.no eller åpen issue-tråd
+- **Diskusjon før RFC:** tsp@lexico.no eller åpen issue-tråd
 
 ---
 

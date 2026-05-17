@@ -1,0 +1,37 @@
+name: Implementation question
+description: Ask how to integrate TSP, publish a manifest, verify envelopes, or use the SDK/TrustBadge.
+title: "[Implementation]: "
+labels: ["implementation", "question"]
+body:
+  - type: textarea
+    id: use_case
+    attributes:
+      label: Use case
+      description: What AI workflow are you trying to wrap or verify?
+    validations:
+      required: true
+  - type: dropdown
+    id: surface
+    attributes:
+      label: Surface
+      options:
+        - "@lexitsp/sdk"
+        - "@lexitsp/trustbadge-react"
+        - "/verify"
+        - "/.well-known/tsp-manifest.json"
+        - "Spec / schema"
+        - "Other"
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      description: Include package versions, sample envelope shape, manifest URL, or code snippets where useful.
+  - type: checkboxes
+    id: boundary
+    attributes:
+      label: Boundary check
+      options:
+        - label: I understand TSP provides technical evidence and does not by itself certify AI Act compliance.
+          required: true

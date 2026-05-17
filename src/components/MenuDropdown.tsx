@@ -15,7 +15,9 @@ import { cn } from "@/lib/utils";
 export interface MenuLink {
   href: string;
   label: string;
+  question?: string;
   desc?: string;
+  action?: string;
   badge?: string;
   icon?: React.ComponentType<{ className?: string }>;
 }
@@ -23,6 +25,10 @@ export interface MenuLink {
 interface Props {
   trigger: string;
   active?: boolean;
+  intro?: {
+    title: string;
+    body: string;
+  };
   groups: Array<{
     heading?: string;
     links: MenuLink[];
@@ -30,7 +36,7 @@ interface Props {
   footer?: React.ReactNode;
 }
 
-export function MenuDropdown({ trigger, active, groups, footer }: Props) {
+export function MenuDropdown({ trigger, active, intro, groups, footer }: Props) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -72,10 +78,17 @@ export function MenuDropdown({ trigger, active, groups, footer }: Props) {
       </button>
       {open && (
         <div
-          className="absolute left-0 top-full pt-2 z-50"
-          style={{ minWidth: "320px" }}
+          className="absolute left-0 top-full z-50 pt-3"
+          style={{ width: "min(520px, calc(100vw - 48px))" }}
         >
-          <div className="tsp-card p-2 shadow-xl border-border bg-white animate-fade-in">
+          <div className="max-h-[calc(100vh-88px)] overflow-y-auto border border-border bg-white shadow-[0_24px_80px_rgba(17,24,39,0.16)] animate-fade-in">
+            {intro && (
+              <div className="border-b border-border bg-paper px-5 py-4">
+                <div className="text-sm font-semibold text-ink">{intro.title}</div>
+                <p className="mt-1 text-xs leading-relaxed text-muted">{intro.body}</p>
+              </div>
+            )}
+            <div className="p-2">
             {groups.map((group, gi) => (
               <div key={gi} className={gi > 0 ? "mt-2 pt-2 border-t border-border" : ""}>
                 {group.heading && (
@@ -88,16 +101,16 @@ export function MenuDropdown({ trigger, active, groups, footer }: Props) {
                       <Link
                         key={l.href}
                         href={l.href}
-                        className="flex items-start gap-3 p-2.5 rounded-lg hover:bg-brand/5 group transition-colors"
+                        className="grid grid-cols-[auto_1fr] gap-3 p-3 hover:bg-brand/5 group transition-colors"
                         onClick={() => setOpen(false)}
                       >
                         {Icon && (
-                          <div className="w-8 h-8 shrink-0 rounded-lg bg-brand/10 text-brand flex items-center justify-center group-hover:scale-110 transition-transform">
+                          <div className="w-9 h-9 shrink-0 bg-brand/10 text-brand flex items-center justify-center group-hover:bg-brand group-hover:text-white transition-colors">
                             <Icon className="w-4 h-4" />
                           </div>
                         )}
                         <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2">
+                          <div className="flex items-center gap-2 flex-wrap">
                             <span className="text-sm font-semibold text-ink group-hover:text-brand">
                               {l.label}
                             </span>
@@ -107,8 +120,18 @@ export function MenuDropdown({ trigger, active, groups, footer }: Props) {
                               </span>
                             )}
                           </div>
+                          {l.question && (
+                            <div className="mt-1 text-[0.78rem] font-medium leading-snug text-ink">
+                              {l.question}
+                            </div>
+                          )}
                           {l.desc && (
-                            <div className="text-xs text-muted mt-0.5 leading-relaxed">{l.desc}</div>
+                            <div className="text-xs text-muted mt-1 leading-relaxed">{l.desc}</div>
+                          )}
+                          {l.action && (
+                            <div className="mt-2 inline-flex items-center gap-1 font-mono text-[0.68rem] uppercase tracking-[0.12em] text-brand">
+                              {l.action}
+                            </div>
                           )}
                         </div>
                       </Link>
@@ -117,6 +140,7 @@ export function MenuDropdown({ trigger, active, groups, footer }: Props) {
                 </div>
               </div>
             ))}
+            </div>
             {footer && <div className="mt-2 pt-2 border-t border-border px-2 pb-1">{footer}</div>}
           </div>
         </div>

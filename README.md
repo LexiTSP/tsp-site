@@ -1,6 +1,6 @@
-# TSP - Trust Standard Protocol
+# TSP — Trust Standard Protocol
 
-Public site, open specification, reference SDK, TrustBadge package, fixtures, and release checks for cryptographically checkable AI provenance.
+Public site, open specification, reference SDK, and TrustBadge package for cryptographically checkable AI provenance.
 
 TSP wraps important AI outputs as signed `TrustEnvelope` receipts. A recipient, auditor, or browser verifier can check the envelope signature, content hash, issuer manifest, and timestamp evidence against the public specification instead of trusting a vendor dashboard.
 
@@ -8,44 +8,22 @@ Canonical site: https://truststandardprotocol.com
 
 ## Public Alpha Status
 
-TSP is in public alpha. The open protocol layer is public:
+TSP is in public alpha. The open specification layer is public:
 
-- public site and documentation;
-- `@lexitsp/sdk`;
-- `@lexitsp/trustbadge-react`;
-- interop fixtures and local verification flows;
-- release checks for public-surface claims.
+- Public site and documentation
+- `@lexitsp/sdk`
+- `@lexitsp/trustbadge-react`
+- Interop fixtures and local verification flows
 
 Commercial hosted tools for Risk, Evidence, Oversight, and implementation support are separate pilot offerings and are not included in this public repository.
 
-## Canonical Surface
-
-| Surface | Public convention |
-| --- | --- |
-| Trust root | `/.well-known/tsp-manifest.json` |
-| Canonicalization | RFC 8785 / JCS basis |
-| Offline verification | `verifyLocal()` |
-| Network-backed verification | `verifyOnline()` |
-| Public package scope | `@lexitsp` |
-
-Older manifest-route examples should be treated as stale documentation and removed during release review.
-
-## Maturity And Proof Path
-
-The public site should separate four layers clearly:
-
-- **Required core:** TrustEnvelope structure, hashing, signing, manifest discovery, and verification modes.
-- **Informative examples:** SDK snippets, playground flows, starter paths, and UI examples.
-- **Experimental extensions:** anchoring, tombstones, sector evidence packs, and future language implementations until backed by fixtures and review.
-- **Pilot support:** operational workflows layered on top of signed envelopes.
-
-The next proof milestones are external implementations, public pilot proof packs, independent review, and a public RFC/working-group lane. Do not imply these exist until a public artifact exists.
+Until an external organization signs a TrustEnvelope with its own key and DNS-hosted manifest, TSP should be described as an open specification plus reference implementation.
 
 ## Workspace Contents
 
 ```text
 tsp-site/
-├── src/app/[locale]/              Next.js App Router pages for Norwegian and English
+├── src/app/[locale]/              Next.js 15 App Router pages for Norwegian and English
 ├── src/components/                Site components, verifier UI, playground UI, shared layouts
 ├── messages/                      `no.json` and `en.json` translations
 ├── fixtures/v3.0/                 TSP test vectors
@@ -79,6 +57,10 @@ Public release check:
 bun run check:release
 ```
 
+`bun run check:release` includes claim lint, manifest checks, strategic readiness checks, public-surface checks, interop fixtures, package smoke, and production-start smoke.
+
+Before publishing or deployment, run the release audit in [`docs/PRE_PUBLISH_AUDIT.md`](docs/PRE_PUBLISH_AUDIT.md).
+
 ## Key Routes
 
 - `/` and `/en`
@@ -95,6 +77,12 @@ bun run check:release
 - `@lexitsp/trustbadge-react`
 
 The public npm scope is `@lexitsp`.
+
+## Gate A
+
+The next validation milestone is Gate A: a named external organization signs a TrustEnvelope with its own key, hosts its own `/.well-known/tsp-manifest.json`, and produces a passing independent verifier result.
+
+See [`docs/FIRST_ADOPTER_KIT.md`](docs/FIRST_ADOPTER_KIT.md).
 
 ## Security
 

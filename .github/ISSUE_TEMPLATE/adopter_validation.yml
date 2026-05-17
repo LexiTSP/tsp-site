@@ -1,0 +1,38 @@
+name: Adopter validation
+description: Share evidence from an external implementation or Gate A candidate.
+title: "[Adopter validation]: "
+labels: ["adopter-validation", "interop"]
+body:
+  - type: textarea
+    id: organization
+    attributes:
+      label: Organization and contact
+      description: Name, domain, and contact email. Do not include secrets or private keys.
+    validations:
+      required: true
+  - type: textarea
+    id: manifest
+    attributes:
+      label: Manifest URL
+      description: Provide your public manifest URL, normally https://<domain>/.well-known/tsp-manifest.json.
+      placeholder: "https://example.com/.well-known/tsp-manifest.json"
+    validations:
+      required: true
+  - type: textarea
+    id: envelope
+    attributes:
+      label: Sample envelope or fixture
+      description: Link to a public sample envelope, fixture repo, or verification output.
+    validations:
+      required: true
+  - type: checkboxes
+    id: gate_a
+    attributes:
+      label: Gate A checks
+      options:
+        - label: The envelope is signed with our own key, not a LexiCo demo key.
+          required: true
+        - label: The manifest is hosted under our own domain.
+          required: true
+        - label: The implementation code was not written by LexiCo.
+          required: true

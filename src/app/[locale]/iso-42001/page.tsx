@@ -6,6 +6,7 @@ import {
   Info,
   XCircle,
 } from "lucide-react";
+import { V2BoundaryNote, V2CanonicalStrip, V2PageHero } from "@/components/V2ProofSurface";
 
 export async function generateMetadata({
   params,
@@ -95,7 +96,7 @@ const CLAUSES_NO: ClauseRow[] = [
     clause: "7.5",
     name: "Documented information",
     tspCoverage: "covered",
-    tspNote: "TSP Evidence leverer audit-ready dossiers med full sporbarhet til ledger. Ryggraden.",
+    tspNote: "TSP Evidence leverer strukturerte dossiers med sporbarhet til ledger. Ryggraden.",
   },
   {
     clause: "8.1",
@@ -224,7 +225,7 @@ const CLAUSES_EN: ClauseRow[] = [
     clause: "7.5",
     name: "Documented information",
     tspCoverage: "covered",
-    tspNote: "TSP Evidence delivers audit-ready dossiers with full traceability to the ledger. The backbone.",
+    tspNote: "TSP Evidence delivers structured dossiers with traceability to the ledger. The backbone.",
   },
   {
     clause: "8.1",
@@ -299,23 +300,23 @@ export default async function Iso42001Page({
 
   return (
     <>
-      <section className="tsp-hero-surface border-b border-border">
-        <div className="tsp-container py-12 md:py-16">
-          <nav className="tsp-section-marker mb-6 flex items-center gap-2">
-            <Link href="/" className="hover:text-ink no-underline">TSP</Link>
-            <span className="opacity-40">·</span>
-            <span className="text-ink">{t("breadcrumb")}</span>
-          </nav>
-          <div className="tsp-section-eyebrow mb-5">
-            <span className="tsp-section-num tsp-section-num--accent">{t("eyebrowChip")}</span>
-            <span className="tsp-section-label">{t("eyebrowLabel")}</span>
-          </div>
-          <h1 className="mb-5 max-w-3xl">{t("h1")}</h1>
-          <p className="text-ink text-lg max-w-3xl leading-relaxed">
-            {t.rich("lead", { strong: (c) => <strong>{c}</strong>, em: (c) => <em>{c}</em> })}
-          </p>
-        </div>
-      </section>
+      <V2PageHero
+        eyebrow={isEn ? "ISO 42001 mapping · evidence support" : "ISO 42001-mapping · bevisstøtte"}
+        title={isEn ? "A management system still needs management." : "Et styringssystem trenger fortsatt styring."}
+        lead={
+          isEn
+            ? "TSP can supply signed runtime evidence for an AI management system. It does not certify the organisation, train staff, or replace the QMS process."
+            : "TSP kan levere signert runtime-bevis til et AI management system. Det sertifiserer ikke organisasjonen, trener ikke ansatte og erstatter ikke QMS-prosessen."
+        }
+        primaryCta={{ href: "#clause-map", label: isEn ? "See clause map" : "Se klausulmapping" }}
+        secondaryCta={{ href: "/evidence", label: isEn ? "Open Evidence" : "Åpne Evidence" }}
+        proofItems={[
+          { label: isEn ? "Role" : "Rolle", value: isEn ? "Evidence backbone" : "Bevisryggrad" },
+          { label: isEn ? "Boundary" : "Grense", value: isEn ? "Not certification" : "Ikke sertifisering" },
+          { label: isEn ? "Verifier" : "Verifikator", value: "verifyLocal() / verifyOnline()" },
+        ]}
+      />
+      <V2CanonicalStrip locale={locale} />
 
       <div className="tsp-container py-12">
       <div className="grid md:grid-cols-3 gap-4 mb-10">
@@ -352,8 +353,16 @@ export default async function Iso42001Page({
         </p>
       </div>
 
+      <div className="mb-10">
+        <V2BoundaryNote title={isEn ? "What ISO evidence means" : "Hva ISO-bevis betyr"}>
+          {isEn
+            ? "TSP can make technical records easier to verify: which AI output was produced, which sources and model metadata were declared, whether the chain is intact, and which reviewer decision followed. ISO 42001 certification remains an organisational assessment."
+            : "TSP kan gjøre tekniske records enklere å verifisere: hvilket AI-svar ble produsert, hvilke kilder og modellmetadata ble deklarert, om kjeden er intakt, og hvilken reviewer-beslutning fulgte. ISO 42001-sertifisering er fortsatt en organisatorisk vurdering."}
+        </V2BoundaryNote>
+      </div>
+
       {/* Mapping table */}
-      <section className="mb-10">
+      <section id="clause-map" className="mb-10 scroll-mt-20">
         <h2 className="text-2xl font-bold mb-5">{isEn ? "Clause-by-clause mapping" : "Klausul-for-klausul mapping"}</h2>
         <div className="tsp-card overflow-hidden">
           <div className="overflow-x-auto">
@@ -383,25 +392,27 @@ export default async function Iso42001Page({
         </div>
       </section>
 
-      {/* Pilot model */}
+      {/* Evidence path */}
       <section className="mb-10 rounded-2xl bg-paper border border-border p-6">
         <div className="tsp-eyebrow text-nav-red mb-3 flex items-center gap-1.5">
           <span className="w-2 h-2 rounded-full bg-nav-red" />
-          {isEn ? "Evidence pilot" : "Evidence-pilot"}
+          {isEn ? "Evidence path" : "Bevisspor"}
         </div>
-        <h2 className="text-xl font-bold mb-3">{isEn ? "Measure the audit workload before you buy a platform" : "Mål audit-arbeidet før du kjøper en plattform"}</h2>
+        <h2 className="text-xl font-bold mb-3">
+          {isEn ? "Measure the evidence workload before adopting tooling" : "Mål bevisarbeidet før dere innfører verktøy"}
+        </h2>
         <p className="text-sm text-ink/90 leading-relaxed mb-3">
           {isEn ? (
             <>
-              A TSP Evidence pilot should produce one narrow, reviewable dossier from real signed
-              envelopes. <strong>The hypothesis to test:</strong> certification work on a TSP foundation
-              costs a fraction of the equivalent manual process.
+              A TSP Evidence pilot should produce one narrow, reviewable dossier from signed
+              envelopes. <strong>The hypothesis to test:</strong> verifiable runtime evidence should reduce
+              manual collation and make review gaps visible earlier.
             </>
           ) : (
             <>
               En TSP Evidence-pilot bør produsere én smal, reviderbar dossier fra ekte signerte
-              envelopes. <strong>Hypotesen som testes:</strong> sertifiseringsarbeid med TSP-grunnlag
-              koster en brøkdel av tilsvarende manuelle prosess.
+              envelopes. <strong>Hypotesen som testes:</strong> verifiserbart runtime-bevis bør redusere
+              manuell samling og gjøre review-gaps synlige tidligere.
             </>
           )}
         </p>

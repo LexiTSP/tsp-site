@@ -52,7 +52,7 @@ const metadata = {
   manifestUrl: "https://adopter.example/.well-known/tsp-manifest.json",
   instanceId: "adopter-instance-1",
   notes: [
-    "Fixtures are stable interop vectors for SDK v3.0.0-alpha.5.",
+    "Fixtures are stable interop vectors for SDK v3.0.0-alpha.6.",
     "The private keys are test-only and must never be used for live envelopes.",
     "TSA fixtures use placeholder or structurally invalid tokens until a real timestamp token fixture is added.",
   ],

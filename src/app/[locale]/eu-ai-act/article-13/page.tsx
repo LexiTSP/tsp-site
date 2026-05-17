@@ -214,8 +214,8 @@ export default async function Article13Page({
       <DeploymentExample>
         <p>
           {isEn
-            ? "A pilot deployment always shows a TrustBadge next to every AI answer. Clicking the badge opens TrustModal which explains:"
-            : "En pilot-deployment viser alltid en TrustBadge ved siden av hvert AI-svar. Klikk på badge-en åpner TrustModal som forklarer:"}
+            ? "A TrustBadge-based deployment can show the badge next to every AI answer. Clicking the badge opens TrustModal which explains:"
+            : "En TrustBadge-basert deployment kan vise badge-en ved siden av hvert AI-svar. Klikk på badge-en åpner TrustModal som forklarer:"}
         </p>
         <ul className="list-disc list-inside space-y-1 ml-2">
           <li><strong>{isEn ? "Source:" : "Kilde:"}</strong> {isEn ? "Lovdata / NAV.no / Public Administration Act" : "Lovdata / NAV.no / forvaltningsloven"}</li>
@@ -226,10 +226,10 @@ export default async function Article13Page({
         <p>
           {isEn ? (
             <>This isn&apos;t technical jargon. It&apos;s one plain sentence per point, at LIX-level 8. It is{" "}
-              <em>actually</em> transparency, not just paper compliance.</>
+              <em>usable</em> transparency, not just documentation text.</>
           ) : (
             <>Dette er ikke teknisk jargon. Det er en norsk setning per punkt, på nivå 8 i LIX-skalaen. Det
-              er <em>faktisk</em> transparency, ikke bare overholdelse på papir.</>
+              er <em>brukbar</em> transparency, ikke bare dokumentasjonstekst.</>
           )}
         </p>
       </DeploymentExample>

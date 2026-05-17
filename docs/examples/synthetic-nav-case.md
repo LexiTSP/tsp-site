@@ -2,7 +2,7 @@
 
 > En reproduserbar Proof-tier demo: tre AI-svar i en saksbehandlings­flyt, alle wrappet med TSP, klare for stikkprøve-revisjon. Ingen ekte borger­data, ingen avhengighet til eksterne produkter — kun for demo og opplæring.
 >
-> Brukes til: dev-demoer, audit-walkthroughs, intern opplæring, ekstern verifisering. Hver envelope kan kopieres og kjøres gjennom `verifyLocal` på `https://truststandardprotocol.com/playground` eller via SDK.
+> Brukes til: dev-demoer, audit-walkthroughs, intern opplæring, ekstern verifisering. Hver envelope kan kopieres og kjøres gjennom `verifyLocal` på `https://truststandardprotocol.com/verify` eller via SDK.
 
 ---
 
@@ -216,9 +216,9 @@ Hver envelope kjedes til den forrige. Sammen utgjør de en hash-kjedet hendelses
 
 ## Slik kjører du demoen
 
-### A · Verifiser i playground (30 sekunder)
+### A · Verifiser i verifieren (30 sekunder)
 
-1. Gå til `https://truststandardprotocol.com/playground`
+1. Gå til `https://truststandardprotocol.com/verify`
 2. Klikk **«Importer envelope»**
 3. Lim inn JSON for envelope #2 (eller alle tre)
 4. Klikk **«Verifiser»**

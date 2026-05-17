@@ -6,6 +6,8 @@ const SITE_URL =
 const ROUTES = [
   "",
   "/ai-act-august-2",
+  "/verification-gap",
+  "/eic-accelerator",
   "/eu-ai-act",
   "/eu-ai-act/article-9",
   "/eu-ai-act/article-12",
@@ -18,6 +20,7 @@ const ROUTES = [
   "/docs",
   "/spec",
   "/verify",
+  "/newsletter",
   "/kontakt",
   "/priser",
   "/personvern",

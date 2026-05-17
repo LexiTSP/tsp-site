@@ -52,6 +52,8 @@ export function TspFooter() {
           <div className="tsp-eyebrow mb-3">{t("compliance")}</div>
           <ul className="space-y-1.5 text-muted">
             <FooterLink href="/eu-ai-act" label="EU AI Act" strong />
+            <FooterLink href="/ai-act-august-2" label="AI Act deadline" />
+            <FooterLink href="/verification-gap" label="Verification gap" />
             <FooterLink href="/eu-ai-act/article-9" label="— Art. 9 Risk" subtle />
             <FooterLink href="/eu-ai-act/article-12" label="— Art. 12 Records" subtle />
             <FooterLink href="/eu-ai-act/article-13" label="— Art. 13 Transparency" subtle />
@@ -68,8 +70,10 @@ export function TspFooter() {
           <ul className="space-y-1.5 text-muted">
             <FooterLink href="/spec" label="Spec v3.0" />
             <FooterLink href="/docs" label={t("linkApiDocs")} />
-            <FooterLink href="/playground" label={t("linkPlayground")} />
             <FooterLink href="/verify" label={t("linkVerify")} />
+            <FooterLink href="/newsletter" label={t("linkNewsletter")} />
+            <FooterLink href="/playground" label={t("linkPlayground")} />
+            <FooterLink href="/eic-accelerator" label="EIC Accelerator" />
             <FooterLink href="/whitepaper" label={t("linkWhitepaper")} />
             <FooterLink href="/sammenligning" label={t("linkVsAlternatives")} />
             <FooterLink href="/endringer" label={t("linkChanges")} />

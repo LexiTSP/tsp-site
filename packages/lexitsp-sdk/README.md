@@ -106,7 +106,7 @@ The package exposes the `tsp` binary:
 npx tsp --help
 npx tsp keygen --org "Example AS" --domain "example.com" --out root.jwk
 npx tsp issue-instance --root root.jwk --id instance-1 --out instance.jwk
-npx tsp publish-manifest --root root.jwk --instances ./instances --out keys.json
+npx tsp publish-manifest --root root.jwk --instances ./instances --out tsp-manifest.json
 ```
 
 ## Public API
@@ -130,8 +130,10 @@ Node-only utilities are available from `@lexitsp/sdk/node`.
 
 - Spec: https://truststandardprotocol.com/spec
 - API reference: https://truststandardprotocol.com/docs
-- Playground: https://truststandardprotocol.com/playground
 - Browser verifier: https://truststandardprotocol.com/verify
+- Manifest: https://truststandardprotocol.com/.well-known/tsp-manifest.json
+- Playground for building/signing envelopes: https://truststandardprotocol.com/playground
+- AI Act campaign downloads: https://truststandardprotocol.com/ai-act-august-2
 
 ## Interop Fixtures
 
@@ -149,4 +151,4 @@ MIT. The TSP specification is published under CC-BY 4.0.
 
 ## Contact
 
-LexiCo AS · Tønsberg, Norway · https://truststandardprotocol.com
+LexiCo AS · Tønsberg, Norway · https://truststandardprotocol.com · tsp@lexico.no

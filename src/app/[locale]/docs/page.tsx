@@ -1,4 +1,5 @@
 import { Link } from "@/i18n/navigation";
+import { V2BoundaryNote, V2CanonicalStrip, V2PageHero } from "@/components/V2ProofSurface";
 import {
   ArrowRight,
   Code2,
@@ -37,28 +38,26 @@ export default async function DocsPage({
   const isEn = locale === "en";
 
   return (
+    <>
+      <V2PageHero
+        eyebrow={isEn ? "Build path · one workflow first" : "Byggespor · én workflow først"}
+        title={isEn ? "Build the first signed AI receipt." : "Bygg den første signerte AI-kvitteringen."}
+        lead={
+          isEn
+            ? "Start with one output: wrap it, publish one manifest, verify the receipt, then decide whether a wider rollout is worth it."
+            : "Start med ett output: pakk det inn, publiser ett manifest, verifiser kvitteringen, og avgjør deretter om en større utrulling er verdt det."
+        }
+        primaryCta={{ href: "#quick-start", label: isEn ? "Start quick path" : "Start hurtigløp" }}
+        secondaryCta={{ href: "/spec", label: isEn ? "Read the spec" : "Les spec" }}
+        proofItems={[
+          { label: "Package", value: "@lexitsp/sdk" },
+          { label: "Manifest", value: "/.well-known/tsp-manifest.json" },
+          { label: "Modes", value: "verifyLocal() / verifyOnline()" },
+        ]}
+      />
+      <V2CanonicalStrip locale={locale} />
+
     <div className="tsp-container py-12">
-      <div className="tsp-eyebrow text-brand mb-2">
-        {isEn ? "Documentation · v3.0.0-alpha.6" : "Dokumentasjon · v3.0.0-alpha.6"}
-      </div>
-      <h1 className="text-4xl font-bold mb-3">
-        {isEn ? "TSP — API reference" : "TSP — API-referanse"}
-      </h1>
-      <p className="text-muted text-lg mb-3 max-w-2xl">
-        {isEn ? (
-          <>
-            Practical guide to <code className="tsp-code">@lexitsp/sdk</code> v3 and how to write
-            your first TrustEnvelope. The full normative schema table lives in the{" "}
-            <Link href="/spec" className="text-brand">spec</Link>.
-          </>
-        ) : (
-          <>
-            Praktisk guide til <code className="tsp-code">@lexitsp/sdk</code> v3 og hvordan du
-            skriver din første TrustEnvelope. Full normativ schema-tabell ligger i{" "}
-            <Link href="/spec" className="text-brand">spec-en</Link>.
-          </>
-        )}
-      </p>
       <p className="text-sm text-muted mb-12 max-w-2xl">
         {isEn ? (
           <>
@@ -73,8 +72,8 @@ export default async function DocsPage({
         )}
       </p>
 
-      <div className="grid lg:grid-cols-[220px_1fr] gap-10">
-        <nav className="lg:sticky lg:top-20 lg:self-start space-y-1 text-sm">
+      <div className="grid min-w-0 lg:grid-cols-[220px_minmax(0,1fr)] gap-10">
+        <nav className="min-w-0 lg:sticky lg:top-20 lg:self-start space-y-1 text-sm">
           <NavItem href="#installation" icon={<Package className="w-4 h-4" />}>
             {isEn ? "Installation" : "Installasjon"}
           </NavItem>
@@ -93,6 +92,9 @@ export default async function DocsPage({
           <NavItem href="#verify" icon={<ShieldCheck className="w-4 h-4" />}>
             {isEn ? "Verification" : "Verifisering"}
           </NavItem>
+          <NavItem href="#strategic-readiness" icon={<Network className="w-4 h-4" />}>
+            {isEn ? "Strategic readiness" : "Strategisk modenhet"}
+          </NavItem>
           <NavItem href="#tsa-dane" icon={<Network className="w-4 h-4" />}>
             {isEn ? "TSA & DANE" : "TSA & DANE"}
           </NavItem>
@@ -101,7 +103,7 @@ export default async function DocsPage({
           </NavItem>
         </nav>
 
-        <div className="space-y-12 max-w-3xl">
+        <div className="min-w-0 space-y-12 max-w-3xl">
           <Section id="installation" title={isEn ? "Installation" : "Installasjon"}>
             <p>
               {isEn ? (
@@ -149,6 +151,11 @@ bun add @lexitsp/trustbadge-react     # valgfri React-komponent
                 </>
               )}
             </p>
+            <V2BoundaryNote title={isEn ? "Keep the adoption narrow" : "Hold adopsjonen smal"}>
+              {isEn
+                ? "The first implementation should prove one workflow: one signer, one manifest, one receipt, one verifier result. That is stronger than a broad rollout with unclear proof."
+                : "Første implementasjon bør bevise én workflow: én signer, ett manifest, én kvittering, ett verifier-resultat. Det er sterkere enn en bred utrulling med uklart bevis."}
+            </V2BoundaryNote>
           </Section>
 
           <Section id="quick-start" title={isEn ? "Quick start" : "Kom i gang"}>
@@ -173,7 +180,7 @@ const envelope = await wrap(
     signer: {
       sign: async (data) => keyPair.sign(data),
       publicKey: publicJwk,
-      keyRef: "https://your-org.no/.well-known/tsp/keys.json#i1",
+      keyRef: "https://your-org.no/.well-known/tsp-manifest.json#i1",
       certChain: [/* base64 instance cert from manifest, see below */],
     },
     declaration: {
@@ -217,7 +224,7 @@ const envelope = await wrap(
     signer: {
       sign: async (data) => keyPair.sign(data),
       publicKey: publicJwk,
-      keyRef: "https://din-org.no/.well-known/tsp/keys.json#i1",
+      keyRef: "https://din-org.no/.well-known/tsp-manifest.json#i1",
       certChain: [/* base64 instance-cert fra manifest, se under */],
     },
     declaration: {
@@ -378,13 +385,13 @@ bunx tsp cert revoke --manifest ./manifest.json --keyRef "...#i1" --reason "rota
               {isEn ? (
                 <>
                   The manifest is published at{" "}
-                  <code className="tsp-code">https://your-org.no/.well-known/tsp/manifest.json</code>{" "}
+                  <code className="tsp-code">https://your-org.no/.well-known/tsp-manifest.json</code>{" "}
                   (5 min cache by default), or bound to a TLSA record via DANE — see below.
                 </>
               ) : (
                 <>
                   Manifest publiseres på{" "}
-                  <code className="tsp-code">https://din-org.no/.well-known/tsp/manifest.json</code> (5
+                  <code className="tsp-code">https://din-org.no/.well-known/tsp-manifest.json</code> (5
                   min cache by default), eller bindes til en TLSA-record via DANE — se under.
                 </>
               )}
@@ -539,6 +546,46 @@ if (result.valid) {
             </p>
           </Section>
 
+          <Section id="strategic-readiness" title={isEn ? "Strategic readiness artifacts" : "Strategiske modenhetsartefakter"}>
+            <p>
+              {isEn
+                ? "The public-alpha weakness pass is tracked as concrete artifacts. These docs are intentionally honest about what exists today and what still needs external evidence."
+                : "Public-alpha-svakhetene spores som konkrete artefakter. Disse dokumentene er bevisst ærlige om hva som finnes i dag og hva som fortsatt trenger ekstern evidens."}
+            </p>
+            <div className="grid sm:grid-cols-2 gap-3 mt-4 not-prose">
+              <StrategicDoc
+                href="https://github.com/LexiTSP/tsp-site/blob/main/docs/EXTERNAL_VALIDATION_PROGRAM.md"
+                title={isEn ? "External validation" : "Ekstern validering"}
+                desc={isEn ? "Gate A, reviewer packages, evidence record." : "Gate A, reviewpakker og evidenslogg."}
+              />
+              <StrategicDoc
+                href="https://github.com/LexiTSP/tsp-site/blob/main/docs/ECOSYSTEM_AND_CONFORMANCE.md"
+                title={isEn ? "Ecosystem and conformance" : "Økosystem og conformance"}
+                desc={isEn ? "One-hour implementer path and compatibility levels." : "Én-times implementeringssti og kompatibilitetsnivåer."}
+              />
+              <StrategicDoc
+                href="https://github.com/LexiTSP/tsp-site/blob/main/docs/TSP_V3_CORE_STABILITY_GUARANTEE.md"
+                title={isEn ? "v3 core stability" : "v3 core-stabilitet"}
+                desc={isEn ? "Normative core, optional extensions, compliance matrix." : "Normativ kjerne, valgfrie utvidelser og matrix."}
+              />
+              <StrategicDoc
+                href="https://github.com/LexiTSP/tsp-site/blob/main/docs/WORKING_GROUP_CHARTER.md"
+                title={isEn ? "Working group charter" : "Working group-charter"}
+                desc={isEn ? "Current LexiCo ownership and transition criteria." : "Dagens LexiCo-eierskap og overgangskriterier."}
+              />
+              <StrategicDoc
+                href="https://github.com/LexiTSP/tsp-site/blob/main/docs/INDUSTRY_ADOPTION_NARRATIVES.md"
+                title={isEn ? "Industry narratives" : "Bransjefortellinger"}
+                desc={isEn ? "Buyer outcomes for public sector, health, legal, finance, defense." : "Kjøperutfall for offentlig sektor, helse, juss, finans og forsvar."}
+              />
+              <StrategicDoc
+                href="https://github.com/LexiTSP/tsp-site/blob/main/docs/PUBLIC_METRICS.md"
+                title={isEn ? "Public metrics" : "Offentlige metrikker"}
+                desc={isEn ? "Honest zero-state counters and production-evidence definition." : "Ærlige nulltellere og definisjon på produksjonsevidens."}
+              />
+            </div>
+          </Section>
+
           <Section id="tsa-dane" title={isEn ? "TSA & DANE" : "TSA & DANE"}>
             <p>
               {isEn ? (
@@ -667,6 +714,7 @@ const envelope = await wrap(input, {
         </div>
       </div>
     </div>
+    </>
   );
 }
 
@@ -713,11 +761,11 @@ function Section({
 
 function CodeBlock({ lang, code }: { lang: string; code: string }) {
   return (
-    <div className="my-4 rounded overflow-hidden border border-border-strong">
+    <div className="my-4 max-w-full rounded overflow-hidden border border-border-strong">
       <div className="bg-ink/90 text-gray-400 text-xxxs font-mono uppercase tracking-widest px-4 py-1.5 border-b border-white/10">
         {lang}
       </div>
-      <pre className="bg-ink text-gray-100 text-xs font-mono p-4 overflow-x-auto leading-relaxed">
+      <pre className="max-w-full bg-ink text-gray-100 text-xs font-mono p-4 overflow-x-auto leading-relaxed">
         {code}
       </pre>
     </div>
@@ -764,5 +812,25 @@ function PlatformCard({
       <div className="font-mono text-xxs text-muted mb-2">{pkg}</div>
       <div className="text-sm text-muted leading-snug">{desc}</div>
     </Link>
+  );
+}
+
+function StrategicDoc({
+  href,
+  title,
+  desc,
+}: {
+  href: string;
+  title: string;
+  desc: string;
+}) {
+  return (
+    <a
+      href={href}
+      className="block border border-border p-4 bg-surface hover:border-brand no-underline"
+    >
+      <div className="font-semibold text-ink mb-1">{title}</div>
+      <div className="text-sm text-muted leading-snug">{desc}</div>
+    </a>
   );
 }

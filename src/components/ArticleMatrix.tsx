@@ -1,6 +1,7 @@
 import Link from "next/link";
+import { useLocale } from "next-intl";
 import { cn } from "@/lib/utils";
-import { CheckCircle2, Circle, ArrowRight } from "lucide-react";
+import { CheckCircle2, Circle } from "lucide-react";
 
 /**
  * ArticleMatrix — visuell mapping mellom AI Act-artikler og TSP-moduler.
@@ -20,7 +21,7 @@ interface ArticleRow {
   slug: string;
   number: string;
   name: string;
-  description: string;
+  description: { no: string; en: string };
   coverage: number;
   cells: Cell[];
 }
@@ -30,7 +31,10 @@ const ARTICLES: ArticleRow[] = [
     slug: "article-12",
     number: "12",
     name: "Record-keeping",
-    description: "Automatisk logging over hele livssyklusen med integritet.",
+    description: {
+      no: "Automatisk logging over hele livssyklusen med integritet.",
+      en: "Automatic lifecycle logging with integrity.",
+    },
     coverage: 95,
     cells: [
       { module: "Core", coverage: "primary" },
@@ -43,7 +47,10 @@ const ARTICLES: ArticleRow[] = [
     slug: "article-13",
     number: "13",
     name: "Transparency",
-    description: "Brukeren forstår systemets formål, begrensninger, og nøyaktighet.",
+    description: {
+      no: "Brukeren forstår systemets formål, begrensninger, og nøyaktighet.",
+      en: "Users can understand purpose, limits, and evidence.",
+    },
     coverage: 90,
     cells: [
       { module: "Core", coverage: "primary" },
@@ -56,7 +63,10 @@ const ARTICLES: ArticleRow[] = [
     slug: "article-14",
     number: "14",
     name: "Human oversight",
-    description: "Tilsyn av menneske med evne til å gripe inn når det trengs.",
+    description: {
+      no: "Tilsyn av menneske med evne til å gripe inn når det trengs.",
+      en: "Human review paths with the ability to intervene.",
+    },
     coverage: 75,
     cells: [
       { module: "Core", coverage: "support" },
@@ -69,7 +79,10 @@ const ARTICLES: ArticleRow[] = [
     slug: "article-15",
     number: "15",
     name: "Accuracy & robustness",
-    description: "Nøyaktighet, robusthet og cybersikkerhet bevises kryptografisk.",
+    description: {
+      no: "Nøyaktighet, robusthet og cybersikkerhet bevises kryptografisk.",
+      en: "Tamper evidence, reproducible metadata, and robustness checks.",
+    },
     coverage: 85,
     cells: [
       { module: "Core", coverage: "primary" },
@@ -82,7 +95,10 @@ const ARTICLES: ArticleRow[] = [
     slug: "article-9",
     number: "9",
     name: "Risk management",
-    description: "Kontinuerlig risikostyring over systemets levetid.",
+    description: {
+      no: "Kontinuerlig risikostyring over systemets levetid.",
+      en: "Continuous risk signals over the system lifecycle.",
+    },
     coverage: 70,
     cells: [
       { module: "Core", coverage: "support" },
@@ -95,7 +111,10 @@ const ARTICLES: ArticleRow[] = [
     slug: "article-17",
     number: "17",
     name: "Quality management",
-    description: "Helhetlig QMS for design, drift og kontinuerlig forbedring.",
+    description: {
+      no: "Helhetlig QMS for design, drift og kontinuerlig forbedring.",
+      en: "Evidence support for QMS, not the whole QMS itself.",
+    },
     coverage: 40,
     cells: [
       { module: "Core", coverage: "support" },
@@ -114,6 +133,7 @@ const MODULES: Array<{ name: "Core" | "Risk" | "Oversight" | "Evidence"; href: s
 ];
 
 export function ArticleMatrix() {
+  const isEn = useLocale() === "en";
   return (
     <div className="tsp-card overflow-hidden">
       <div className="overflow-x-auto">
@@ -121,7 +141,7 @@ export function ArticleMatrix() {
           <thead className="bg-gray-50 border-b">
             <tr>
               <th className="text-left p-3 tsp-eyebrow text-muted font-semibold sticky left-0 bg-gray-50 z-10 min-w-[260px]">
-                Artikkel
+                {isEn ? "Article" : "Artikkel"}
               </th>
               {MODULES.map((m) => (
                 <th key={m.name} className="p-3 tsp-eyebrow text-muted text-center font-semibold min-w-[80px]">
@@ -131,7 +151,7 @@ export function ArticleMatrix() {
                 </th>
               ))}
               <th className="p-3 tsp-eyebrow text-muted text-center font-semibold min-w-[90px]">
-                Dekning
+                {isEn ? "Technical fit" : "Teknisk treff"}
               </th>
             </tr>
           </thead>
@@ -145,7 +165,9 @@ export function ArticleMatrix() {
                       <span className="font-bold text-ink group-hover:text-brand">{a.number}</span>
                       <span className="font-semibold text-ink group-hover:text-brand">{a.name}</span>
                     </div>
-                    <div className="text-xs text-muted mt-0.5 leading-relaxed">{a.description}</div>
+                    <div className="text-xs text-muted mt-0.5 leading-relaxed">
+                      {isEn ? a.description.en : a.description.no}
+                    </div>
                   </Link>
                 </td>
                 {a.cells.map((cell, i) => (
@@ -179,11 +201,13 @@ export function ArticleMatrix() {
         </table>
       </div>
       <div className="border-t bg-gray-50 px-3 py-2.5 flex flex-wrap items-center gap-x-5 gap-y-1.5 text-xs text-muted">
-        <span className="tsp-eyebrow opacity-70">Dekningstype:</span>
-        <LegendItem coverage="primary" label="Primær" />
-        <LegendItem coverage="partial" label="Delvis" />
-        <LegendItem coverage="support" label="Støtte" />
-        <LegendItem coverage="none" label="Ikke dekket" />
+        <span className="tsp-eyebrow opacity-70">
+          {isEn ? "Fit type:" : "Trefftype:"}
+        </span>
+        <LegendItem coverage="primary" label={isEn ? "Primary" : "Primær"} />
+        <LegendItem coverage="partial" label={isEn ? "Partial" : "Delvis"} />
+        <LegendItem coverage="support" label={isEn ? "Support" : "Støtte"} />
+        <LegendItem coverage="none" label={isEn ? "Not covered" : "Ikke dekket"} />
       </div>
     </div>
   );

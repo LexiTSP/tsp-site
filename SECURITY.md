@@ -1,10 +1,10 @@
 # Security Policy
 
-TSP is security-sensitive software: envelopes, manifests, signatures, revocation, TSA verification, sequence checks, and reviewer decisions are all trust boundaries.
+TSP is security-sensitive software: envelopes, manifests, signatures, revocation, TSA verification, and reviewer decisions are all trust boundaries.
 
 ## Supported Versions
 
-The current alpha lines are:
+The current alpha line is:
 
 - `@lexitsp/sdk` `3.0.0-alpha.6`
 - `@lexitsp/trustbadge-react` `0.2.2`

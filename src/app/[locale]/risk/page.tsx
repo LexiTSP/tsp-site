@@ -96,13 +96,16 @@ export default async function RiskModulePage({
         <CodeBlock
           label="tsp-risk-config.yaml"
           lang="yaml"
-          code={`alerts:
-  - name: bias_drift_hr_domain
-    description: Detects changes in biasScore after model swap
+          code={`# Deterministic rules over TSP v3 envelope metadata.
+# Risk receives envelope pointers and metadata, not raw user content.
+alerts:
+  - name: high_stakes_flag_rate
+    description: Detects changes in structured risk flags after model or policy changes
     trigger:
-      metric: alignment.biasScore
+      metric: alignment.flags[].code
       filter:
-        domain: hr
+        contains: high-stakes
+        policy_id: welfare
       method: rolling_average
       window_days: 14
       baseline_days: 60
@@ -116,17 +119,17 @@ export default async function RiskModulePage({
       - email: compliance@example.com
     sla_hours: 24
 
-  - name: critical_no_review
-    description: Critical envelopes that were not flagged for human review
+  - name: human_review_missing
+    description: High-severity uncertainty without human review routing
     trigger:
       filter:
-        confidenceLevel: critical
-        humanReviewRequired: false
+        alignment.uncertainty[].severity: high
+        alignment.humanReviewRequired: false
       method: count
       threshold: 1  # should never be > 0
     severity: critical
     notifications:
-      - pagerduty: "compliance-oncall"`}
+      - webhook: "https://customer.example/incidents/tsp"`}
         />
       </ModuleSection>
 

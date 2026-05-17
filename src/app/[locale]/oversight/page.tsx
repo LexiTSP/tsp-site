@@ -91,7 +91,7 @@ export default async function OversightModulePage({
         <CodeBlock
           label={t("codeReact")}
           lang="tsx"
-          code={`import { TrustBadge, TrustModal } from "@lexitsp/oversight-react";
+          code={`import { TrustBadge } from "@lexitsp/trustbadge-react";
 
 function ChatMessage({ envelope }) {
   const [modalOpen, setModalOpen] = useState(false);
@@ -103,11 +103,7 @@ function ChatMessage({ envelope }) {
         onDetailsClick={() => setModalOpen(true)}
       />
       {modalOpen && (
-        <TrustModal
-          envelope={envelope}
-          language="${locale === "en" ? "en-US" : "nb-NO"}"
-          onClose={() => setModalOpen(false)}
-        />
+        <EnvelopeDetailsPanel envelope={envelope} onClose={() => setModalOpen(false)} />
       )}
     </div>
   );
@@ -117,18 +113,24 @@ function ChatMessage({ envelope }) {
         <CodeBlock
           label={t("codeQueue")}
           lang="typescript"
-          code={`import { queueForReview } from "@lexitsp/oversight";
-
-// Automatic when envelope has humanReviewRequired=true
-await queueForReview({
-  envelopeId: envelope.ledger.id,
-  assignedTeam: "welfare-reviewers",
-  priority: envelope.alignment.riskLevel >= 4 ? "urgent" : "normal",
-  slaMinutes: envelope.alignment.riskLevel >= 4 ? 60 : 1440,
-  context: {
-    reason: envelope.alignment.flags.join(", "),
-    userRequest: originalUserMessage,
-  },
+          code={`// Customer-owned queue integration.
+// Trigger when envelope.alignment.humanReviewRequired === true.
+await fetch("/v1/review-items", {
+  method: "POST",
+  headers: { "content-type": "application/json" },
+  body: JSON.stringify({
+    envelopeId: envelope.ledger.id,
+    contentHash: envelope.content.hash,
+    assignedTeam: "domain-reviewers",
+    priority: envelope.alignment.uncertainty?.some(u => u.severity === "high")
+      ? "urgent"
+      : "normal",
+    reason: {
+      flags: envelope.alignment.flags,
+      uncertainty: envelope.alignment.uncertainty,
+      refusal: envelope.alignment.refusal
+    }
+  })
 });`}
         />
 

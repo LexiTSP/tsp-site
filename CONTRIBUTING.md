@@ -2,10 +2,10 @@
 
 TSP is split into two zones:
 
-- Open standard zone: spec, `@lexitsp/sdk`, TrustBadge, examples, docs, and local verification tooling.
+- Open specification zone: spec, `@lexitsp/sdk`, TrustBadge, examples, docs, and local verification tooling.
 - Commercial tools zone: Risk, Evidence, Oversight, and hosted pilot operations.
 
-Contributions should preserve that boundary. The open standard must stay useful without LexiCo-hosted infrastructure.
+Contributions should preserve that boundary. The open specification must stay useful without LexiCo-hosted infrastructure.
 
 ## Development
 

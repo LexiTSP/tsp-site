@@ -1,7 +1,8 @@
 import { Link } from "@/i18n/navigation";
 import { setRequestLocale, getTranslations } from "next-intl/server";
-import { ArrowRight, FileCode, GitBranch, BookOpen, Package, Check, Code2 } from "lucide-react";
+import { ArrowRight, FileCode, GitBranch, Package, Check } from "lucide-react";
 import { ChainVisualizer } from "@/components/ChainVisualizer";
+import { V2BoundaryNote, V2CanonicalStrip, V2PageHero } from "@/components/V2ProofSurface";
 
 export async function generateMetadata({
   params,
@@ -80,18 +81,18 @@ export default async function SpecPage({
   const IMPLS_NO: ImplRow[] = [
     { lang: "TypeScript", status: "Reference", href: "/docs#quick-start" },
     { lang: "JavaScript", status: "Inkludert i TS" },
-    { lang: "Python", status: "Planned" },
-    { lang: "Go", status: "Planned" },
-    { lang: "Rust", status: "Planned" },
-    { lang: "C#", status: "Planned" },
+    { lang: "Python", status: "Åpen conformance-invitasjon" },
+    { lang: "Go", status: "Åpen conformance-invitasjon" },
+    { lang: "Rust", status: "Åpen conformance-invitasjon" },
+    { lang: "C#", status: "Åpen conformance-invitasjon" },
   ];
   const IMPLS_EN: ImplRow[] = [
     { lang: "TypeScript", status: "Reference", href: "/docs#quick-start" },
     { lang: "JavaScript", status: "Bundled with TS" },
-    { lang: "Python", status: "Planned" },
-    { lang: "Go", status: "Planned" },
-    { lang: "Rust", status: "Planned" },
-    { lang: "C#", status: "Planned" },
+    { lang: "Python", status: "Open conformance invitation" },
+    { lang: "Go", status: "Open conformance invitation" },
+    { lang: "Rust", status: "Open conformance invitation" },
+    { lang: "C#", status: "Open conformance invitation" },
   ];
   const IMPLS = isEn ? IMPLS_EN : IMPLS_NO;
 
@@ -113,41 +114,28 @@ export default async function SpecPage({
 
   return (
     <>
-      {/* Hero strip */}
-      <section className="tsp-hero-surface border-b border-border">
-        <div className="tsp-container py-12 md:py-16">
-          <nav className="tsp-section-marker mb-6 flex items-center gap-2">
-            <Link href="/" className="hover:text-ink no-underline">TSP</Link>
-            <span className="opacity-40">·</span>
-            <span className="text-ink">{t("breadcrumb")}</span>
-          </nav>
-
-          <div className="tsp-section-eyebrow mb-5">
-            <span className="tsp-section-num tsp-section-num--accent">{t("eyebrowChip")}</span>
-            <span className="tsp-section-label">{t("eyebrowLabel")}</span>
-          </div>
-
-          <h1 className="mb-5 max-w-3xl">{t("h1")}</h1>
-          <p className="text-ink text-lg mb-8 max-w-2xl leading-relaxed">{t("lead")}</p>
-
-          <div className="flex flex-wrap gap-3">
-            <Link href="/playground" className="tsp-btn-primary">
-              <Code2 className="w-4 h-4" /> {t("ctaPlayground")}
-            </Link>
-            <Link href="/verify" className="tsp-btn-secondary">
-              {t("ctaVerify")} <ArrowRight className="w-4 h-4" />
-            </Link>
-            <Link href="/docs" className="tsp-btn-secondary">
-              <BookOpen className="w-4 h-4" /> {t("ctaApi")}
-            </Link>
-          </div>
-        </div>
-      </section>
+      <V2PageHero
+        eyebrow={isEn ? "Protocol surface · v3 core" : "Protokolloverflate · v3-kjerne"}
+        title={isEn ? "The rules that make AI receipts independently checkable." : "Reglene som gjør AI-kvitteringer uavhengig sjekkbare."}
+        lead={
+          isEn
+            ? "The spec separates normative core rules from examples, optional extensions, and commercial tools so implementers know what must match."
+            : "Specen skiller normative kjerneregler fra eksempler, valgfrie utvidelser og kommersielle verktøy slik at implementatorer vet hva som må matche."
+        }
+        primaryCta={{ href: "#structure", label: isEn ? "Read core fields" : "Les kjernefeltene" }}
+        secondaryCta={{ href: "/verify", label: isEn ? "Verify a receipt" : "Verifiser kvittering" }}
+        proofItems={[
+          { label: "Core", value: "TrustEnvelope v3" },
+          { label: "Crypto", value: "RFC 8785 + Ed25519 + SHA-256" },
+          { label: "Trust root", value: "/.well-known/tsp-manifest.json" },
+        ]}
+      />
+      <V2CanonicalStrip locale={locale} />
 
       <div className="tsp-container py-12">
 
-      <div className="grid lg:grid-cols-[220px_1fr] gap-10">
-        <nav className="lg:sticky lg:top-20 lg:self-start space-y-1 text-sm">
+      <div className="grid min-w-0 lg:grid-cols-[220px_minmax(0,1fr)] gap-10">
+        <nav className="min-w-0 lg:sticky lg:top-20 lg:self-start space-y-1 text-sm">
           <NavItem href="#overview">{t("navOverview")}</NavItem>
           <NavItem href="#structure">{t("navStructure")}</NavItem>
           <NavItem href="#hashing">{t("navHashing")}</NavItem>
@@ -160,7 +148,7 @@ export default async function SpecPage({
           <NavItem href="#governance">{t("navGovernance")}</NavItem>
         </nav>
 
-        <div className="space-y-14 max-w-3xl">
+        <div className="min-w-0 space-y-14 max-w-3xl">
           <Section id="overview" title={isEn ? "Overview" : "Oversikt"}>
             {isEn ? (
               <p>
@@ -266,6 +254,11 @@ export default async function SpecPage({
                 </p>
               )}
             </div>
+            <V2BoundaryNote title={isEn ? "Normative boundary" : "Normativ grense"}>
+              {isEn
+                ? "V3 core compatibility means the envelope fields, canonicalization basis, signing surface, manifest reference, and verification modes match. Examples and operational modules are informative unless this page marks them as required."
+                : "V3-kjernekompatibilitet betyr at konvoluttfeltene, kanoniseringsbasis, signeringsflate, manifestreferanse og verifikasjonsmoduser matcher. Eksempler og driftsmoduler er informative med mindre denne siden markerer dem som påkrevd."}
+            </V2BoundaryNote>
           </Section>
 
           <Section id="structure" title={isEn ? "Structure" : "Strukturen"}>
@@ -281,8 +274,8 @@ export default async function SpecPage({
               </p>
             )}
 
-            <div className="mt-4 tsp-card overflow-hidden">
-              <table className="w-full text-sm">
+            <div className="mt-4 tsp-card max-w-full overflow-x-auto">
+              <table className="min-w-[680px] w-full text-sm">
                 <thead className="bg-gray-50 border-b text-xs uppercase tracking-wider text-muted">
                   <tr>
                     <th className="text-left p-3">{isEn ? "Field" : "Felt"}</th>
@@ -436,8 +429,8 @@ export default async function SpecPage({
           <Section id="implementations" title={isEn ? "Implementations" : "Implementasjoner"}>
             <p>
               {isEn
-                ? "TSP is designed to be trivial to implement in any language with SHA-256 support."
-                : "TSP er designet for å være trivielt å implementere i et hvilket som helst språk med SHA-256-støtte."}
+                ? "TSP is designed to be implementable in any language with SHA-256, Ed25519, and deterministic JSON canonicalization support. The TypeScript SDK is the reference implementation; other languages become visible when they publish fixture pass reports."
+                : "TSP er designet for å kunne implementeres i språk med SHA-256, Ed25519 og deterministisk JSON-kanonisering. TypeScript-SDK-en er referanseimplementasjonen; andre språk blir synlige når de publiserer fixture-resultater."}
             </p>
             <div className="mt-4 grid sm:grid-cols-2 gap-3">
               {IMPLS.map((i) => (
@@ -449,8 +442,8 @@ export default async function SpecPage({
                 <GitBranch className="w-5 h-5 text-brand shrink-0 mt-0.5" />
                 <div className="text-sm text-muted">
                   {isEn
-                    ? "Want to contribute an implementation? The fork is MIT — send us a link and it will be listed here."
-                    : "Vil du bidra med en implementasjon? Forken er MIT — send oss en lenke, så listes den her."}
+                    ? "Want to contribute an implementation? Pass the v3 fixtures, publish the transcript, and open a compatibility listing request."
+                    : "Vil du bidra med en implementasjon? Kjør v3-fixtures, publiser transcript, og åpne en compatibility listing-forespørsel."}
                 </div>
               </div>
             </div>
@@ -655,29 +648,31 @@ export default async function SpecPage({
           <Section id="governance" title={isEn ? "Governance" : "Styring"}>
             {isEn ? (
               <p>
-                TSP is maintained by LexiCo AS under the <strong>MIT licence</strong>. Changes to the spec
-                follow a simple process:
+                TSP is currently maintained by LexiCo AS. The protocol is public alpha, not an independent
+                standards body. Spec changes follow the documented RFC process, and the working-group path
+                opens when external validation and non-LexiCo implementations exist.
               </p>
             ) : (
               <p>
-                TSP vedlikeholdes av LexiCo AS under <strong>MIT-lisens</strong>. Endringer i spec-en følger
-                en enkel prosess:
+                TSP vedlikeholdes i dag av LexiCo AS. Protokollen er public alpha, ikke et uavhengig
+                standardiseringsorgan. Spec-endringer følger dokumentert RFC-prosess, og working-group-sporet
+                åpnes når ekstern validering og ikke-LexiCo-implementasjoner finnes.
               </p>
             )}
             <ol className="list-decimal list-inside mt-3 space-y-1.5 text-sm text-ink/80">
               {isEn ? (
                 <>
-                  <li>Proposals are filed as a GitHub issue with the label <code className="tsp-code">spec-change</code>.</li>
-                  <li>Breaking changes require a new major (v4.0.0) and at least 90 days&apos; notice.</li>
-                  <li>Backwards-compatible extensions go in a minor (v3.x.0).</li>
-                  <li>Bug fixes in normative text go in a patch (v3.0.x).</li>
+                  <li>Material proposals are filed as RFCs with compatibility and fixture impact.</li>
+                  <li>Breaking wire changes require a new major version.</li>
+                  <li>Backwards-compatible optional extensions go in a minor version.</li>
+                  <li>Normative clarifications and typo fixes go in a patch version.</li>
                 </>
               ) : (
                 <>
-                  <li>Forslag fremmes som GitHub issue med label <code className="tsp-code">spec-change</code>.</li>
-                  <li>Brytende endringer krever ny major (v4.0.0) og minst 90 dagers varsel.</li>
-                  <li>Bakoverkompatible utvidelser legges i minor (v3.x.0).</li>
-                  <li>Feilrettinger i normativ tekst går i patch (v3.0.x).</li>
+                  <li>Materielle forslag fremmes som RFC-er med kompatibilitets- og fixture-konsekvens.</li>
+                  <li>Wire-brytende endringer krever ny major-versjon.</li>
+                  <li>Bakoverkompatible valgfrie utvidelser går i minor-versjon.</li>
+                  <li>Normative klargjøringer og typo-fix går i patch-versjon.</li>
                 </>
               )}
             </ol>
@@ -707,12 +702,12 @@ function NavItem({ href, children }: { href: string; children: React.ReactNode }
 
 function Section({ id, title, children }: { id: string; title: string; children: React.ReactNode }) {
   return (
-    <section id={id} className="scroll-mt-24">
+    <section id={id} className="min-w-0 scroll-mt-24">
       <h2 className="text-2xl md:text-3xl font-bold mb-4 pb-2 border-b flex items-center gap-2">
         <FileCode className="w-6 h-6 text-brand" />
         {title}
       </h2>
-      <div className="prose prose-sm max-w-none text-ink leading-relaxed [&>p]:my-3 [&_code:not(pre_code)]:font-mono [&_code:not(pre_code)]:text-xs [&_code:not(pre_code)]:bg-ink/5 [&_code:not(pre_code)]:px-1.5 [&_code:not(pre_code)]:py-0.5 [&_code:not(pre_code)]:rounded">
+      <div className="prose prose-sm max-w-none min-w-0 text-ink leading-relaxed [&>p]:my-3 [&_code:not(pre_code)]:font-mono [&_code:not(pre_code)]:text-xs [&_code:not(pre_code)]:bg-ink/5 [&_code:not(pre_code)]:px-1.5 [&_code:not(pre_code)]:py-0.5 [&_code:not(pre_code)]:rounded">
         {children}
       </div>
     </section>
@@ -721,11 +716,11 @@ function Section({ id, title, children }: { id: string; title: string; children:
 
 function CodeBlock({ lang, code }: { lang: string; code: string }) {
   return (
-    <div className="my-4 rounded-xl overflow-hidden border border-ink/10">
+    <div className="my-4 max-w-full rounded-xl overflow-hidden border border-ink/10">
       <div className="bg-ink/90 text-gray-400 text-xxxs font-mono uppercase tracking-widest px-4 py-1.5 border-b border-white/10">
         {lang}
       </div>
-      <pre className="bg-ink text-gray-100 text-xs font-mono p-4 overflow-x-auto leading-relaxed">
+      <pre className="max-w-full bg-ink text-gray-100 text-xs font-mono p-4 overflow-x-auto leading-relaxed">
         {code}
       </pre>
     </div>

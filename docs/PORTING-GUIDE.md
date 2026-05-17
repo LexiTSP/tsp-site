@@ -52,7 +52,7 @@ The reference implementation uses standard primitives available in nearly every 
 
 ## 4 · Test vectors
 
-The spec ships with canonical test vectors at `spec/test-vectors/3.0/`. Your implementation **must** pass all of them to be conformant. Categories:
+The repo ships canonical test vectors at `fixtures/v3.0/`. Your implementation **must** pass all of them to be conformant. Categories:
 
 - **Canonical JSON:** Input → expected canonical bytes
 - **SHA-256:** Canonical bytes → expected hex digest
@@ -122,7 +122,7 @@ These are byte-identical between wrap and verify. **Do not change them in your p
 
 Once you have a port that passes all test vectors:
 
-1. **Open an issue** on `github.com/LexiTSP/spec` with tag `implementation-claim`.
+1. **Open an issue** on `github.com/LexiTSP/tsp-site` with tag `implementation-claim`.
 2. **Provide:**
    - Repository URL
    - Language + runtime versions supported
@@ -175,18 +175,18 @@ We do **not** enforce charter §6 (language=architecture) on third-party impleme
 
 (For norsk-talende lesere som vurderer en port:)
 
-Hvis du vurderer en TSP-implementasjon i et annet språk: ta kontakt tidlig. Vi vil heller hjelpe deg unngå designfeller enn vurdere en ferdig port. Spec-en er stabil (`TSP/3.0`), test-vektorene er stabile, og charteret er bindende — men vi er åpne for at idiomatisk API-design varierer mellom språk. E-post: julian@lexico.no.
+Hvis du vurderer en TSP-implementasjon i et annet språk: ta kontakt tidlig. Vi vil heller hjelpe deg unngå designfeller enn vurdere en ferdig port. Spec-en er stabil (`TSP/3.0`), test-vektorene er stabile, og charteret er bindende — men vi er åpne for at idiomatisk API-design varierer mellom språk. E-post: tsp@lexico.no.
 
 ---
 
 ## 13 · Contact and resources
 
-- **Spec:** `https://truststandardprotocol.com/spec` and `github.com/LexiTSP/spec`
-- **Test vectors:** `spec/test-vectors/3.0/`
+- **Spec:** `https://truststandardprotocol.com/spec` and `github.com/LexiTSP/tsp-site`
+- **Test vectors:** `fixtures/v3.0/`
 - **Reference SDK:** `github.com/LexiTSP/sdk`
 - **RFC process:** `docs/SPEC-GOVERNANCE.md`
-- **Email:** julian@lexico.no
-- **Issues / questions:** `github.com/LexiTSP/spec/issues`
+- **Email:** tsp@lexico.no
+- **Issues / questions:** `github.com/LexiTSP/tsp-site/issues`
 
 ---
 

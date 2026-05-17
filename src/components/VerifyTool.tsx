@@ -249,7 +249,7 @@ export function VerifyTool({ locale }: VerifyToolProps) {
               <ShieldCheck className="h-5 w-5 text-[#d7a548]" />
               TrustEnvelope Validator
             </div>
-            <p className="mt-2 max-w-2xl text-sm leading-relaxed text-white/72">{copy.envelopeHelp}</p>
+            <p className="mt-2 max-w-2xl text-sm leading-relaxed text-white/75">{copy.envelopeHelp}</p>
           </div>
           <div className="grid grid-cols-2 gap-2 sm:flex sm:items-center">
             <button
@@ -257,7 +257,7 @@ export function VerifyTool({ locale }: VerifyToolProps) {
               onClick={() => void loadSample()}
               disabled={working}
               data-cta="load_sample"
-              className="inline-flex min-h-11 items-center justify-center gap-2 border border-white/15 bg-white/8 px-4 py-2 text-sm font-semibold text-white transition hover:border-[#d7a548]/70 hover:bg-[#d7a548]/15 disabled:cursor-not-allowed disabled:opacity-60"
+              className="inline-flex min-h-11 items-center justify-center gap-2 border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-white transition hover:border-[#d7a548]/70 hover:bg-[#d7a548]/20 disabled:cursor-not-allowed disabled:opacity-60"
             >
               {working ? <Loader2 className="h-4 w-4 animate-spin" /> : <ShieldCheck className="h-4 w-4" />}
               {copy.verifySample}
@@ -290,7 +290,7 @@ export function VerifyTool({ locale }: VerifyToolProps) {
                 setError(null);
               }}
               data-cta="paste_envelope"
-              className="mt-2 h-[420px] w-full resize-y border border-white/12 bg-black/35 p-3 font-mono text-xs leading-relaxed text-[#dce7f5] outline-none transition placeholder:text-white/30 focus:border-[#d7a548]/70"
+              className="mt-2 h-[420px] w-full resize-y border border-white/10 bg-black/40 p-3 font-mono text-xs leading-relaxed text-[#dce7f5] outline-none transition placeholder:text-white/30 focus:border-[#d7a548]/70"
               spellCheck={false}
               placeholder='{"tsp":"3.0", ...}'
             />
@@ -320,7 +320,7 @@ export function VerifyTool({ locale }: VerifyToolProps) {
         </div>
 
         <div className="p-5 md:p-6">
-          <div className="border border-white/12 bg-white/[0.03] p-4">
+          <div className="border border-white/10 bg-white/[0.03] p-4">
             <div className="mb-3 flex items-center justify-between gap-3">
               <div>
                 <div className="text-xs font-semibold uppercase tracking-wide text-white/45">
@@ -339,7 +339,7 @@ export function VerifyTool({ locale }: VerifyToolProps) {
               ) : working ? (
                 <Loader2 className="h-8 w-8 animate-spin text-[#d7a548]" />
               ) : (
-                <AlertOctagon className="h-8 w-8 text-white/35" />
+                <AlertOctagon className="h-8 w-8 text-white/40" />
               )}
             </div>
 
@@ -366,7 +366,7 @@ export function VerifyTool({ locale }: VerifyToolProps) {
                   </div>
                 </div>
                 {result.warnings.length > 0 && (
-                  <div className="mt-5 border-l-2 border-[#d7a548] bg-[#d7a548]/8 py-3 pl-4">
+                  <div className="mt-5 border-l-2 border-[#d7a548] bg-[#d7a548]/10 py-3 pl-4">
                     <div className="text-xs font-semibold uppercase tracking-wide text-white/45">
                       {copy.warnings}
                     </div>
@@ -384,7 +384,7 @@ export function VerifyTool({ locale }: VerifyToolProps) {
           </div>
 
           <details
-            className="mt-4 border border-white/12 bg-black/25"
+            className="mt-4 border border-white/10 bg-black/25"
             open={advancedOpen}
             onToggle={(event) => setAdvancedOpen(event.currentTarget.open)}
           >
@@ -397,7 +397,7 @@ export function VerifyTool({ locale }: VerifyToolProps) {
             </summary>
 
             <div className="space-y-4 border-t border-white/10 p-4">
-              <div className="inline-flex border border-white/12 bg-black/30 p-1">
+              <div className="inline-flex border border-white/10 bg-black/30 p-1">
                 {(["local", "online"] as const).map((m) => (
                   <button
                     key={m}
@@ -420,7 +420,7 @@ export function VerifyTool({ locale }: VerifyToolProps) {
                   <textarea
                     value={publicKeyText}
                     onChange={(e) => setPublicKeyText(e.target.value)}
-                    className="mt-2 min-h-[170px] w-full border border-white/12 bg-black/35 p-3 font-mono text-xs leading-relaxed text-[#dce7f5] outline-none focus:border-[#d7a548]/70"
+                    className="mt-2 min-h-[170px] w-full border border-white/10 bg-black/40 p-3 font-mono text-xs leading-relaxed text-[#dce7f5] outline-none focus:border-[#d7a548]/70"
                     spellCheck={false}
                   />
                   <span className="mt-2 block text-xs text-white/55">{copy.publicKeyHelp}</span>
@@ -434,7 +434,7 @@ export function VerifyTool({ locale }: VerifyToolProps) {
                     <input
                       value={manifestUrl}
                       onChange={(e) => setManifestUrl(e.target.value)}
-                      className="mt-2 w-full border border-white/12 bg-black/35 p-3 text-sm text-white outline-none placeholder:text-white/30 focus:border-[#d7a548]/70"
+                      className="mt-2 w-full border border-white/10 bg-black/40 p-3 text-sm text-white outline-none placeholder:text-white/30 focus:border-[#d7a548]/70"
                       placeholder="https://org.example/.well-known/tsp-manifest.json"
                     />
                   </label>
@@ -445,7 +445,7 @@ export function VerifyTool({ locale }: VerifyToolProps) {
                     <textarea
                       value={manifestText}
                       onChange={(e) => setManifestText(e.target.value)}
-                      className="mt-2 min-h-[120px] w-full border border-white/12 bg-black/35 p-3 font-mono text-xs leading-relaxed text-[#dce7f5] outline-none placeholder:text-white/30 focus:border-[#d7a548]/70"
+                      className="mt-2 min-h-[120px] w-full border border-white/10 bg-black/40 p-3 font-mono text-xs leading-relaxed text-[#dce7f5] outline-none placeholder:text-white/30 focus:border-[#d7a548]/70"
                       spellCheck={false}
                       placeholder='{"schemaVersion":"tsp-manifest-1.0", ...}'
                     />
@@ -484,7 +484,7 @@ export function VerifyTool({ locale }: VerifyToolProps) {
                 </details>
               )}
 
-              <div className="border-l-2 border-[#d7a548] bg-[#d7a548]/8 py-3 pl-4">
+              <div className="border-l-2 border-[#d7a548] bg-[#d7a548]/10 py-3 pl-4">
                 <div className="text-sm font-semibold text-white">{copy.productionTitle}</div>
                 <p className="mt-1 text-xs text-white/60">{copy.productionBody}</p>
               </div>

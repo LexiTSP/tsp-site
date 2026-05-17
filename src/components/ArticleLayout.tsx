@@ -1,8 +1,9 @@
 import { Link } from "@/i18n/navigation";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { ArrowLeft, ArrowRight, FileCheck } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { TranslationBanner } from "./TranslationBanner";
+import { V2BoundaryNote, V2CanonicalStrip, V2PageHero } from "./V2ProofSurface";
 
 /**
  * ArticleLayout — felles skall for alle /eu-ai-act/article-*-sider.
@@ -36,12 +37,33 @@ export function ArticleLayout({
   children,
 }: Props) {
   const t = useTranslations("articleLayout");
+  const locale = useLocale();
+  const isEn = locale === "en";
   const currentIdx = AI_ACT_ARTICLES.findIndex((a) => a.slug === articleSlug);
   const prev = currentIdx > 0 ? AI_ACT_ARTICLES[currentIdx - 1] : null;
   const next = currentIdx < AI_ACT_ARTICLES.length - 1 ? AI_ACT_ARTICLES[currentIdx + 1] : null;
 
   return (
-    <div className="tsp-container py-10">
+    <>
+      <V2PageHero
+        eyebrow={isEn ? "EU AI Act mapping · technical evidence" : "EU AI Act-mapping · teknisk bevis"}
+        title={articleTitle}
+        lead={
+          isEn
+            ? `Article ${articleNumber} mapped to the TSP layer that can produce runtime evidence. This is a technical mapping, not a legal conformity decision.`
+            : `Artikkel ${articleNumber} mappet til TSP-laget som kan produsere runtime-bevis. Dette er en teknisk mapping, ikke en juridisk samsvarsbeslutning.`
+        }
+        primaryCta={{ href: "#article-detail", label: isEn ? "Read the mapping" : "Les mappingen" }}
+        secondaryCta={{ href: "/verify", label: isEn ? "Verify a receipt" : "Verifiser kvittering" }}
+        proofItems={[
+          { label: isEn ? "Article" : "Artikkel", value: articleNumber },
+          { label: isEn ? "TSP layer" : "TSP-lag", value: tspCoverage },
+          { label: isEn ? "Technical fit" : "Teknisk treff", value: `${coveragePercent}%` },
+        ]}
+      />
+      <V2CanonicalStrip locale={locale} />
+
+    <div id="article-detail" className="tsp-container py-10 scroll-mt-20">
       <nav className="flex items-center gap-1.5 text-xs text-muted mb-4">
         <Link href="/" className="hover:text-brand">TSP</Link>
         <span className="opacity-50">/</span>
@@ -101,9 +123,6 @@ export function ArticleLayout({
               <FileCheck className="w-3 h-3" />
               {t("headerPill")} {articleNumber}
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold leading-tight mb-3">
-              {articleTitle}
-            </h1>
             <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
               <div className="flex items-center gap-2">
                 <span className="text-muted">{t("coveredBy")}</span>
@@ -126,6 +145,14 @@ export function ArticleLayout({
           </div>
 
           <TranslationBanner />
+
+          <div className="mb-10">
+            <V2BoundaryNote title={isEn ? "What this mapping means" : "Hva denne mappingen betyr"}>
+              {isEn
+                ? "TSP can create evidence objects for parts of the obligation: signed outputs, source declarations, process metadata, timestamps, and verification results. It does not replace legal assessment, notified-body work, organisational controls, or human accountability."
+                : "TSP kan lage bevisobjekter for deler av forpliktelsen: signerte svar, kildeerklæringer, prosessmetadata, tidsstempel og verifikasjonsresultater. Det erstatter ikke juridisk vurdering, notified-body arbeid, organisatoriske kontroller eller menneskelig ansvar."}
+            </V2BoundaryNote>
+          </div>
 
           <div className="space-y-12">{children}</div>
 
@@ -162,5 +189,6 @@ export function ArticleLayout({
         </article>
       </div>
     </div>
+    </>
   );
 }

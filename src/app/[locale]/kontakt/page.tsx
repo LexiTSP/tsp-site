@@ -98,7 +98,7 @@ export default async function KontaktPage({
         </a>
 
         <Link
-          href="/playground"
+          href="/verify"
           className="tsp-card p-6 hover:border-brand/40 transition-colors group"
         >
           <div className="w-10 h-10 rounded-lg bg-verify/10 text-verify flex items-center justify-center mb-3 group-hover:scale-105 transition-transform">

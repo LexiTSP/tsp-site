@@ -1,0 +1,39 @@
+name: Bug report
+description: Report a reproducible issue in the site, SDK, verifier, manifest, or TrustBadge.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a concrete issue. Please include enough detail for a maintainer to reproduce it without private systems.
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: What broke, and what did you expect instead?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction steps
+      description: Include route, package version, command, input envelope, or manifest URL when relevant.
+      placeholder: |
+        1. Open /verify
+        2. Paste envelope ...
+        3. Click Verify
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Browser/runtime, OS, package versions, and whether this is local, staging, or production.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Logs or screenshots
+      description: Redact secrets and private envelope content before posting.

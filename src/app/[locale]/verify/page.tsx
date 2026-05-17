@@ -1,6 +1,7 @@
 import { Link } from "@/i18n/navigation";
 import { VerifyTool } from "@/components/VerifyTool";
 import { ArrowRight, FileCode, AlertOctagon, ShieldCheck, Terminal } from "lucide-react";
+import { V2BoundaryNote, V2CanonicalStrip, V2PageHero } from "@/components/V2ProofSurface";
 
 const COPY = {
   no: {
@@ -28,6 +29,16 @@ const COPY = {
       "Les hva som signeres, hvordan canonical JSON beregnes, og hvordan manifest-PKI, TSA og DANE henger sammen.",
     specCta: "Les spec",
     statusLabel: "Status",
+    heroEyebrow: "Bevisobjekt · verifiserbart i nettleseren",
+    heroTitle: "Kan noen andre verifisere AI-svaret?",
+    heroLead:
+      "Dette er kvitteringsøyeblikket. Last en signert TrustEnvelope, verifiser lokalt, endre ett tegn, og se beviset ryke.",
+    heroProof1: "Ingen leverandørtillit kreves",
+    heroProof2: "Lokal og online modus",
+    heroProof3: "Manipulasjon blir synlig",
+    boundaryTitle: "Hva denne validatoren ikke gjør",
+    boundaryBody:
+      "Nettleser-validatoren beviser integriteten til en envelope. Den avgjør ikke juridisk samsvar, erstatter ikke menneskelig review og garanterer ikke at alle kilder i kvitteringen er juridisk tilstrekkelige.",
   },
   en: {
     title: "TrustEnvelope Validator — TSP",
@@ -54,6 +65,16 @@ const COPY = {
       "Read what is signed, how canonical JSON is computed, and how manifest PKI, TSA, and DANE fit together.",
     specCta: "Read spec",
     statusLabel: "Status",
+    heroEyebrow: "Proof object · browser-verifiable",
+    heroTitle: "Can someone else verify the AI answer?",
+    heroLead:
+      "This is the receipt moment. Load a signed TrustEnvelope, verify it locally, change one character, and watch the proof break.",
+    heroProof1: "No vendor trust required",
+    heroProof2: "Local and online modes",
+    heroProof3: "Tamper result is visible",
+    boundaryTitle: "What this validator does not do",
+    boundaryBody:
+      "The browser validator proves envelope integrity. It does not decide legal conformity, replace human review, or guarantee that every source inside the envelope was legally sufficient.",
   },
 };
 
@@ -75,17 +96,29 @@ export default async function VerifyPage({
   const { locale } = await params;
   const copy = locale === "en" ? COPY.en : COPY.no;
   return (
-    <div className="tsp-container py-16">
-      <div className="tsp-section-marker mb-3">§ Validator · alpha</div>
-      <h1 className="mb-4">{copy.h1}</h1>
-      <p className="text-lg text-muted max-w-2xl mb-3">
-        {copy.lead}
-      </p>
-      <p className="text-sm text-muted max-w-2xl mb-10">
-        {copy.status}
-      </p>
+    <>
+      <V2PageHero
+        eyebrow={copy.heroEyebrow}
+        title={copy.heroTitle}
+        lead={copy.heroLead}
+        primaryCta={{ href: "#validator", label: locale === "en" ? "Verify the sample" : "Verifiser samplet" }}
+        secondaryCta={{ href: "/playground", label: copy.playgroundCta }}
+        proofItems={[
+          { label: "Independence", value: copy.heroProof1 },
+          { label: "Verification", value: copy.heroProof2 },
+          { label: "Outcome", value: copy.heroProof3 },
+        ]}
+      />
+      <V2CanonicalStrip locale={locale} />
+
+    <div id="validator" className="tsp-container py-16 scroll-mt-20">
+      <p className="text-sm text-muted max-w-2xl mb-10">{copy.status}</p>
 
       <VerifyTool locale={locale} />
+
+      <div className="mb-10">
+        <V2BoundaryNote title={copy.boundaryTitle}>{copy.boundaryBody}</V2BoundaryNote>
+      </div>
 
       <div className="border border-border bg-surface p-6 mb-10">
         <div className="flex items-center gap-2 mb-3">
@@ -168,5 +201,6 @@ console.log(result.valid ? "OK" : "FAIL", result.checks);`}</pre>
         </p>
       </div>
     </div>
+    </>
   );
 }

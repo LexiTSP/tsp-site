@@ -1,5 +1,6 @@
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { ModuleLayout } from "@/components/ModuleLayout";
+import { V2BoundaryNote } from "@/components/V2ProofSurface";
 import {
   ModuleSection,
   FeatureGrid,
@@ -57,6 +58,12 @@ export default async function CoreModulePage({
           </>
         }
       >
+        <V2BoundaryNote title={locale === "en" ? "Core is the primitive, not the platform" : "Core er primitivet, ikke plattformen"}>
+          {locale === "en"
+            ? "TSP Core is the open receipt format: content hash, source declaration, process evidence, timestamp, ledger hash and signature. Risk, Evidence and Oversight are optional operational tools on top of the receipt."
+            : "TSP Core er det åpne kvitteringsformatet: innholdshash, kilde-erklæring, prosessbevis, tidsstempel, ledger-hash og signatur. Risk, Evidence og Oversight er valgfrie driftsverktøy oppå kvitteringen."}
+        </V2BoundaryNote>
+
         <LicenseBox
           license="MIT"
           summary={t("licenseSummary")}

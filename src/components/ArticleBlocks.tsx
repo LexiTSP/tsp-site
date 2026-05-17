@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useLocale } from "next-intl";
 import { CheckCircle2, XCircle, AlertTriangle, Info, ArrowRight, ExternalLink } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -16,10 +17,11 @@ export function RequirementBlock({
   quote: string;
   articleRef: string;
 }) {
+  const isEn = useLocale() === "en";
   return (
     <section className="not-prose">
       <div className="tsp-eyebrow text-muted mb-3">
-        Lovkrav
+        {isEn ? "Requirement" : "Lovkrav"}
       </div>
       <h2 className="text-2xl font-bold mb-4">{title}</h2>
       <div className="relative rounded-xl border-2 border-brand/20 bg-gradient-to-br from-brand/5 to-transparent p-5">
@@ -45,10 +47,11 @@ export function TspSolutionBlock({
   summary: string;
   children: React.ReactNode;
 }) {
+  const isEn = useLocale() === "en";
   return (
     <section className="not-prose">
       <div className="tsp-eyebrow text-verify mb-3">
-        TSP løser dette med
+        {isEn ? "TSP addresses this with" : "TSP adresserer dette med"}
       </div>
       <div className="flex items-start gap-4 mb-5">
         <div className="w-12 h-12 rounded-xl bg-verify/10 text-verify flex items-center justify-center shrink-0">
@@ -100,6 +103,7 @@ export function EvidenceBlock({
 }
 
 export function DeploymentExample({ children }: { children: React.ReactNode }) {
+  const isEn = useLocale() === "en";
   return (
     <section className="not-prose rounded-xl border border-border bg-paper p-5">
       <div className="flex items-start gap-3 mb-3">
@@ -108,12 +112,16 @@ export function DeploymentExample({ children }: { children: React.ReactNode }) {
             <path d="M12 2L2 7l10 5 10-5-10-5z" />
             <path d="M2 17l10 5 10-5M2 12l10 5 10-5" fill="none" stroke="currentColor" strokeWidth="1.5" />
           </svg>
-        </div>
-        <div>
-          <div className="tsp-eyebrow text-nav-red">
-            I praksis · TSP deployment
           </div>
-          <div className="font-semibold text-ink mt-0.5">Hvordan en regulert deployment bruker dette</div>
+          <div>
+            <div className="tsp-eyebrow text-nav-red">
+              {isEn ? "Implementation pattern" : "Implementeringsmønster"}
+            </div>
+            <div className="font-semibold text-ink mt-0.5">
+              {isEn
+                ? "How a regulated deployment could use this"
+                : "Hvordan en regulert deployment kan bruke dette"}
+            </div>
         </div>
       </div>
       <div className="text-sm leading-relaxed text-ink/90 space-y-3">{children}</div>
@@ -130,10 +138,15 @@ export function CoverageNote({
   title: string;
   children: React.ReactNode;
 }) {
+  const isEn = useLocale() === "en";
   const config = {
-    covered: { Icon: CheckCircle2, tone: "verify", label: "Dekket" },
-    partial: { Icon: Info, tone: "brand", label: "Delvis" },
-    "not-covered": { Icon: AlertTriangle, tone: "warn", label: "Ikke dekket — organisatorisk" },
+    covered: { Icon: CheckCircle2, tone: "verify", label: isEn ? "Covered" : "Dekket" },
+    partial: { Icon: Info, tone: "brand", label: isEn ? "Partial" : "Delvis" },
+    "not-covered": {
+      Icon: AlertTriangle,
+      tone: "warn",
+      label: isEn ? "Not covered - organisational" : "Ikke dekket - organisatorisk",
+    },
   }[type];
   const Icon = config.Icon;
   const toneClass = {

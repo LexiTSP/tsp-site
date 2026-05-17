@@ -69,7 +69,7 @@ const ENVELOPE_CODE = `{
   signatures: [{                  // Ed25519
     role: "instance",
     algorithm: "ed25519",
-    keyRef: "https://din-org.no/.well-known/tsp/keys.json#i1",
+    keyRef: "https://din-org.no/.well-known/tsp-manifest.json#i1",
     signature: "MEUCIQDx7...vK4=",
     certChain: [...]
   }]
@@ -181,21 +181,21 @@ export default async function Article12Page({
           code={ENVELOPE_CODE}
         />
 
-        <SectionHeading>{isEn ? "Why SHA-256 + canonicalJson?" : "Hvorfor SHA-256 + canonicalJson?"}</SectionHeading>
+        <SectionHeading>{isEn ? "Why SHA-256 + RFC 8785/JCS?" : "Hvorfor SHA-256 + RFC 8785/JCS?"}</SectionHeading>
         <Prose>
           <p>
             {isEn ? (
               <>
-                The hash is computed over a <strong>deterministic</strong> JSON serialisation (the canonicalJson
-                rule, see <Link href="/spec#hashing" className="text-brand hover:underline">spec</Link>). That
+                The hash is computed over a <strong>deterministic</strong> JSON serialisation based on
+                RFC 8785/JCS (see <Link href="/spec#hashing" className="text-brand hover:underline">spec</Link>). That
                 means the same envelope produces the same hash regardless of language, platform or implementation.
                 A German auditor, a Norwegian compliance officer and a Finnish developer verify the same hash
                 and get the same answer.
               </>
             ) : (
               <>
-                Hashen regnes over en <strong>deterministisk</strong> JSON-serialisering (canonicalJson-regelen,
-                se <Link href="/spec#hashing" className="text-brand hover:underline">spec</Link>). Det betyr at
+                Hashen regnes over en <strong>deterministisk</strong> JSON-serialisering basert på RFC 8785/JCS
+                (se <Link href="/spec#hashing" className="text-brand hover:underline">spec</Link>). Det betyr at
                 samme envelope produserer samme hash uansett språk, plattform eller implementering. En tysk
                 auditor, en norsk compliance officer og en finsk utvikler verifiserer samme hash og får samme svar.
               </>
@@ -214,14 +214,14 @@ export default async function Article12Page({
         <p>
           {isEn ? (
             <>
-              A pilot deployment maintains a public{" "}
+              A regulated deployment can maintain a public{" "}
               <ExternalRef href="https://example.com/ledger">transparency log at /ledger</ExternalRef> where
               <strong> every AI-generated complaint, every explanatory answer, every benefit assessment </strong>
               is publicly accessible with signature, timestamp and source reference.
             </>
           ) : (
             <>
-              En pilot-deployment har en offentlig{" "}
+              En regulert deployment kan ha en offentlig{" "}
               <ExternalRef href="https://example.com/ledger">åpenhetslogg på /ledger</ExternalRef> der
               <strong> hver eneste AI-genererte klage, hvert eneste forklarende svar, hver eneste
               stønadsvurdering </strong> ligger tilgjengelig med signatur, timestamp og kildehenvisning.
@@ -230,8 +230,8 @@ export default async function Article12Page({
         </p>
         <p>
           {isEn
-            ? "This means a caseworker who suspects a pilot deployment gave wrong advice to a user can:"
-            : "Dette betyr at en saksbehandler som mistenker at en pilot-deployment har gitt feil råd til en bruker kan:"}
+            ? "This means a caseworker who suspects the system gave wrong advice to a user can:"
+            : "Dette betyr at en saksbehandler som mistenker at systemet ga feil råd til en bruker kan:"}
         </p>
         <ul className="list-disc list-inside space-y-1 ml-2">
           <li>{isEn ? "Find the original answer in the log" : "Finne det opprinnelige svaret i loggen"}</li>

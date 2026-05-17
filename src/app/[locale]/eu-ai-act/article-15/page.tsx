@@ -24,8 +24,8 @@ export async function generateMetadata({
       ? "EU AI Act Art. 15 — Accuracy & robustness · TSP"
       : "EU AI Act Art. 15 — Accuracy & robustness · TSP",
     description: isEn
-      ? "TSP Core implements article 15 via canonicalJson, SHA-256 and a verifiable scoring algorithm."
-      : "TSP Core implementerer artikkel 15 via canonicalJson, SHA-256 og verifiserbar scoring-algoritme.",
+      ? "TSP Core supports article 15 evidence via RFC 8785/JCS, SHA-256, and verifiable metadata."
+      : "TSP Core støtter artikkel 15-bevis via RFC 8785/JCS, SHA-256 og verifiserbar metadata.",
   };
 }
 
@@ -244,13 +244,13 @@ if (result.valid) {
         <p>
           {isEn ? (
             <>
-              A pilot deployment can verify the entire chain of envelopes
+              A deployment can verify the entire chain of envelopes
               automatically every night — and publish the proof at <ExternalRef href="https://example.com/ledger">/ledger</ExternalRef>.
               Integrity status is visible as one of the statistics cards at the top of the page.
             </>
           ) : (
             <>
-              En pilot-deployment kan verifisere hele kjeden av envelope-er
+              En deployment kan verifisere hele kjeden av envelope-er
               automatisk hver natt — og publisere beviset på <ExternalRef href="https://example.com/ledger">/ledger</ExternalRef>.
               Integritets-status er synlig som et av statistikk-kortene øverst på siden.
             </>
@@ -259,17 +259,15 @@ if (result.valid) {
         <p>
           {isEn ? (
             <>
-              During a migration of the the deployment database in February 2026, the hash chain was temporarily
-              disrupted due to a configuration error. It was <em>detected the same day</em> by the nightly
-              verification — without anyone suspecting anything was wrong. Without the hash chain, the
-              problem would likely not have been discovered until the next external audit, months later.
+              In a realistic migration scenario, a database or export configuration error can disrupt the
+              hash chain. Nightly verification is designed to detect that kind of issue immediately, before
+              it becomes an audit-time surprise.
             </>
           ) : (
             <>
-              Under en migrering av deployment-databasen i februar 2026 ble hash-kjeden forstyrret midlertidig
-              pga. en konfigurasjonsfeil. Det ble <em>oppdaget samme dag</em> av den nattlige verifikasjonen —
-              uten at noen hadde mistanke om at noe var galt. Uten hash-kjeden ville problemet sannsynligvis
-              ikke blitt oppdaget før neste eksterne audit, måneder senere.
+              I et realistisk migreringsscenario kan en database- eller eksportkonfigurasjon forstyrre
+              hash-kjeden. Nattlig verifikasjon er designet for å oppdage slike feil med en gang, før de blir
+              en overraskelse ved audit.
             </>
           )}
         </p>
@@ -312,8 +310,8 @@ if (result.valid) {
         </CoverageNote>
         <CoverageNote type="covered" title={isEn ? "Technical robustness (15 (4))" : "Technical robustness (15 (4))"}>
           {isEn
-            ? "canonicalJson gives deterministic serialisation. Same input → same hash, always, across implementations."
-            : "canonicalJson gir deterministisk serialisering. Samme input → samme hash, alltid, på tvers av implementasjoner."}
+            ? "RFC 8785/JCS gives deterministic serialisation. Same input -> same hash, across implementations."
+            : "RFC 8785/JCS gir deterministisk serialisering. Samme input -> samme hash, på tvers av implementasjoner."}
         </CoverageNote>
         <CoverageNote type="covered" title={isEn ? "Resilience against tampering (15 (5))" : "Resilience against tampering (15 (5))"}>
           {isEn

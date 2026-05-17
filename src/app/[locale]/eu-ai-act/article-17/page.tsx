@@ -73,10 +73,10 @@ export default async function Article17Page({
         module="Evidence"
         moduleHref="/evidence"
         summary={isEn
-          ? "TSP Evidence produces audit-ready dossiers and maps envelope data to ISO 42001 clauses. Not a QMS in itself — but the technical layer that makes QMS documentation 10× cheaper."
-          : "TSP Evidence produserer audit-ready dossiers og mapper envelope-data til ISO 42001-klausuler. Ikke en QMS — men det tekniske laget som gjør QMS-dokumentasjon 10× billigere."}
+          ? "TSP Evidence produces structured dossiers and maps envelope data to ISO 42001 clauses. It is not a QMS by itself, but it can reduce manual evidence gathering."
+          : "TSP Evidence produserer strukturerte dossiers og mapper envelope-data til ISO 42001-klausuler. Det er ikke en QMS alene, men kan redusere manuell bevisinnsamling."}
       >
-        <SectionHeading>{isEn ? "Strategy: TSP + ISO 42001 = art. 17 compliance" : "Strategi: TSP + ISO 42001 = art. 17-compliance"}</SectionHeading>
+        <SectionHeading>{isEn ? "Strategy: TSP + ISO 42001 evidence path" : "Strategi: TSP + ISO 42001 som bevisspor"}</SectionHeading>
         <Prose>
           <p>
             {isEn
@@ -89,8 +89,8 @@ export default async function Article17Page({
           </p>
           <p>
             {isEn
-              ? "Strategy: build the QMS to ISO 42001, use TSP Evidence as the technical backbone, and obtain certification. Art. 17 compliance follows automatically."
-              : "Strategi: bygg QMS etter ISO 42001, bruk TSP Evidence som teknisk ryggrad, og få sertifisering. Art. 17-compliance følger automatisk."}
+              ? "Strategy: build the QMS to ISO 42001, use TSP Evidence as the technical evidence backbone, and let legal/compliance teams assess the remaining organisational obligations."
+              : "Strategi: bygg QMS etter ISO 42001, bruk TSP Evidence som teknisk bevisryggrad, og la juridisk/compliance vurdere de resterende organisatoriske forpliktelsene."}
           </p>
           <p>
             {isEn ? <>We have a dedicated mapping page for this: <Link href="/iso-42001" className="text-brand hover:underline">
@@ -121,8 +121,8 @@ export default async function Article17Page({
             articleRef="17 (1) (d)"
             title="Technical specifications & standards"
             tsp={isEn
-              ? "Spec'd per version tag. canonicalJson + SHA-256 is the harmonised technical spec."
-              : "Spec'et per version-tag. canonicalJson + SHA-256 er harmonisert teknisk spec."}
+              ? "Spec'd per version tag. RFC 8785/JCS + SHA-256 gives the reproducible evidence format."
+              : "Spec'et per version-tag. RFC 8785/JCS + SHA-256 gir det reproduserbare bevisformatet."}
             coverage={90}
           />
           <QmsRow
@@ -161,8 +161,8 @@ export default async function Article17Page({
             articleRef="17 (1) (j)"
             title="Communication with authorities"
             tsp={isEn
-              ? "Evidence can export ledger excerpts per case number. The format conforms to Annex IV."
-              : "Evidence kan eksportere utdrag av ledger per saksnummer. Formatet samsvarer med Annex IV."}
+              ? "Evidence can export ledger excerpts per case number and map them to Annex IV-style evidence needs."
+              : "Evidence kan eksportere ledger-utdrag per saksnummer og mappe dem til Annex IV-lignende bevisbehov."}
             coverage={70}
           />
           <QmsRow
@@ -185,7 +185,7 @@ export default async function Article17Page({
 
         <SectionHeading>{isEn ? "What Evidence dossiers actually contain" : "Hva Evidence-dossiers faktisk inneholder"}</SectionHeading>
         <EvidenceBlock
-          label={isEn ? "Audit-ready dossier from TSP Evidence" : "Audit-ready dossier for TSP Evidence"}
+          label={isEn ? "Evidence dossier from TSP Evidence" : "Evidence-dossier fra TSP Evidence"}
           lang="typescript"
           code={`// Eksempel: månedsrapport til compliance officer
 {
@@ -223,23 +223,23 @@ export default async function Article17Page({
       <DeploymentExample>
         <p>
           {isEn
-            ? "A pilot deployment can schedule ISO 42001 certification for Q3 2026. The Evidence module automatically generates monthly reports that are \"audit-ready\" — the compliance officer spends about 2 hours per month reviewing and signing the report, instead of 2 weeks of manual collation."
-            : "En pilot-deployment kan planlegge ISO 42001-sertifisering for Q3 2026. Evidence-modulen genererer automatisk månedsrapporter som er \"audit-ready\" — compliance officer bruker ca. 2 timer per måned på å gjennomgå og signere rapporten, i stedet for 2 uker med manuell samling."}
+            ? "A deployment preparing for ISO 42001 can use Evidence to generate monthly evidence reports from signed envelopes. The target is less manual collation and more reproducible proof."
+            : "En deployment som forbereder ISO 42001 kan bruke Evidence til å generere månedlige bevisrapporter fra signerte envelopes. Målet er mindre manuell innsamling og mer reproduserbart bevis."}
         </p>
         <p>
           {isEn
-            ? "The dossier format is designed to be sent directly to the certification auditor as part of a stage-1 audit. The mapping between envelope fields and ISO 42001 clauses is consistent and reproducible."
-            : "Dossier-formatet er designet for å kunne sendes direkte til sertifiseringsauditor som del av stage 1-audit. Mapping mellom envelope-felter og ISO 42001-klausuler er konsistent og reproduserbar."}
+            ? "The dossier format is designed to support auditor review. The mapping between envelope fields and ISO 42001 clauses is consistent and reproducible, but the auditor still decides what evidence is sufficient."
+            : "Dossier-formatet er designet for å støtte auditor-review. Mapping mellom envelope-felter og ISO 42001-klausuler er konsistent og reproduserbar, men auditor avgjør fortsatt hva som er tilstrekkelig bevis."}
         </p>
         <p>
           {isEn ? (
-            <><strong>The hypothesis we test with a pilot deployment:</strong> ISO 42001 certification on a TSP
-              foundation costs 10–20 % of equivalent certification without it (manual QMS documents only).
-              Figures will be published once certification is complete.</>
+            <><strong>The hypothesis to test with pilots:</strong> a signed evidence layer should reduce the
+              manual work needed to assemble QMS evidence. Figures should only be published after real pilots
+              or audits produce public data.</>
           ) : (
-            <><strong>Hypotesen vi tester med en pilot-deployment:</strong> ISO 42001-sertifisering med TSP-grunnlag
-              koster 10-20 % av hva tilsvarende sertifisering koster uten (kun manuelle QMS-dokumenter). Tall
-              offentliggjøres etter gjennomført sertifisering.</>
+            <><strong>Hypotesen som bør testes med piloter:</strong> et signert bevislag bør redusere manuelt
+              arbeid med å samle QMS-bevis. Tall bør bare publiseres etter at ekte piloter eller audits gir
+              offentlige data.</>
           )}
         </p>
       </DeploymentExample>

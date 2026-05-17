@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Link } from "@/i18n/navigation";
 import { useLocale } from "next-intl";
+import { V2BoundaryNote, V2CanonicalStrip, V2PageHero } from "@/components/V2ProofSurface";
 import {
   ArrowRight,
   Sparkles,
@@ -142,6 +143,14 @@ const COPY = {
     docs: "Les API-referansen",
     spec: "Les spec",
     mapping: "Se EU AI Act-mapping",
+    heroEyebrow: "Proof flow · kjører lokalt",
+    heroTitle: "Signer ett AI-svar og bryt det med vilje.",
+    heroLead:
+      "Playgrounden viser hvorfor en signert AI-kvittering er annerledes enn en logg eller et skjermbilde: endrer du svaret etter signering, ryker beviset.",
+    heroProof1: "Ekte SDK i nettleseren",
+    heroProof2: "Ingen data sendt til TSP",
+    heroProof3: "Manipulasjon blir synlig",
+    boundaryTitle: "Hva denne demoen ikke beviser",
   },
   en: {
     defaultContent:
@@ -196,6 +205,14 @@ const COPY = {
     docs: "Read API reference",
     spec: "Read spec",
     mapping: "See EU AI Act mapping",
+    heroEyebrow: "Proof flow · local browser run",
+    heroTitle: "Sign one AI answer, then break it on purpose.",
+    heroLead:
+      "The playground shows why a signed AI receipt is different from a log or screenshot: change the answer after signing and the proof fails.",
+    heroProof1: "Real SDK in the browser",
+    heroProof2: "No data sent to TSP",
+    heroProof3: "Tampering becomes visible",
+    boundaryTitle: "What this demo does not prove",
   },
 };
 
@@ -310,12 +327,22 @@ export default function PlaygroundPage() {
   };
 
   return (
-    <div className="tsp-container py-12 max-w-5xl">
-      <div className="tsp-section-marker mb-3">§ Playground · alpha</div>
-      <h1 className="mb-3">{copy.h1}</h1>
-      <p className="text-lg text-muted max-w-2xl mb-3 leading-relaxed">
-        {copy.lead}
-      </p>
+    <>
+      <V2PageHero
+        eyebrow={copy.heroEyebrow}
+        title={copy.heroTitle}
+        lead={copy.heroLead}
+        primaryCta={{ href: "#sign", label: isEn ? "Run the demo" : "Kjør demoen" }}
+        secondaryCta={{ href: "/verify", label: isEn ? "Open validator" : "Åpne validator" }}
+        proofItems={[
+          { label: "Runtime", value: copy.heroProof1 },
+          { label: "Privacy", value: copy.heroProof2 },
+          { label: "Result", value: copy.heroProof3 },
+        ]}
+      />
+      <V2CanonicalStrip locale={locale} />
+
+    <div id="sign" className="tsp-container py-12 max-w-5xl scroll-mt-20">
       <p className="text-sm text-muted max-w-2xl mb-10">
         <strong>{copy.real}</strong>{" "}
         {isEn ? (
@@ -566,22 +593,17 @@ export default function PlaygroundPage() {
 
       {/* What's NOT in the playground (honest framing) */}
       <section className="border-l-2 border-muted pl-4 py-3 mb-8 bg-paper">
-        <div className="text-sm font-semibold text-ink mb-2">
-          {copy.notShownTitle}
-        </div>
-        <ul className="text-sm text-muted space-y-1 list-disc list-inside leading-relaxed">
-          <li>
-            {copy.notShown1}
-          </li>
-          <li>
-            {copy.notShown2}
-          </li>
-          <li>
-            {copy.notShown3} <Link href="/risk" className="text-brand">Risk</Link>,{" "}
-            <Link href="/oversight" className="text-brand">Oversight</Link>,{" "}
-            <Link href="/evidence" className="text-brand">Evidence</Link>.
-          </li>
-        </ul>
+        <V2BoundaryNote title={copy.boundaryTitle}>
+          <ul className="space-y-1 list-disc list-inside">
+            <li>{copy.notShown1}</li>
+            <li>{copy.notShown2}</li>
+            <li>
+              {copy.notShown3} <Link href="/risk" className="text-brand">Risk</Link>,{" "}
+              <Link href="/oversight" className="text-brand">Oversight</Link>,{" "}
+              <Link href="/evidence" className="text-brand">Evidence</Link>.
+            </li>
+          </ul>
+        </V2BoundaryNote>
       </section>
 
       <div className="flex flex-wrap gap-3">
@@ -596,6 +618,7 @@ export default function PlaygroundPage() {
         </Link>
       </div>
     </div>
+    </>
   );
 }
 

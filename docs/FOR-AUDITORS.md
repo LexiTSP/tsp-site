@@ -47,7 +47,7 @@ Scenario: Du skal verifisere at et konkret AI-svar gitt til en borger 3. mars 20
 
 1. Be applikasjonseier om `envelope_id` for det aktuelle svaret.
 2. Hent envelope-en (JSON, typisk 2–4 KB) — fra applikasjonens egen lagring eller via Evidence-modulen.
-3. Åpne `https://truststandardprotocol.com/playground` (eller en hvilken som helst implementasjon av `verifyLocal`).
+3. Åpne `https://truststandardprotocol.com/verify` (eller en hvilken som helst implementasjon av `verifyLocal`).
 4. Importer envelope-en. Verktøyet henter manifestet automatisk fra `manifestRef`.
 5. Se på `verifyLocal`-resultatet:
    - Alle 10 checks grønne → svaret er uendret siden signering.
@@ -159,7 +159,7 @@ Full mapping på sitet: `https://truststandardprotocol.com/eu-ai-act/article-9` 
 
 Spørsmål om revisjon av en konkret TSP-implementasjon — eller om TSP i seg selv som revisjonsobjekt:
 
-- E-post: julian@lexico.no
+- E-post: tsp@lexico.no
 - Spec: `https://truststandardprotocol.com/spec`
 - EU AI Act-mapping: `https://truststandardprotocol.com/eu-ai-act/`
 - Charter: `docs/charter.md`

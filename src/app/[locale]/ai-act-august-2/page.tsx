@@ -7,6 +7,7 @@ import {
   CheckCircle2,
   Code2,
   Download,
+  ExternalLink,
   FileCheck2,
   Landmark,
   ReceiptText,
@@ -106,7 +107,7 @@ export default async function AiActAugust2Page({
               </p>
               <div className="mt-7 flex flex-wrap gap-3">
                 <Link
-                  href={ctaHref("/playground", "run_demo")}
+                  href={ctaHref("/verify", "run_demo")}
                   data-cta="run_demo"
                   className="tsp-btn-primary"
                 >
@@ -129,11 +130,31 @@ export default async function AiActAugust2Page({
               </div>
             </div>
             <div className="border-l-2 border-accent bg-white/75 p-5 shadow-sm">
-              <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-ink">
+            <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-ink">
                 <AlertTriangle className="h-4 w-4 text-accent-dark" />
                 {t("urgencyTitle")}
               </div>
               <p className="text-sm leading-relaxed text-muted">{t("urgencyBody")}</p>
+              <div className="mt-4 space-y-2 border-t border-border pt-4 text-xs leading-relaxed text-muted">
+                <p>{t("sourceNote")}</p>
+                <a
+                  href="https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 text-brand hover:underline"
+                >
+                  {t("sourceAiAct")} <ExternalLink className="h-3 w-3" />
+                </a>
+                <br />
+                <a
+                  href="https://digital-strategy.ec.europa.eu/en/news/eu-agrees-simplify-ai-rules-boost-innovation-and-ban-nudification-apps-protect-citizens"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 text-brand hover:underline"
+                >
+                  {t("sourceAgreement")} <ExternalLink className="h-3 w-3" />
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -215,7 +236,7 @@ export default async function AiActAugust2Page({
               title={t("commercialTitle")}
               body={t("commercialBody")}
               cta={t("commercialCta")}
-              href={ctaHref("/playground", "run_demo")}
+              href={ctaHref("/verify", "run_demo")}
               ctaName="run_demo"
             />
             <TrackCard
@@ -428,7 +449,7 @@ export default async function AiActAugust2Page({
           <p className="mb-8 max-w-2xl text-lg leading-relaxed text-white/75">{t("finalLead")}</p>
           <div className="flex flex-wrap gap-3">
             <Link
-              href={ctaHref("/playground", "run_demo")}
+              href={ctaHref("/verify", "run_demo")}
               data-cta="run_demo"
               className="tsp-btn-primary"
               style={{ background: "var(--color-accent)", borderColor: "var(--color-accent)", color: "#fff" }}

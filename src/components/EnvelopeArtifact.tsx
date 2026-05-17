@@ -139,7 +139,7 @@ export function EnvelopeArtifact({ interactive = true, className = "" }: Props) 
         <Row label="signature" last>
           ed25519 · MEUCIQDx7…vK4=
           <div className="text-muted mt-1 text-xxxs">
-            keyRef · /.well-known/tsp/keys.json#i1
+            keyRef · /.well-known/tsp-manifest.json#i1
           </div>
         </Row>
       </dl>

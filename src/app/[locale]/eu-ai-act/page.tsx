@@ -8,6 +8,7 @@ import {
   Scale,
 } from "lucide-react";
 import { ArticleMatrix } from "@/components/ArticleMatrix";
+import { V2BoundaryNote, V2CanonicalStrip, V2PageHero } from "@/components/V2ProofSurface";
 
 export async function generateMetadata({
   params,
@@ -27,26 +28,27 @@ export default async function EuAiActPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("euAiAct");
+  const isEn = locale === "en";
 
   return (
     <>
-      <section className="tsp-hero-surface border-b border-border">
-        <div className="tsp-container py-12 md:py-16">
-          <nav className="tsp-section-marker mb-6 flex items-center gap-2">
-            <Link href="/" className="hover:text-ink no-underline">TSP</Link>
-            <span className="opacity-40">·</span>
-            <span className="text-ink">{t("breadcrumb")}</span>
-          </nav>
-          <div className="tsp-section-eyebrow mb-5">
-            <span className="tsp-section-num tsp-section-num--accent">{t("eyebrowChip")}</span>
-            <span className="tsp-section-label">{t("eyebrowLabel")}</span>
-          </div>
-          <h1 className="mb-5 max-w-3xl">{t("h1")}</h1>
-          <p className="text-ink text-lg max-w-3xl leading-relaxed">
-            {t.rich("lead", { strong: (c) => <strong>{c}</strong> })}
-          </p>
-        </div>
-      </section>
+      <V2PageHero
+        eyebrow={isEn ? "European trust infrastructure · evidence layer" : "Europeisk tillitsinfrastruktur · bevislag"}
+        title={isEn ? "The AI Act has an evidence problem." : "AI Act har et bevisproblem."}
+        lead={
+          isEn
+            ? "Policies and dashboards can describe responsible AI. TSP focuses on the missing runtime proof: signed outputs, source declarations, process metadata, timestamps, and independent verification."
+            : "Policyer og dashboards kan beskrive ansvarlig AI. TSP fokuserer på det manglende runtime-beviset: signerte svar, kildeerklæringer, prosessmetadata, tidsstempel og uavhengig verifikasjon."
+        }
+        primaryCta={{ href: "#article-map", label: isEn ? "See article mapping" : "Se artikkelmapping" }}
+        secondaryCta={{ href: "/verify", label: isEn ? "Verify a receipt" : "Verifiser kvittering" }}
+        proofItems={[
+          { label: isEn ? "Primitive" : "Primitiv", value: isEn ? "Signed AI receipts" : "Signerte AI-kvitteringer" },
+          { label: isEn ? "Verifier" : "Verifikator", value: "verifyLocal() + verifyOnline()" },
+          { label: isEn ? "Boundary" : "Grense", value: isEn ? "Evidence, not legal approval" : "Bevis, ikke juridisk godkjenning" },
+        ]}
+      />
+      <V2CanonicalStrip locale={locale} />
 
     <div className="tsp-container py-12">
       <div className="mb-12 border-l-2 border-accent bg-elevated p-6 md:p-8">
@@ -104,7 +106,15 @@ export default async function EuAiActPage({
         </p>
       </div>
 
-      <section className="mb-14">
+      <div className="mb-14">
+        <V2BoundaryNote title={isEn ? "What this page does not claim" : "Hva denne siden ikke påstår"}>
+          {isEn
+            ? "This is a technical evidence map. TSP does not make a system legally compliant by itself, does not replace conformity assessment, and does not cover training-time governance or organisational QMS on its own."
+            : "Dette er en teknisk bevismapping. TSP gjør ikke et system juridisk compliant alene, erstatter ikke conformity assessment, og dekker ikke treningsdata-governance eller organisatorisk QMS alene."}
+        </V2BoundaryNote>
+      </div>
+
+      <section id="article-map" className="mb-14 scroll-mt-20">
         <div className="flex items-start justify-between mb-4">
           <div>
             <h2 className="text-2xl font-bold mb-2">{t("matrixTitle")}</h2>
@@ -117,12 +127,12 @@ export default async function EuAiActPage({
       <section className="mb-14">
         <h2 className="text-2xl font-bold mb-5">{t("articlesTitle")}</h2>
         <div className="grid md:grid-cols-2 gap-4">
-          <ArticleCard number="12" name={t("art12Name")} desc={t("art12Desc")} module="Core" coverage={95} slug="article-12" />
-          <ArticleCard number="13" name={t("art13Name")} desc={t("art13Desc")} module="Core + Oversight" coverage={90} slug="article-13" />
-          <ArticleCard number="14" name={t("art14Name")} desc={t("art14Desc")} module="Oversight" coverage={75} slug="article-14" />
-          <ArticleCard number="15" name={t("art15Name")} desc={t("art15Desc")} module="Core" coverage={85} slug="article-15" />
-          <ArticleCard number="9" name={t("art9Name")} desc={t("art9Desc")} module="Risk" coverage={70} slug="article-9" highlighted />
-          <ArticleCard number="17" name={t("art17Name")} desc={t("art17Desc")} module="Evidence + ISO 42001" coverage={40} slug="article-17" />
+          <ArticleCard locale={locale} number="12" name={t("art12Name")} desc={t("art12Desc")} module="Core" coverage={95} slug="article-12" />
+          <ArticleCard locale={locale} number="13" name={t("art13Name")} desc={t("art13Desc")} module="Core + Oversight" coverage={90} slug="article-13" />
+          <ArticleCard locale={locale} number="14" name={t("art14Name")} desc={t("art14Desc")} module="Oversight" coverage={75} slug="article-14" />
+          <ArticleCard locale={locale} number="15" name={t("art15Name")} desc={t("art15Desc")} module="Core" coverage={85} slug="article-15" />
+          <ArticleCard locale={locale} number="9" name={t("art9Name")} desc={t("art9Desc")} module="Risk" coverage={70} slug="article-9" highlighted />
+          <ArticleCard locale={locale} number="17" name={t("art17Name")} desc={t("art17Desc")} module="Evidence + ISO 42001" coverage={40} slug="article-17" />
         </div>
       </section>
 
@@ -190,6 +200,7 @@ function FactCard({
 }
 
 function ArticleCard({
+  locale,
   number,
   name,
   desc,
@@ -198,6 +209,7 @@ function ArticleCard({
   slug,
   highlighted,
 }: {
+  locale: string;
   number: string;
   name: string;
   desc: string;
@@ -206,6 +218,7 @@ function ArticleCard({
   slug: string;
   highlighted?: boolean;
 }) {
+  const isEn = locale === "en";
   return (
     <Link
       href={`/eu-ai-act/${slug}`}
@@ -215,12 +228,14 @@ function ArticleCard({
     >
       <div className="flex items-start justify-between mb-2">
         <div>
-          <div className="tsp-eyebrow text-muted mb-0.5">Artikkel {number}</div>
+          <div className="tsp-eyebrow text-muted mb-0.5">
+            {isEn ? "Article" : "Artikkel"} {number}
+          </div>
           <div className="text-xl font-bold text-ink group-hover:text-brand">{name}</div>
         </div>
         {highlighted && (
           <span className="tsp-pill border-brand/40 bg-brand/5 text-brand text-xxxs">
-            ⭐ Kjerne-SKU
+            {isEn ? "Risk lane" : "Risikosporet"}
           </span>
         )}
       </div>
@@ -238,7 +253,9 @@ function ArticleCard({
               style={{ width: `${coverage}%` }}
             />
           </div>
-          <span className="font-mono tabular-nums font-semibold">{coverage}%</span>
+          <span className="font-mono tabular-nums font-semibold" aria-label={isEn ? "technical fit" : "teknisk treff"}>
+            {coverage}%
+          </span>
         </div>
       </div>
     </Link>

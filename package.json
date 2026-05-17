@@ -8,10 +8,13 @@
     "packages/lexitsp-sdk",
     "packages/trustbadge-react"
   ],
+  "overrides": {
+    "postcss": "8.5.14"
+  },
   "scripts": {
     "dev": "bun run scripts/dev-server.mjs",
-    "build:sdk": "bun run --cwd packages/lexitsp-sdk build",
-    "build:trustbadge": "bun run --cwd packages/trustbadge-react build",
+    "build:sdk": "tsup packages/lexitsp-sdk/src/index.ts packages/lexitsp-sdk/src/node/index.ts packages/lexitsp-sdk/src/types.ts packages/lexitsp-sdk/src/v3/index.ts packages/lexitsp-sdk/src/v3/admin/index.ts packages/lexitsp-sdk/src/v3/cli/index.ts --format esm --dts --out-dir packages/lexitsp-sdk/dist --clean --tsconfig packages/lexitsp-sdk/tsconfig.json",
+    "build:trustbadge": "tsup packages/trustbadge-react/src/index.ts --format esm --dts --out-dir packages/trustbadge-react/dist --clean --external react --external react-dom --external @lexitsp/sdk --tsconfig packages/trustbadge-react/tsconfig.json",
     "build:packages": "bun run build:sdk && bun run build:trustbadge",
     "build": "bun run build:packages && next build",
     "start": "next start -p 3838",
@@ -20,15 +23,19 @@
     "check": "bun run build && bun run test:all",
     "test:all": "bun run test:sdk && bun run test:trustbadge",
     "test:site": "bun test src/**/*.test.ts",
-    "test:sdk": "bun run --cwd packages/lexitsp-sdk vitest run",
-    "test:trustbadge": "bun run --cwd packages/trustbadge-react vitest run",
+    "test:sdk": "vitest run --root packages/lexitsp-sdk --config vitest.config.ts",
+    "test:trustbadge": "vitest run --root packages/trustbadge-react --config vitest.config.ts",
     "check:claims": "bun run scripts/assert-charter-claims.mjs",
     "check:manifest": "bun run scripts/assert-public-manifest.mjs",
+    "check:secrets": "bun run scripts/scan-secrets.mjs",
+    "check:strategy": "bun run scripts/assert-strategic-readiness.mjs",
+    "check:public-surface": "bun run scripts/assert-public-surface.mjs",
+    "check:links": "bun run scripts/assert-site-links.mjs",
     "check:interop": "bun run scripts/check-interop-fixtures.mjs",
     "fixtures:v3": "bun run scripts/generate-v3-test-vectors.mjs",
     "smoke:packages": "bun run scripts/smoke-public-packages.mjs",
     "smoke:production-start": "bun run scripts/smoke-production-start.mjs",
-    "check:release": "bun run check && bun run check:claims && bun run check:manifest && bun run check:interop && bun run smoke:packages && bun run smoke:production-start"
+    "check:release": "bun run check && bun run check:claims && bun run check:manifest && bun run check:strategy && bun run check:public-surface && bun run check:interop && bun run smoke:packages && bun run smoke:production-start"
   },
   "dependencies": {
     "@lexitsp/sdk": "workspace:*",
@@ -36,8 +43,8 @@
     "clsx": "^2.1.1",
     "lucide-react": "^0.469.0",
     "nanoid": "^5.0.9",
-    "next": "15.1.0",
-    "next-intl": "^4.11.0",
+    "next": "16.2.6",
+    "next-intl": "4.12.0",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "tailwind-merge": "^2.6.0"
@@ -47,7 +54,7 @@
     "@types/react": "^19.0.2",
     "@types/react-dom": "^19.0.2",
     "autoprefixer": "^10.4.20",
-    "postcss": "^8.4.49",
+    "postcss": "^8.5.14",
     "tailwindcss": "^3.4.17",
     "typescript": "^5.7.2"
   },

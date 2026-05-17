@@ -71,6 +71,36 @@ const bannedPatterns = [
     message: "TSP can support evidence and verification; it does not guarantee compliance.",
   },
   {
+    id: "automatic-compliance",
+    pattern: /compliance follows automatically|compliance følger automatisk|etterlevelse følger automatisk/i,
+    allowNegative: true,
+    message: "Do not imply TSP automatically creates legal or certification compliance.",
+  },
+  {
+    id: "fully-covers-compliance",
+    pattern: /\bfully covers\b|\bfullt ut dekker\b|\bdekker den første,\s*full/i,
+    allowNegative: true,
+    message: "Use supports/reduces evidence gap instead of fully covers compliance scope.",
+  },
+  {
+    id: "finished-technical-compliance",
+    pattern: /finished technical part|ferdige tekniske delen/i,
+    allowNegative: true,
+    message: "Avoid implying the technical compliance layer is complete for every deployment.",
+  },
+  {
+    id: "certification-backbone",
+    pattern: /technical backbone for certification|teknisk ryggrad for sertifisering/i,
+    allowNegative: true,
+    message: "Use technical evidence support instead of certification backbone.",
+  },
+  {
+    id: "solves-digital-components",
+    pattern: /solves the digital components fully|løser de digitale komponentene fullstendig/i,
+    allowNegative: true,
+    message: "Use reduces the evidence gap instead of fully solves certification components.",
+  },
+  {
     id: "campaign-definitive-protocol",
     pattern: /\bdefinitive protocol\b|\bTSP is the format\b|\bden definitive protokollen\b|\bTSP er formatet\b/i,
     allowNegative: true,
@@ -90,9 +120,11 @@ const bannedPatterns = [
   },
 ];
 
+
 const verifiablePattern = /\b(verifiable|verify|verified|etterprøvbar|etterprøve|verifiserbar|verifisere|verifisert)\b/i;
 const verifiableQualifiers =
   /\b(cryptographic|cryptographically|signature|signed|hash|manifest|local|locally|independent|independently|auditor|provider|envelope|TrustEnvelope|Ed25519|SHA-256|RFC|browser|math|mathematical|tamper|kryptografisk|signert|signatur|uavhengig|uavhengige|revisor|leverandør|lokal|lokalt|matematisk|nettleser|uendret|uten|mot|hvem|hva|begrensning)\b/i;
+
 
 const findings = [];
 

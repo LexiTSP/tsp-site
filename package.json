@@ -41,7 +41,7 @@
     "@lexitsp/sdk": "workspace:*",
     "cheerio": "^1.2.0",
     "clsx": "^2.1.1",
-    "lucide-react": "^0.469.0",
+    "lucide-react": "^1.16.0",
     "nanoid": "^5.0.9",
     "next": "16.2.6",
     "next-intl": "4.12.0",

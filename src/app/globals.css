@@ -115,6 +115,52 @@
     display: block;
   }
 
+  .tsp-tampered-only {
+    display: none;
+  }
+
+  .tsp-receipt-state--tampered:checked ~ .tsp-receipt-shell .tsp-verified-only {
+    display: none;
+  }
+
+  .tsp-receipt-state--tampered:checked ~ .tsp-receipt-shell .tsp-tampered-only {
+    display: block;
+  }
+
+  .tsp-receipt-state--tampered:checked ~ .tsp-receipt-shell .tsp-receipt-choice--tamper,
+  .tsp-receipt-state--verified:checked ~ .tsp-receipt-shell .tsp-receipt-choice--restore {
+    outline: 2px solid rgb(var(--color-accent-rgb) / 0.55);
+    outline-offset: 2px;
+  }
+
+  .tsp-scenario-panel {
+    display: none;
+  }
+
+  .tsp-scenario-tab-0:checked ~ .tsp-scenario-grid .tsp-scenario-panel-0,
+  .tsp-scenario-tab-1:checked ~ .tsp-scenario-grid .tsp-scenario-panel-1,
+  .tsp-scenario-tab-2:checked ~ .tsp-scenario-grid .tsp-scenario-panel-2,
+  .tsp-scenario-tab-3:checked ~ .tsp-scenario-grid .tsp-scenario-panel-3 {
+    display: block;
+  }
+
+  .tsp-scenario-tab-0:checked ~ .tsp-scenario-grid .tsp-scenario-label-0,
+  .tsp-scenario-tab-1:checked ~ .tsp-scenario-grid .tsp-scenario-label-1,
+  .tsp-scenario-tab-2:checked ~ .tsp-scenario-grid .tsp-scenario-label-2,
+  .tsp-scenario-tab-3:checked ~ .tsp-scenario-grid .tsp-scenario-label-3 {
+    border-color: rgb(var(--color-accent-rgb) / 0.55);
+    background: rgb(var(--color-accent-rgb) / 0.1);
+  }
+
+  .tsp-scenario-tab-0:checked ~ .tsp-scenario-grid .tsp-scenario-label-0 > span:first-child,
+  .tsp-scenario-tab-1:checked ~ .tsp-scenario-grid .tsp-scenario-label-1 > span:first-child,
+  .tsp-scenario-tab-2:checked ~ .tsp-scenario-grid .tsp-scenario-label-2 > span:first-child,
+  .tsp-scenario-tab-3:checked ~ .tsp-scenario-grid .tsp-scenario-label-3 > span:first-child {
+    border-color: rgb(var(--color-accent-rgb) / 0.65);
+    background: rgb(var(--color-accent-rgb) / 0.18);
+    color: var(--color-ink);
+  }
+
   /* Strukturert info-panel (hero, evidence-blocks) — definition-list-aktig */
   .tsp-panel {
     background: var(--color-surface);

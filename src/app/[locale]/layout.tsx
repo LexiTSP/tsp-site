@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
+import { Fira_Code, Roboto, Roboto_Slab } from "next/font/google";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getMessages, setRequestLocale, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
@@ -11,17 +11,24 @@ import { ThemeProvider } from "@/lib/theme/context";
 import { themeToCssVars } from "../../../theme.config";
 import { routing } from "@/i18n/routing";
 
-const plexSans = IBM_Plex_Sans({
+const roboto = Roboto({
   subsets: ["latin", "latin-ext"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-plex-sans",
+  weight: ["400", "500", "700"],
+  variable: "--font-roboto",
   display: "swap",
 });
 
-const plexMono = IBM_Plex_Mono({
+const firaCode = Fira_Code({
   subsets: ["latin", "latin-ext"],
   weight: ["400", "500", "600"],
-  variable: "--font-plex-mono",
+  variable: "--font-fira-code",
+  display: "swap",
+});
+
+const robotoSlab = Roboto_Slab({
+  subsets: ["latin", "latin-ext"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-roboto-slab",
   display: "swap",
 });
 
@@ -40,7 +47,7 @@ export async function generateMetadata({
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "metadata" });
 
-  // Per-side hreflang: les pathname fra middleware-injisert request-header.
+  // Per-side hreflang: les pathname fra proxy-injisert request-header.
   // Strip locale-prefiks så samme normaliserte path mappes til /<path> + /en/<path>.
   const headerList = await headers();
   const rawPath = headerList.get("x-pathname") ?? "/";
@@ -98,7 +105,7 @@ export default async function LocaleLayout({
   return (
     <html
       lang={locale}
-      className={`${plexSans.variable} ${plexMono.variable}`}
+      className={`${roboto.variable} ${firaCode.variable} ${robotoSlab.variable}`}
       suppressHydrationWarning
     >
       <head>

@@ -107,13 +107,12 @@ export const theme: Theme = {
   },
 
   /* ═════════════ TYPOGRAFI ═════════════
-   * IBM Plex Sans + IBM Plex Mono via next/font/google. CSS-variabel-navn
-   * defineres i layout.tsx. Disse fallbacks brukes hvis font ikke har lastet.
+   * Roboto + Fira Code + Roboto Slab via next/font/google.
    */
   font: {
-    sans: 'var(--font-plex-sans), system-ui, -apple-system, sans-serif',
-    mono: 'var(--font-plex-mono), ui-monospace, "SF Mono", Menlo, monospace',
-    display: 'var(--font-display), Georgia, "Source Serif Pro", serif',
+    sans: 'var(--font-roboto), system-ui, -apple-system, sans-serif',
+    mono: 'var(--font-fira-code), ui-monospace, "SF Mono", Menlo, monospace',
+    display: 'var(--font-roboto-slab), Georgia, "Source Serif Pro", serif',
     baseSize: "16px",
   },
 

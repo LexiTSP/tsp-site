@@ -94,6 +94,27 @@
     border-radius: var(--card-radius);
   }
 
+  details > summary {
+    list-style: none;
+  }
+
+  details > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .tsp-nav-details:not([open]) > div,
+  .tsp-mobile-menu-details:not([open]) > div {
+    display: none;
+  }
+
+  .tsp-mobile-menu-details[open] .tsp-menu-icon-open {
+    display: none;
+  }
+
+  .tsp-mobile-menu-details[open] .tsp-menu-icon-close {
+    display: block;
+  }
+
   /* Strukturert info-panel (hero, evidence-blocks) — definition-list-aktig */
   .tsp-panel {
     background: var(--color-surface);

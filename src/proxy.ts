@@ -36,7 +36,7 @@ function normalizeForwardedHeaders(req: NextRequest) {
   });
 }
 
-export default function middleware(req: NextRequest) {
+export function proxy(req: NextRequest) {
   const normalizedReq = normalizeForwardedHeaders(req);
   const response = intl(normalizedReq);
 

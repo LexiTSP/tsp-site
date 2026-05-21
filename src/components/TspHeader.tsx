@@ -227,7 +227,7 @@ const NAV_COPY = {
       cta: "Se gjenkjennelige case",
     },
     exploreLinks: [
-      { href: "/#scenarios", label: "Pain points", desc: "Skjermbilder, tvister, audit og hendelsesrekonstruksjon.", icon: AlertTriangle, tone: "border-danger/30 bg-danger/10 text-danger" },
+      { href: "/#scenarios", label: "Problemområder", desc: "Skjermbilder, tvister, audit og hendelsesrekonstruksjon.", icon: AlertTriangle, tone: "border-danger/30 bg-danger/10 text-danger" },
       { href: "/verify", label: "Bevisløkken", desc: "Last signert kvittering, manipuler den, se verifisering feile.", icon: ShieldCheck, tone: "border-verify/30 bg-verify/10 text-verify" },
       { href: "/docs", label: "Implementer", desc: "Pakk inn ett output med SDK og manifest.", icon: BookOpen, tone: "border-accent/40 bg-accent/[0.12] text-accent-dark" },
     ],

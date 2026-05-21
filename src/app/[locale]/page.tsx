@@ -63,12 +63,17 @@ type LocaleCopy = {
     verifiedChecks: string[];
     tamperedChecks: string[];
     tryLine: string;
+    verifiedBadge: string;
+    tamperedBadge: string;
   };
   proof: {
     label: string;
     title: string;
     lead: string;
     rows: Array<[string, string]>;
+    proofLoopLabel: string;
+    portableReceiptLabel: string;
+    statusLabels: { verified: string; warning: string; broken: string };
   };
   thesis: {
     label: string;
@@ -89,6 +94,7 @@ type LocaleCopy = {
     high: string;
     medium: string;
     low: string;
+    manualLabel: string;
     items: string[];
   };
   gives: {
@@ -172,6 +178,8 @@ const COPY: Record<"en" | "no", LocaleCopy> = {
       verifiedChecks: ["Hash match", "Signature valid", "Manifest intact"],
       tamperedChecks: ["Hash mismatch", "Signature invalid", "Tamper detected"],
       tryLine: "QOL: no wallet, login, dashboard, or vendor account required to understand the proof.",
+      verifiedBadge: "VERIFIED",
+      tamperedBadge: "TAMPERED",
     },
     proof: {
       label: "Proof",
@@ -183,6 +191,9 @@ const COPY: Record<"en" | "no", LocaleCopy> = {
         ["Can someone prove it changed?", "One character changed after signing breaks verification."],
         ["Do we need to trust a dashboard?", "No. The envelope can be checked independently."],
       ],
+      proofLoopLabel: "Proof loop",
+      portableReceiptLabel: "Portable receipt",
+      statusLabels: { verified: "Verified", warning: "Needs evidence", broken: "Tampered" },
     },
     thesis: {
       label: "Missing internet primitive",
@@ -237,6 +248,7 @@ const COPY: Record<"en" | "no", LocaleCopy> = {
       high: "Critical: you have policy language, but not a portable proof object.",
       medium: "Still exposed: some evidence exists, but audit and procurement will ask for more.",
       low: "Better: you are approaching the receipt layer buyers and auditors will expect.",
+      manualLabel: "manual",
       items: [
         "Exact output can be independently verified later",
         "Source and process metadata travel with the answer",
@@ -395,12 +407,12 @@ const COPY: Record<"en" | "no", LocaleCopy> = {
       leadStrong:
         "Hvis et AI-system ikke kan vise en signert kvittering for et viktig svar, bør kjøpere spørre hvorfor før de kjøper det.",
       solution:
-        "TSP gir viktige AI-svar en signert TrustEnvelope-kvittering: hva som ble sagt, hvilken kilde og prosess som laget det, nar det skjedde, og om noen endret det etterpa. Bevis, ikke lovnader.",
+        "TSP gir viktige AI-svar en signert TrustEnvelope-kvittering: hva som ble sagt, hvilken kilde og prosess som laget det, når det skjedde, og om noen endret det etterpå. Bevis, ikke lovnader.",
       primary: "Verifiser demo-kvittering",
       secondary: "Se GitHub",
       tertiary: "Les spec",
       campaign: "AI Act-avtalen 7. mai 2026 flyttet noen high-risk datoer slik at implementering kan henge sammen med støtteverktøy og standarder. Article 50-transparens starter fortsatt 2. august 2026. Utsettelsen er ikke lettelse; den gjør bevisgapet synlig.",
-      question: 'Det nyttige sporsmalet flytter seg fra "kan vi stole pa AI?" til "kan vi verifisere outputen?"',
+      question: 'Det nyttige spørsmålet flytter seg fra "kan vi stole på AI?" til "kan vi verifisere outputen?"',
       tags: ["Verifiserbare AI-output", "Kryptografisk proveniens", "Browser-sjekkbart bevis"],
       strip: ["Åpen standard", "Signerte AI-kvitteringer", "Tamper-synlig", "Vendor-uavhengig sjekk", "MIT SDK"],
     },
@@ -420,38 +432,43 @@ const COPY: Record<"en" | "no", LocaleCopy> = {
       verifiedChecks: ["Hash matcher", "Signatur valid", "Manifest intakt"],
       tamperedChecks: ["Hash-feil", "Signatur invalid", "Tamper oppdaget"],
       tryLine: "QOL: ingen wallet, login, dashboard eller leverandørkonto kreves for å forstå beviset.",
+      verifiedBadge: "VERIFISERT",
+      tamperedBadge: "MANIPULERT",
     },
     proof: {
       label: "Bevis",
-      title: "En kvittering svarer pa de ubehagelige sporsmalene.",
+      title: "En kvittering svarer på de ubehagelige spørsmålene.",
       lead:
-        "TSP er nyttig nar et AI-svar ma kunne inspiseres senere av kjoper, bruker, revisor eller myndighet.",
+        "TSP er nyttig når et AI-svar må kunne inspiseres senere av kjøper, bruker, revisor eller myndighet.",
       rows: [
         ["Hvor kom svaret fra?", "Deklarert kilde, modell, policy og tidspunkt."],
         ["Kan vi bevise at noe ble endret?", "Ett tegn endret etter signering bryter verifisering."],
         ["Må vi stole på et dashboard?", "Nei. Kvitteringen kan sjekkes uavhengig."],
       ],
+      proofLoopLabel: "Bevisløkken",
+      portableReceiptLabel: "Portabel kvittering",
+      statusLabels: { verified: "Verifisert", warning: "Trenger bevis", broken: "Manipulert" },
     },
     thesis: {
       label: "Manglende internett-primitiv",
-      title: "AI-systemer bor produsere verifiserbart bevis som standard.",
+      title: "AI-systemer bør produsere verifiserbart bevis som standard.",
       lead:
-        "Helse, juss, finans, offentlig sektor og forbruker-AI kan ikke skalere pa skjermbilder, leverandordashboard eller tillitslovnader. TSP er et portabelt kvitteringslag for oyeblikket der mottakeren spor: hva kan jeg verifisere?",
+        "Helse, juss, finans, offentlig sektor og forbruker-AI kan ikke skalere på skjermbilder, leverandørdashboard eller tillitslovnader. TSP er et portabelt kvitteringslag for øyeblikket der mottakeren spør: hva kan jeg verifisere?",
       items: [
         {
           icon: <ReceiptText className="h-5 w-5" />,
           title: "Ikke enda et dashboard",
-          body: "Beviset folger outputen, sa kjopere og brukere trenger ikke tilgang til interne verktøy.",
+          body: "Beviset følger outputen, så kjøpere og brukere trenger ikke tilgang til interne verktøy.",
         },
         {
           icon: <LockKeyhole className="h-5 w-5" />,
           title: "En offentlig verifiseringsvane",
-          body: "Hvis et AI-svar betyr noe, bor mottakeren kunne inspisere en signert kvittering for de stoler pa det.",
+          body: "Hvis et AI-svar betyr noe, bør mottakeren kunne inspisere en signert kvittering før de stoler på det.",
         },
         {
           icon: <BadgeCheck className="h-5 w-5" />,
-          title: "Mal om de-facto standard",
-          body: "Ambisjonen er enkel: gjor signerte AI-kvitteringer normale nok til at manglende kvittering blir et innkjopssporsmal.",
+          title: "Mål om de-facto standard",
+          body: "Ambisjonen er enkel: gjør signerte AI-kvitteringer normale nok til at manglende kvittering blir et innkjøpsspørsmål.",
         },
       ],
     },
@@ -485,6 +502,7 @@ const COPY: Record<"en" | "no", LocaleCopy> = {
       high: "Kritisk: dere har policy-språk, men ikke et portabelt bevisobjekt.",
       medium: "Fortsatt utsatt: noe bevis finnes, men audit og innkjøp vil spørre etter mer.",
       low: "Bedre: dere nærmer dere kvitteringslaget kjøpere og auditører vil forvente.",
+      manualLabel: "manuell",
       items: [
         "Eksakt output kan verifiseres uavhengig senere",
         "Kilde- og prosessmetadata følger svaret",
@@ -787,7 +805,16 @@ export default async function Home({
 
       <section id="proof" className="scroll-mt-28 border-b border-border bg-paper text-ink">
         <div className="tsp-container py-14 md:py-20">
-          <InteractiveProofPanels title={copy.proof.title} lead={`${copy.proof.lead} ${copy.hero.solution}`} panels={proofPanels} />
+          <InteractiveProofPanels
+            title={copy.proof.title}
+            lead={`${copy.proof.lead} ${copy.hero.solution}`}
+            panels={proofPanels}
+            labels={{
+              proofLoop: copy.proof.proofLoopLabel,
+              portableReceipt: copy.proof.portableReceiptLabel,
+              ...copy.proof.statusLabels,
+            }}
+          />
         </div>
       </section>
 

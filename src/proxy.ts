@@ -47,8 +47,9 @@ export function proxy(req: NextRequest) {
     const newHeaders = new Headers(normalizedReq.headers);
     newHeaders.set("x-pathname", normalizedReq.nextUrl.pathname);
 
-    const rewriteUrl = new URL("/no", normalizedReq.url);
+    const rewriteUrl = new URL(`/${routing.defaultLocale}`, normalizedReq.url);
     const wrapped = NextResponse.rewrite(rewriteUrl, { request: { headers: newHeaders } });
+    wrapped.headers.delete("location");
     wrapped.cookies.set("NEXT_LOCALE", routing.defaultLocale, { path: "/", sameSite: "lax" });
     return wrapped;
   }
@@ -87,6 +88,10 @@ export function proxy(req: NextRequest) {
     if (lk === "content-length" || lk === "content-type") return;
     wrapped.headers.set(key, value);
   });
+
+  if (rewriteTarget) {
+    wrapped.headers.delete("location");
+  }
 
   return wrapped;
 }

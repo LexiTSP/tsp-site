@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef } from "react";
 import { Link, usePathname } from "@/i18n/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { AlertTriangle, ArrowRight, BookOpen, ChevronDown, Menu, ShieldCheck, X } from "lucide-react";
@@ -14,6 +15,12 @@ export function TspHeader() {
   const copy = isNo ? NAV_COPY.no : NAV_COPY.en;
   const normalizedPathname = pathname.replace(/^\/(en|no)(?=\/|$)/, "") || "/";
   const nav = copy.nav;
+  const exploreDetailsRef = useRef<HTMLDetailsElement>(null);
+  const mobileDetailsRef = useRef<HTMLDetailsElement>(null);
+  const closeMenus = () => {
+    if (exploreDetailsRef.current) exploreDetailsRef.current.open = false;
+    if (mobileDetailsRef.current) mobileDetailsRef.current.open = false;
+  };
 
   const headerClass = "border-border bg-white/90 text-ink shadow-[0_1px_0_rgba(17,24,39,0.04)]";
   const mutedClass = "text-muted";
@@ -39,7 +46,7 @@ export function TspHeader() {
         </Link>
 
         <nav className="hidden items-center gap-1 text-sm lg:flex">
-          <details className="tsp-nav-details group relative">
+          <details ref={exploreDetailsRef} className="tsp-nav-details group relative">
             <summary className="inline-flex cursor-pointer list-none items-center gap-2 border border-transparent px-3 py-1.5 text-sm font-semibold text-muted transition-all duration-200 hover:border-ink/20 hover:bg-ink hover:text-white group-open:border-ink group-open:bg-ink group-open:text-white group-open:shadow-[0_14px_34px_rgba(17,24,39,0.18)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/70">
               {copy.explore}
               <ChevronDown className="h-4 w-4 transition-transform duration-200 group-open:rotate-180" />
@@ -58,7 +65,8 @@ export function TspHeader() {
                       <span className="bg-ink/80 px-3 py-2">Proof</span>
                       <span className="bg-ink/80 px-3 py-2">Review</span>
                     </div>
-                    <Link href="/#scenarios" className="group/link inline-flex items-center justify-between border border-accent bg-accent px-4 py-3 text-sm font-bold text-ink no-underline transition-all duration-200 hover:-translate-y-0.5 hover:border-[#D97706] hover:bg-[#F59E0B]">
+                    <Link href="/#scenarios" onClick={closeMenus}
+                      className="group/link inline-flex items-center justify-between border border-accent bg-accent px-4 py-3 text-sm font-bold text-ink no-underline transition-all duration-200 hover:-translate-y-0.5 hover:border-[#D97706] hover:bg-[#F59E0B]">
                       {copy.explorePanel.cta}
                       <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover/link:translate-x-0.5" />
                     </Link>
@@ -71,6 +79,7 @@ export function TspHeader() {
                       <Link
                         key={item.href}
                         href={item.href}
+                        onClick={closeMenus}
                         className="group/item relative grid grid-cols-[auto_1fr_auto] items-start gap-3 overflow-hidden border border-border bg-white p-4 text-ink no-underline shadow-[0_10px_30px_rgba(17,24,39,0.04)] transition-all duration-200 hover:-translate-y-0.5 hover:border-accent/55 hover:shadow-[0_18px_48px_rgba(17,24,39,0.12)]"
                       >
                         <span className="absolute inset-y-0 left-0 w-1 bg-accent opacity-0 transition-opacity duration-200 group-hover/item:opacity-100" />
@@ -96,6 +105,7 @@ export function TspHeader() {
               <Link
                 key={item.href}
                 href={item.href}
+                onClick={closeMenus}
                 className={cn(
                   "border border-transparent px-3 py-1.5 font-medium no-underline transition-colors",
                   active ? activeClass : linkBase,
@@ -119,11 +129,11 @@ export function TspHeader() {
             )}
           >
             <ShieldCheck className="h-4 w-4" />
-            Verify
+            {t("verify")}
           </Link>
         </div>
 
-        <details className="tsp-mobile-menu-details lg:hidden">
+        <details ref={mobileDetailsRef} className="tsp-mobile-menu-details lg:hidden">
           <summary
             className={cn(
               "flex cursor-pointer list-none items-center border p-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/70",
@@ -147,6 +157,7 @@ export function TspHeader() {
                 <div className="mt-1 text-sm font-semibold text-ink">{copy.explorePanel.title}</div>
                 <Link
                   href="/#scenarios"
+                  onClick={closeMenus}
                   className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-accent-dark no-underline"
                 >
                   {copy.explorePanel.cta} <ArrowRight className="h-4 w-4" />
@@ -156,6 +167,7 @@ export function TspHeader() {
                 <Link
                   key={item.href}
                   href={item.href}
+                  onClick={closeMenus}
                   className={cn(
                     "border px-3 py-3 text-sm font-semibold no-underline",
                     normalizedPathname === item.href ? activeClass : `border-transparent ${linkBase}`,
@@ -168,13 +180,14 @@ export function TspHeader() {
                 <LocaleSwitcher />
                 <Link
                   href="/verify"
+                  onClick={closeMenus}
                   className={cn(
                     "inline-flex items-center gap-2 border px-4 py-2 text-sm font-bold no-underline",
                     "border-accent bg-accent text-ink hover:border-[#D97706] hover:bg-[#F59E0B]",
                   )}
                 >
                   <ShieldCheck className="h-4 w-4" />
-                  Verify
+                  {t("verify")}
                 </Link>
               </div>
             </nav>

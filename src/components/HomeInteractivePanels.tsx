@@ -23,6 +23,8 @@ type ScenarioPanel = {
   withTsp: string;
 };
 
+export { ReceiptReadinessCheck } from "./ReceiptReadinessCheck";
+
 type HeroProofConsoleCopy = {
   label: string;
   title: string;
@@ -39,21 +41,12 @@ type HeroProofConsoleCopy = {
   verifiedChecks: string[];
   tamperedChecks: string[];
   tryLine: string;
-};
-
-type ReadinessCheckCopy = {
-  title: string;
-  lead: string;
-  scorePrefix: string;
-  high: string;
-  medium: string;
-  low: string;
-  items: string[];
+  verifiedBadge: string;
+  tamperedBadge: string;
 };
 
 const STATE_STYLE = {
   verified: {
-    label: "VERIFIED",
     icon: ShieldCheck,
     border: "border-verify/45",
     bg: "bg-verify/[0.07]",
@@ -61,7 +54,6 @@ const STATE_STYLE = {
     rail: "bg-verify",
   },
   warning: {
-    label: "NEEDS EVIDENCE",
     icon: AlertTriangle,
     border: "border-warn/45",
     bg: "bg-warn/[0.07]",
@@ -69,7 +61,6 @@ const STATE_STYLE = {
     rail: "bg-warn",
   },
   broken: {
-    label: "TAMPERED",
     icon: LockKeyhole,
     border: "border-danger/45",
     bg: "bg-danger/[0.07]",
@@ -92,10 +83,10 @@ export function HeroProofConsole({ copy }: { copy: HeroProofConsoleCopy }) {
             <p className="mt-2 text-sm leading-6 text-muted">{copy.lead}</p>
           </div>
           <div className="tsp-verified-only shrink-0 border border-verify/45 bg-verify/[0.07] px-2.5 py-1.5 font-mono text-xs font-semibold uppercase tracking-[0.1em] text-verify">
-            {STATE_STYLE.verified.label}
+            {copy.verifiedBadge}
           </div>
           <div className="tsp-tampered-only shrink-0 border border-danger/45 bg-danger/[0.07] px-2.5 py-1.5 font-mono text-xs font-semibold uppercase tracking-[0.1em] text-danger">
-            {STATE_STYLE.broken.label}
+            {copy.tamperedBadge}
           </div>
         </div>
 
@@ -164,69 +155,30 @@ export function HeroProofConsole({ copy }: { copy: HeroProofConsoleCopy }) {
   );
 }
 
-export function ReceiptReadinessCheck({ copy }: { copy: ReadinessCheckCopy }) {
-  return (
-    <div className="border border-border-strong bg-white p-5 shadow-[0_18px_55px_rgba(17,24,39,0.08)]">
-      <div className="mb-5 flex items-start justify-between gap-4">
-        <div>
-          <h3 className="text-2xl text-ink">{copy.title}</h3>
-          <p className="mt-2 text-sm leading-6 text-muted">{copy.lead}</p>
-        </div>
-        <div className="shrink-0 border border-warn/45 bg-warn/[0.07] px-3 py-2 font-mono text-xs font-semibold uppercase tracking-[0.1em] text-warn">
-          manual
-        </div>
-      </div>
-
-      <div className="grid gap-2 md:grid-cols-2">
-        {copy.items.map((item, index) => (
-          <label
-            key={item}
-            className="group grid cursor-pointer grid-cols-[auto_1fr] items-start gap-3 border border-border bg-paper p-3 text-left transition-colors hover:border-accent/45 hover:bg-accent/[0.06] has-[:checked]:border-verify/35 has-[:checked]:bg-verify/[0.07]"
-          >
-            <input className="peer sr-only" type="checkbox" defaultChecked={index === 0} />
-            <span className="mt-0.5 flex h-5 w-5 items-center justify-center border border-muted text-transparent peer-checked:border-verify peer-checked:bg-verify peer-checked:text-white">
-                <CheckCircle2 className="h-3.5 w-3.5" />
-              </span>
-              <span className="text-sm font-semibold leading-6 text-ink">{item}</span>
-          </label>
-        ))}
-      </div>
-
-      <div className="mt-4 border border-warn/45 bg-warn/[0.07] p-4">
-        <div className="flex items-start gap-3">
-          <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0 text-warn" />
-          <div>
-            <div className="font-mono text-xs font-semibold uppercase tracking-[0.12em] text-warn">{copy.scorePrefix}</div>
-            <p className="mt-1 text-sm font-semibold leading-6 text-ink">{copy.high}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 export function InteractiveProofPanels({
   title,
   lead,
   panels,
+  labels,
 }: {
   title: string;
   lead: string;
   panels: ProofPanel[];
+  labels: { proofLoop: string; portableReceipt: string; verified: string; warning: string; broken: string };
 }) {
   return (
     <div className="grid gap-6 lg:grid-cols-[0.92fr_1.08fr] lg:items-start">
       <div>
         <div className="inline-flex items-center gap-2 border border-accent/35 bg-accent/[0.12] px-3 py-1.5 font-mono text-xs font-semibold uppercase tracking-[0.12em] text-accent-dark">
           <FileText className="h-4 w-4" />
-          Proof loop
+          {labels.proofLoop}
         </div>
         <h2 className="mt-5 max-w-xl text-ink">{title}</h2>
         <p className="mt-4 max-w-xl text-muted">{lead}</p>
         <div className="mt-6 border-l-4 border-ink bg-white p-5 shadow-[0_18px_60px_rgba(17,24,39,0.08)]">
           <div className="mb-4 inline-flex items-center gap-2 border border-verify/45 bg-verify/[0.07] px-3 py-1.5 font-mono text-xs font-semibold uppercase tracking-[0.12em] text-verify">
             <ShieldCheck className="h-4 w-4" />
-            Portable receipt
+            {labels.portableReceipt}
           </div>
           <div className="font-mono text-sm leading-7 text-ink">
             <div>{`{`}</div>
@@ -242,6 +194,7 @@ export function InteractiveProofPanels({
         {panels.map((panel, index) => {
           const style = STATE_STYLE[panel.state];
           const Icon = style.icon;
+          const stateLabel = labels[panel.state];
           return (
             <details
               key={panel.title}
@@ -257,7 +210,10 @@ export function InteractiveProofPanels({
                   <span className={cn("flex h-10 w-10 items-center justify-center border", style.border, style.bg, style.text)}>
                     <Icon className="h-5 w-5" />
                   </span>
-                  <span className="text-lg font-semibold text-ink">{panel.title}</span>
+                  <span>
+                    <span className={cn("mb-1 block font-mono text-xs font-semibold uppercase tracking-[0.12em]", style.text)}>{stateLabel}</span>
+                    <span className="block text-lg font-semibold text-ink">{panel.title}</span>
+                  </span>
                 </div>
                 <ChevronDown className="m-5 h-5 w-5 text-muted transition-transform duration-300 group-open:rotate-180 group-open:text-ink" />
               </summary>
@@ -318,9 +274,11 @@ export function ScenarioSwitcher({
   withTspLabel: string;
   withTspTitle: string;
 }) {
+  const renderedScenarios = scenarios.slice(0, 4);
+
   return (
     <div className="tsp-scenario-switcher">
-      {scenarios.map((item, index) => (
+      {renderedScenarios.map((item, index) => (
         <input
           key={item.audience}
           className={`tsp-scenario-tab tsp-scenario-tab-${index} sr-only`}
@@ -333,7 +291,7 @@ export function ScenarioSwitcher({
 
       <div className="tsp-scenario-grid grid gap-4">
         <div className="grid gap-2 md:grid-cols-3">
-          {scenarios.map((item, index) => (
+          {renderedScenarios.map((item, index) => (
             <label
               key={item.audience}
               htmlFor={`tsp-scenario-${index}`}
@@ -348,7 +306,7 @@ export function ScenarioSwitcher({
         </div>
 
         <div className="overflow-hidden border border-border-strong bg-white shadow-[0_24px_80px_rgba(17,24,39,0.09)]">
-          {scenarios.map((scenario, index) => (
+          {renderedScenarios.map((scenario, index) => (
             <div key={scenario.audience} className={`tsp-scenario-panel tsp-scenario-panel-${index}`}>
               <div className="grid gap-px bg-border lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)]">
                 <div className="grid gap-px bg-border md:grid-cols-2 lg:grid-cols-1">

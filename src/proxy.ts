@@ -38,10 +38,30 @@ function normalizeForwardedHeaders(req: NextRequest) {
 
 export function proxy(req: NextRequest) {
   const normalizedReq = normalizeForwardedHeaders(req);
+
+  // Localized routing uses localePrefix: "as-needed": Norwegian is served at
+  // unprefixed URLs, while English is served under /en. Route the root directly
+  // to the default-locale segment so / cannot inherit a stale locale redirect
+  // cookie and loop between / and the internal /no rewrite target.
+  if (normalizedReq.nextUrl.pathname === "/") {
+    const newHeaders = new Headers(normalizedReq.headers);
+    newHeaders.set("x-pathname", normalizedReq.nextUrl.pathname);
+
+    const rewriteUrl = new URL("/no", normalizedReq.url);
+    const wrapped = NextResponse.rewrite(rewriteUrl, { request: { headers: newHeaders } });
+    wrapped.cookies.set("NEXT_LOCALE", routing.defaultLocale, { path: "/", sameSite: "lax" });
+    return wrapped;
+  }
+
   const response = intl(normalizedReq);
 
+  const rewriteTarget = response.headers.get("x-middleware-rewrite");
+
   // 307/308 redirect: ingen body å rendre, returner uendret.
-  if (response.headers.get("location")) {
+  // Next-intl kan sette både x-middleware-rewrite og location for default-locale
+  // rewrites under localePrefix: "as-needed". Behandle slike som rewrites,
+  // ellers kan / ende i en location: / redirect-loop i local/proxy runtime.
+  if (response.headers.get("location") && !rewriteTarget) {
     return response;
   }
 
@@ -53,7 +73,6 @@ export function proxy(req: NextRequest) {
   const newHeaders = new Headers(normalizedReq.headers);
   newHeaders.set("x-pathname", normalizedReq.nextUrl.pathname);
 
-  const rewriteTarget = response.headers.get("x-middleware-rewrite");
   const wrapped = rewriteTarget
     ? NextResponse.rewrite(rewriteTarget, { request: { headers: newHeaders } })
     : NextResponse.next({ request: { headers: newHeaders } });
@@ -63,6 +82,7 @@ export function proxy(req: NextRequest) {
   response.headers.forEach((value, key) => {
     const lk = key.toLowerCase();
     if (lk === "x-middleware-rewrite") return;
+    if (rewriteTarget && lk === "location") return;
     if (lk.startsWith("x-middleware-")) return;
     if (lk === "content-length" || lk === "content-type") return;
     wrapped.headers.set(key, value);
@@ -72,5 +92,5 @@ export function proxy(req: NextRequest) {
 }
 
 export const config = {
-  matcher: "/((?!api|admin|_next|_vercel|.*\\..*).*)",
+  matcher: "/((?!api|admin|_next|_vercel|no(?:/|$)|.*\\..*).*)",
 };

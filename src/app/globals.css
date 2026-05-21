@@ -2,12 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ═══════════════════════════════════════════════════════════════════════
- * TSP design — sub-prosjekt IV
- * Aestetisk: technical-spec-document med govt-utilitarian pusterom
- * Palett: mono + alvorlig aksent + funksjonelle status-farger
- * Typografi: IBM Plex Sans + IBM Plex Mono
- * ═══════════════════════════════════════════════════════════════════════ */
+/* TSP design: light product/protocol surface with warm action color and functional status colors. */
 
 @layer base {
   html {
@@ -23,19 +18,19 @@
     line-height: 1.55;
   }
 
-  /* Typografisk hierarki — IBM Plex Sans hele veien. Bumped sizes/tracking
-     for presence uten å gå editorial-magazine. */
   h1 {
     font-size: clamp(2.25rem, 5vw, 3.25rem); /* 36-52px */
     line-height: 1.08;
     font-weight: 600;
     letter-spacing: 0;
+    font-family: var(--font-display-stack);
   }
   h2 {
     font-size: clamp(1.625rem, 3.2vw, 2.125rem); /* 26-34px */
     line-height: 1.2;
     font-weight: 600;
     letter-spacing: 0;
+    font-family: var(--font-display-stack);
   }
   h3 {
     font-size: 1.25rem;
@@ -92,6 +87,74 @@
     background: var(--color-surface);
     border: var(--card-border-width) solid var(--color-border);
     border-radius: var(--card-radius);
+  }
+
+  details > summary {
+    list-style: none;
+  }
+
+  details > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .tsp-nav-details:not([open]) > div,
+  .tsp-mobile-menu-details:not([open]) > div {
+    display: none;
+  }
+
+  .tsp-mobile-menu-details[open] .tsp-menu-icon-open {
+    display: none;
+  }
+
+  .tsp-mobile-menu-details[open] .tsp-menu-icon-close {
+    display: block;
+  }
+
+  .tsp-tampered-only {
+    display: none;
+  }
+
+  .tsp-receipt-state--tampered:checked ~ .tsp-receipt-shell .tsp-verified-only {
+    display: none;
+  }
+
+  .tsp-receipt-state--tampered:checked ~ .tsp-receipt-shell .tsp-tampered-only {
+    display: block;
+  }
+
+  .tsp-receipt-state--tampered:checked ~ .tsp-receipt-shell .tsp-receipt-choice--tamper,
+  .tsp-receipt-state--verified:checked ~ .tsp-receipt-shell .tsp-receipt-choice--restore {
+    outline: 2px solid rgb(var(--color-accent-rgb) / 0.55);
+    outline-offset: 2px;
+  }
+
+  .tsp-scenario-panel {
+    display: none;
+  }
+
+  .tsp-scenario-tab-0:checked ~ .tsp-scenario-grid .tsp-scenario-panel-0,
+  .tsp-scenario-tab-1:checked ~ .tsp-scenario-grid .tsp-scenario-panel-1,
+  .tsp-scenario-tab-2:checked ~ .tsp-scenario-grid .tsp-scenario-panel-2,
+  .tsp-scenario-tab-3:checked ~ .tsp-scenario-grid .tsp-scenario-panel-3 {
+    display: block;
+  }
+
+  .tsp-scenario-tab-0:checked ~ .tsp-scenario-grid .tsp-scenario-label-0,
+  .tsp-scenario-tab-1:checked ~ .tsp-scenario-grid .tsp-scenario-label-1,
+  .tsp-scenario-tab-2:checked ~ .tsp-scenario-grid .tsp-scenario-label-2,
+  .tsp-scenario-tab-3:checked ~ .tsp-scenario-grid .tsp-scenario-label-3 {
+    border-color: rgb(var(--color-accent-rgb) / 0.7);
+    background: rgb(var(--color-accent-rgb) / 0.12);
+    box-shadow: 0 18px 48px rgb(242 184 75 / 0.18);
+  }
+
+  .tsp-scenario-tab-0:checked ~ .tsp-scenario-grid .tsp-scenario-label-0 > span:first-child,
+  .tsp-scenario-tab-1:checked ~ .tsp-scenario-grid .tsp-scenario-label-1 > span:first-child,
+  .tsp-scenario-tab-2:checked ~ .tsp-scenario-grid .tsp-scenario-label-2 > span:first-child,
+  .tsp-scenario-tab-3:checked ~ .tsp-scenario-grid .tsp-scenario-label-3 > span:first-child {
+    border-color: var(--color-accent);
+    background: var(--color-accent);
+    color: var(--color-ink);
   }
 
   /* Strukturert info-panel (hero, evidence-blocks) — definition-list-aktig */

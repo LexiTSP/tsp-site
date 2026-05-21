@@ -4,10 +4,18 @@ title: "[Implementation]: "
 labels: ["implementation", "question"]
 body:
   - type: textarea
-    id: use_case
+    id: workflow
     attributes:
-      label: Use case
+      label: Workflow
       description: What AI workflow are you trying to wrap or verify?
+    validations:
+      required: true
+  - type: textarea
+    id: proof_question
+    attributes:
+      label: Proof question
+      description: What question must another party be able to answer later from the receipt?
+      placeholder: "Example: Was this exact output edited after generation, and which source/process produced it?"
     validations:
       required: true
   - type: dropdown
